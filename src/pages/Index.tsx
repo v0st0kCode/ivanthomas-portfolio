@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import ParticleHeader from '../components/ParticleHeader';
@@ -56,19 +55,19 @@ const Index = () => {
                 to={`/case-study/${project.id}`} 
                 className="project-card"
               >
-                <div className="aspect-[16/10] overflow-hidden">
+                <div className="aspect-[16/10] overflow-hidden relative group">
                   <img 
                     src={project.image}
                     alt={project.title}
-                    className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                     loading="lazy"
                   />
-                </div>
-                <div className="project-overlay">
-                  <span className="text-xs font-mono uppercase tracking-wider opacity-75 mb-2">{project.category}</span>
-                  <h3 className="text-xl font-medium mb-2">{project.title}</h3>
-                  <p className="text-sm opacity-75 mb-4">{project.description}</p>
-                  <span className="text-xs font-mono px-4 py-1 border border-white/30 rounded-sm">View Case Study</span>
+                  <div className="project-overlay absolute inset-0 bg-black/80 opacity-0 transition-opacity duration-300 flex flex-col items-center justify-center text-white p-6 group-hover:opacity-100">
+                    <span className="text-xs font-mono uppercase tracking-wider opacity-75 mb-2">{project.category}</span>
+                    <h3 className="text-xl font-medium mb-2">{project.title}</h3>
+                    <p className="text-sm opacity-75 mb-4">{project.description}</p>
+                    <span className="text-xs font-mono px-4 py-1 border border-white/30 rounded-sm">View Case Study</span>
+                  </div>
                 </div>
                 <div className="pt-4">
                   <span className="text-xs font-mono text-muted-foreground">{project.category}</span>
@@ -180,4 +179,3 @@ const Index = () => {
 };
 
 export default Index;
-
