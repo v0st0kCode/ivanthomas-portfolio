@@ -162,8 +162,13 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
       };
       
       p.touchMoved = () => {
-        mouseX = p.touches[0]?.x || p.windowWidth / 2;
-        mouseY = p.touches[0]?.y || p.windowHeight / 2;
+        // Fix: Properly access touch coordinates with type checking
+        if (p.touches.length > 0 && p.touches[0]) {
+          // Access touch coordinates safely with explicit type casting
+          const touch = p.touches[0] as unknown as { x: number, y: number };
+          mouseX = touch.x || p.windowWidth / 2;
+          mouseY = touch.y || p.windowHeight / 2;
+        }
         return false; // Prevent default
       };
     };
