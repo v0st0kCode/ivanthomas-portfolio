@@ -37,21 +37,21 @@ const Index = () => {
       <section className="relative overflow-hidden">
         <ParticleHeader />
         <div className="absolute inset-0 flex items-center justify-center">
-          <div className="container-custom text-center">
-            <span className="inline-block py-1 px-3 mb-4 text-xs font-medium tracking-wider uppercase bg-black text-white rounded-full animate-fade-in">
-              Senior Digital Product Designer
+          <div className="container-custom text-center max-w-4xl">
+            <span className="inline-block py-1 px-3 mb-6 text-xs font-mono tracking-wider uppercase text-muted-foreground animate-fade-in">
+              Digital Product Designer
             </span>
-            <h1 className="heading-xl mx-auto max-w-5xl mb-6 animate-fade-in" style={{ animationDelay: '0.2s' }}>
-              Designing digital experiences with purpose and precision
+            <h1 className="heading-xl mx-auto mb-8 animate-fade-in" style={{ animationDelay: '0.2s' }}>
+              Creating meaningful digital experiences
             </h1>
-            <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-8 animate-fade-in" style={{ animationDelay: '0.4s' }}>
-              Creating thoughtful and intuitive interfaces that solve real problems and elevate user experiences
+            <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 animate-fade-in" style={{ animationDelay: '0.4s' }}>
+              I design and build user-centered interfaces that connect people and technology
             </p>
             <div className="flex items-center justify-center space-x-4 animate-fade-in" style={{ animationDelay: '0.6s' }}>
-              <Link to="/work" className="px-6 py-3 bg-black text-white rounded-md hover:bg-black/90 transition-colors">
+              <Link to="/work" className="button-primary">
                 View Work
               </Link>
-              <Link to="/about" className="px-6 py-3 border border-black rounded-md hover:bg-black/5 transition-colors">
+              <Link to="/about" className="button-secondary">
                 About Me
               </Link>
             </div>
@@ -62,23 +62,23 @@ const Index = () => {
       {/* Featured Projects Section */}
       <section className="py-24 bg-white">
         <div className="container-custom">
-          <div className="mb-16">
+          <div className="mb-16 max-w-3xl">
             <span className="section-title animate-on-scroll opacity-0">Selected Work</span>
             <h2 className="heading-lg mb-4 animate-on-scroll opacity-0">Recent Projects</h2>
-            <p className="paragraph max-w-2xl animate-on-scroll opacity-0">
-              A selection of recent projects that showcase my design approach and problem-solving abilities.
+            <p className="paragraph animate-on-scroll opacity-0">
+              A collection of projects I've worked on that showcase my approach to problem-solving and design thinking.
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {featuredProjects.map((project, index) => (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+            {featuredProjects.slice(0, 4).map((project, index) => (
               <Link 
                 key={project.id}
                 to={`/case-study/${project.id}`} 
                 className="project-card animate-on-scroll opacity-0"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
-                <div className="aspect-[4/3] overflow-hidden">
+                <div className="aspect-[16/10] overflow-hidden">
                   <img 
                     src={project.image}
                     alt={project.title}
@@ -87,23 +87,23 @@ const Index = () => {
                   />
                 </div>
                 <div className="project-overlay">
-                  <span className="text-xs uppercase tracking-wider opacity-75 mb-2">{project.category}</span>
+                  <span className="text-xs font-mono uppercase tracking-wider opacity-75 mb-2">{project.category}</span>
                   <h3 className="text-xl font-medium mb-2">{project.title}</h3>
                   <p className="text-sm opacity-75 mb-4">{project.description}</p>
-                  <span className="text-sm px-4 py-1 border border-white/30 rounded-full">View Case Study</span>
+                  <span className="text-xs font-mono px-4 py-1 border border-white/30 rounded-sm">View Case Study</span>
                 </div>
-                <div className="p-4">
-                  <span className="text-xs text-muted-foreground">{project.category} • {project.year}</span>
+                <div className="pt-4">
+                  <span className="text-xs font-mono text-muted-foreground">{project.category}</span>
                   <h3 className="text-lg font-medium mt-1">{project.title}</h3>
                 </div>
               </Link>
             ))}
           </div>
           
-          <div className="mt-16 text-center animate-on-scroll opacity-0">
+          <div className="mt-16 flex justify-center animate-on-scroll opacity-0">
             <Link 
               to="/work" 
-              className="inline-flex items-center space-x-2 text-black hover:text-black/70 transition-colors"
+              className="button-primary flex items-center space-x-2"
             >
               <span>View All Projects</span>
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -118,34 +118,37 @@ const Index = () => {
       {/* Process Section */}
       <section className="py-24 bg-secondary">
         <div className="container-custom">
-          <div className="max-w-4xl mx-auto text-center mb-16">
+          <div className="max-w-3xl mb-16">
             <span className="section-title animate-on-scroll opacity-0">Design Approach</span>
-            <h2 className="heading-lg mb-8 animate-on-scroll opacity-0">How I Work</h2>
+            <h2 className="heading-lg mb-6 animate-on-scroll opacity-0">How I Work</h2>
+            <p className="paragraph animate-on-scroll opacity-0">
+              My process is built around understanding your business goals and user needs to create designs that deliver results.
+            </p>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-white p-8 rounded-lg shadow-sm animate-on-scroll opacity-0">
-              <div className="w-12 h-12 flex items-center justify-center bg-black text-white rounded-full mb-6">
+            <div className="p-0 animate-on-scroll opacity-0">
+              <div className="w-12 h-12 flex items-center justify-center border border-black text-black rounded-full mb-6 font-mono">
                 <span>01</span>
               </div>
-              <h3 className="text-xl font-medium mb-4">Research & Discovery</h3>
+              <h3 className="text-xl font-medium mb-4">Discovery</h3>
               <p className="text-muted-foreground">Understanding user needs, business objectives, and technical constraints to lay a solid foundation.</p>
             </div>
             
-            <div className="bg-white p-8 rounded-lg shadow-sm animate-on-scroll opacity-0" style={{ animationDelay: '0.1s' }}>
-              <div className="w-12 h-12 flex items-center justify-center bg-black text-white rounded-full mb-6">
+            <div className="p-0 animate-on-scroll opacity-0" style={{ animationDelay: '0.1s' }}>
+              <div className="w-12 h-12 flex items-center justify-center border border-black text-black rounded-full mb-6 font-mono">
                 <span>02</span>
               </div>
-              <h3 className="text-xl font-medium mb-4">Design & Prototype</h3>
+              <h3 className="text-xl font-medium mb-4">Design</h3>
               <p className="text-muted-foreground">Crafting intuitive user flows, wireframes, and high-fidelity designs with a focus on simplicity.</p>
             </div>
             
-            <div className="bg-white p-8 rounded-lg shadow-sm animate-on-scroll opacity-0" style={{ animationDelay: '0.2s' }}>
-              <div className="w-12 h-12 flex items-center justify-center bg-black text-white rounded-full mb-6">
+            <div className="p-0 animate-on-scroll opacity-0" style={{ animationDelay: '0.2s' }}>
+              <div className="w-12 h-12 flex items-center justify-center border border-black text-black rounded-full mb-6 font-mono">
                 <span>03</span>
               </div>
-              <h3 className="text-xl font-medium mb-4">Test & Refine</h3>
-              <p className="text-muted-foreground">Validating solutions through user testing and iterating based on feedback to ensure optimal outcomes.</p>
+              <h3 className="text-xl font-medium mb-4">Delivery</h3>
+              <p className="text-muted-foreground">Testing, iterating, and delivering design solutions that meet and exceed expectations.</p>
             </div>
           </div>
         </div>
@@ -154,17 +157,17 @@ const Index = () => {
       {/* Contact Section */}
       <section className="py-24 bg-white">
         <div className="container-custom">
-          <div className="max-w-4xl mx-auto text-center">
+          <div className="max-w-3xl">
             <span className="section-title animate-on-scroll opacity-0">Get in Touch</span>
-            <h2 className="heading-lg mb-6 animate-on-scroll opacity-0">Let's Create Something Amazing</h2>
-            <p className="paragraph mx-auto mb-8 animate-on-scroll opacity-0">
-              Looking for a designer who can bring your vision to life? I'd love to discuss your project.
+            <h2 className="heading-lg mb-6 animate-on-scroll opacity-0">Let's Work Together</h2>
+            <p className="paragraph mb-8 animate-on-scroll opacity-0">
+              Have a project in mind? I'd love to discuss how we can collaborate to create something exceptional.
             </p>
             <a 
-              href="mailto:contact@example.com" 
-              className="inline-block px-8 py-4 bg-black text-white rounded-md hover:bg-black/90 transition-colors animate-on-scroll opacity-0"
+              href="mailto:hello@example.com" 
+              className="button-primary inline-block animate-on-scroll opacity-0"
             >
-              Send a Message
+              hello@example.com
             </a>
           </div>
         </div>
@@ -175,19 +178,19 @@ const Index = () => {
         <div className="container-custom">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-muted-foreground text-sm mb-4 md:mb-0">
-              © {new Date().getFullYear()} Portfolio. All rights reserved.
+              © {new Date().getFullYear()} Design Portfolio
             </p>
             <div className="flex space-x-6">
-              <a href="#" className="text-muted-foreground hover:text-black transition-colors">
+              <a href="#" className="text-muted-foreground hover:text-black transition-colors text-sm">
                 Twitter
               </a>
-              <a href="#" className="text-muted-foreground hover:text-black transition-colors">
+              <a href="#" className="text-muted-foreground hover:text-black transition-colors text-sm">
                 Dribbble
               </a>
-              <a href="#" className="text-muted-foreground hover:text-black transition-colors">
+              <a href="#" className="text-muted-foreground hover:text-black transition-colors text-sm">
                 LinkedIn
               </a>
-              <a href="#" className="text-muted-foreground hover:text-black transition-colors">
+              <a href="#" className="text-muted-foreground hover:text-black transition-colors text-sm">
                 Instagram
               </a>
             </div>

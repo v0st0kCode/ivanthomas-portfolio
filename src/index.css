@@ -1,5 +1,7 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -19,10 +21,10 @@
     --primary: 0 0% 0%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 0 0% 96%;
+    --secondary: 0 0% 95%;
     --secondary-foreground: 0 0% 0%;
 
-    --muted: 0 0% 96%;
+    --muted: 0 0% 95%;
     --muted-foreground: 0 0% 45%;
 
     --accent: 0 0% 92%;
@@ -35,7 +37,7 @@
     --input: 0 0% 85%;
     --ring: 0 0% 80%;
 
-    --radius: 0.5rem;
+    --radius: 0.25rem;
   }
 
   * {
@@ -50,7 +52,7 @@
 
   body {
     @apply bg-background text-foreground font-sans;
-    letter-spacing: -0.01em;
+    letter-spacing: -0.02em;
   }
 
   ::selection {
@@ -60,7 +62,7 @@
 
 @layer components {
   .container-custom {
-    @apply w-full max-w-[1200px] mx-auto px-4 md:px-6;
+    @apply w-full max-w-[1280px] mx-auto px-4 md:px-6 xl:px-0;
   }
   
   .link-hover {
@@ -76,7 +78,7 @@
   }
   
   .project-card {
-    @apply relative overflow-hidden rounded-lg transition-all duration-500;
+    @apply relative overflow-hidden rounded-sm transition-all duration-300;
   }
   
   .project-card:hover .project-overlay {
@@ -84,23 +86,23 @@
   }
   
   .project-overlay {
-    @apply absolute inset-0 bg-black/80 opacity-0 transition-opacity duration-500 flex flex-col items-center justify-center text-white p-6;
+    @apply absolute inset-0 bg-black/80 opacity-0 transition-opacity duration-300 flex flex-col items-center justify-center text-white p-6;
   }
   
   .section-title {
-    @apply text-sm uppercase tracking-widest text-muted-foreground mb-2;
+    @apply text-xs uppercase tracking-wider text-muted-foreground mb-2 font-mono;
   }
   
   .heading-xl {
-    @apply text-5xl md:text-6xl lg:text-7xl font-display font-semibold leading-tight tracking-tight;
+    @apply text-4xl md:text-5xl lg:text-6xl font-display font-medium leading-tight tracking-tight;
   }
   
   .heading-lg {
-    @apply text-3xl md:text-4xl lg:text-5xl font-display font-semibold leading-tight tracking-tight;
+    @apply text-3xl md:text-4xl lg:text-5xl font-display font-medium leading-tight tracking-tight;
   }
   
   .heading-md {
-    @apply text-xl md:text-2xl lg:text-3xl font-display font-semibold leading-tight;
+    @apply text-xl md:text-2xl font-display font-medium leading-tight;
   }
   
   .paragraph {
@@ -108,6 +110,14 @@
   }
 
   .nav-item {
-    @apply text-sm font-medium transition-colors flex items-center space-x-1 link-hover;
+    @apply text-sm font-medium transition-colors flex items-center space-x-1;
+  }
+  
+  .button-primary {
+    @apply px-5 py-2.5 bg-black text-white text-sm rounded-sm hover:bg-black/90 transition-colors duration-300;
+  }
+  
+  .button-secondary {
+    @apply px-5 py-2.5 border border-black text-black text-sm rounded-sm hover:bg-black/5 transition-colors duration-300;
   }
 }
