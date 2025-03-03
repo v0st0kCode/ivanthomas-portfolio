@@ -1,5 +1,5 @@
 
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import ParticleHeader from '../components/ParticleHeader';
 import Navbar from '../components/Navbar';
@@ -7,27 +7,6 @@ import { getFeaturedProjects } from '../data/projects';
 
 const Index = () => {
   const featuredProjects = getFeaturedProjects();
-
-  // Animation effect on scroll
-  useEffect(() => {
-    const handleScroll = () => {
-      const elements = document.querySelectorAll('.animate-on-scroll');
-      elements.forEach(element => {
-        const elementTop = element.getBoundingClientRect().top;
-        const elementVisible = 150;
-        if (elementTop < window.innerHeight - elementVisible) {
-          element.classList.add('animate-slide-in');
-          element.classList.remove('opacity-0');
-        }
-      });
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    // Trigger once on mount to animate initial elements
-    handleScroll();
-    
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   return (
     <div className="min-h-screen bg-white">
@@ -38,16 +17,16 @@ const Index = () => {
         <ParticleHeader />
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="container-custom text-center max-w-4xl">
-            <span className="inline-block py-1 px-3 mb-6 text-xs font-mono tracking-wider uppercase text-muted-foreground animate-fade-in">
+            <span className="inline-block py-1 px-3 mb-6 text-xs font-mono tracking-wider uppercase text-muted-foreground">
               Digital Product Designer
             </span>
-            <h1 className="heading-xl mx-auto mb-8 animate-fade-in" style={{ animationDelay: '0.2s' }}>
+            <h1 className="heading-xl mx-auto mb-8">
               Creating meaningful digital experiences
             </h1>
-            <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 animate-fade-in" style={{ animationDelay: '0.4s' }}>
+            <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10">
               I design and build user-centered interfaces that connect people and technology
             </p>
-            <div className="flex items-center justify-center space-x-4 animate-fade-in" style={{ animationDelay: '0.6s' }}>
+            <div className="flex items-center justify-center space-x-4">
               <Link to="/work" className="button-primary">
                 View Work
               </Link>
@@ -63,9 +42,9 @@ const Index = () => {
       <section className="py-24 bg-white">
         <div className="container-custom">
           <div className="mb-16 max-w-3xl">
-            <span className="section-title animate-on-scroll opacity-0">Selected Work</span>
-            <h2 className="heading-lg mb-4 animate-on-scroll opacity-0">Recent Projects</h2>
-            <p className="paragraph animate-on-scroll opacity-0">
+            <span className="section-title">Selected Work</span>
+            <h2 className="heading-lg mb-4">Recent Projects</h2>
+            <p className="paragraph">
               A collection of projects I've worked on that showcase my approach to problem-solving and design thinking.
             </p>
           </div>
@@ -75,8 +54,7 @@ const Index = () => {
               <Link 
                 key={project.id}
                 to={`/case-study/${project.id}`} 
-                className="project-card animate-on-scroll opacity-0"
-                style={{ animationDelay: `${index * 0.1}s` }}
+                className="project-card"
               >
                 <div className="aspect-[16/10] overflow-hidden">
                   <img 
@@ -100,7 +78,7 @@ const Index = () => {
             ))}
           </div>
           
-          <div className="mt-16 flex justify-center animate-on-scroll opacity-0">
+          <div className="mt-16 flex justify-center">
             <Link 
               to="/work" 
               className="button-primary flex items-center space-x-2"
@@ -119,15 +97,15 @@ const Index = () => {
       <section className="py-24 bg-secondary">
         <div className="container-custom">
           <div className="max-w-3xl mb-16">
-            <span className="section-title animate-on-scroll opacity-0">Design Approach</span>
-            <h2 className="heading-lg mb-6 animate-on-scroll opacity-0">How I Work</h2>
-            <p className="paragraph animate-on-scroll opacity-0">
+            <span className="section-title">Design Approach</span>
+            <h2 className="heading-lg mb-6">How I Work</h2>
+            <p className="paragraph">
               My process is built around understanding your business goals and user needs to create designs that deliver results.
             </p>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="p-0 animate-on-scroll opacity-0">
+            <div className="p-0">
               <div className="w-12 h-12 flex items-center justify-center border border-black text-black rounded-full mb-6 font-mono">
                 <span>01</span>
               </div>
@@ -135,7 +113,7 @@ const Index = () => {
               <p className="text-muted-foreground">Understanding user needs, business objectives, and technical constraints to lay a solid foundation.</p>
             </div>
             
-            <div className="p-0 animate-on-scroll opacity-0" style={{ animationDelay: '0.1s' }}>
+            <div className="p-0">
               <div className="w-12 h-12 flex items-center justify-center border border-black text-black rounded-full mb-6 font-mono">
                 <span>02</span>
               </div>
@@ -143,7 +121,7 @@ const Index = () => {
               <p className="text-muted-foreground">Crafting intuitive user flows, wireframes, and high-fidelity designs with a focus on simplicity.</p>
             </div>
             
-            <div className="p-0 animate-on-scroll opacity-0" style={{ animationDelay: '0.2s' }}>
+            <div className="p-0">
               <div className="w-12 h-12 flex items-center justify-center border border-black text-black rounded-full mb-6 font-mono">
                 <span>03</span>
               </div>
@@ -158,14 +136,14 @@ const Index = () => {
       <section className="py-24 bg-white">
         <div className="container-custom">
           <div className="max-w-3xl">
-            <span className="section-title animate-on-scroll opacity-0">Get in Touch</span>
-            <h2 className="heading-lg mb-6 animate-on-scroll opacity-0">Let's Work Together</h2>
-            <p className="paragraph mb-8 animate-on-scroll opacity-0">
+            <span className="section-title">Get in Touch</span>
+            <h2 className="heading-lg mb-6">Let's Work Together</h2>
+            <p className="paragraph mb-8">
               Have a project in mind? I'd love to discuss how we can collaborate to create something exceptional.
             </p>
             <a 
               href="mailto:hello@example.com" 
-              className="button-primary inline-block animate-on-scroll opacity-0"
+              className="button-primary inline-block"
             >
               hello@example.com
             </a>
@@ -202,3 +180,4 @@ const Index = () => {
 };
 
 export default Index;
+
