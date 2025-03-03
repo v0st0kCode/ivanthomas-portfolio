@@ -1,0 +1,86 @@
+
+export interface Project {
+  id: string;
+  title: string;
+  description: string;
+  image: string;
+  category: string;
+  year: string;
+  featured?: boolean;
+  details?: {
+    client?: string;
+    role?: string;
+    duration?: string;
+    tools?: string[];
+  };
+}
+
+export const projects: Project[] = [
+  {
+    id: "financial-app",
+    title: "Financial App Redesign",
+    description: "Complete UX/UI overhaul of a financial management application, focusing on simplicity and clear data visualization.",
+    image: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d",
+    category: "Mobile App",
+    year: "2023",
+    featured: true,
+    details: {
+      client: "FinTech Startup",
+      role: "Lead Product Designer",
+      duration: "4 months",
+      tools: ["Figma", "Protopie", "After Effects"]
+    }
+  },
+  {
+    id: "e-commerce-platform",
+    title: "E-Commerce Platform",
+    description: "Design of a minimalist e-commerce platform with a focus on product photography and intuitive navigation.",
+    image: "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b",
+    category: "Web Design",
+    year: "2023",
+    featured: true,
+    details: {
+      client: "Retail Brand",
+      role: "Senior UX Designer",
+      duration: "3 months",
+      tools: ["Figma", "Adobe XD", "Principle"]
+    }
+  },
+  {
+    id: "healthcare-dashboard",
+    title: "Healthcare Dashboard",
+    description: "A comprehensive dashboard for healthcare professionals to monitor patient data and streamline workflows.",
+    image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158",
+    category: "Dashboard",
+    year: "2022",
+    featured: true,
+    details: {
+      client: "Healthcare Provider",
+      role: "Product Designer",
+      duration: "6 months",
+      tools: ["Sketch", "InVision", "Framer"]
+    }
+  },
+  {
+    id: "productivity-app",
+    title: "Productivity App",
+    description: "A minimal task management application designed for focus and productivity enhancement.",
+    image: "https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7",
+    category: "Mobile App",
+    year: "2022",
+    details: {
+      client: "Tech Startup",
+      role: "UX/UI Designer",
+      duration: "3 months",
+      tools: ["Figma", "Adobe XD"]
+    }
+  }
+];
+
+export const getFeaturedProjects = (): Project[] => {
+  return projects.filter(project => project.featured);
+};
+
+export const getProjectById = (id: string): Project | undefined => {
+  return projects.find(project => project.id === id);
+};
