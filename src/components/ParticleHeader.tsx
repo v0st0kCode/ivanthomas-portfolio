@@ -85,7 +85,8 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
         
         display() {
           p.noStroke();
-          const alpha = p.map(p5.Vector.dist(this.pos, this.target), 0, 100, 180, 80);
+          // Reduced opacity to 50%
+          const alpha = p.map(p5.Vector.dist(this.pos, this.target), 0, 100, 90, 40);
           p.fill(0, alpha);
           p.circle(this.pos.x, this.pos.y, this.radius * 2);
         }
@@ -94,7 +95,8 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
           particles.forEach(particle => {
             const d = p5.Vector.dist(this.pos, particle.pos);
             if (d < 100) {
-              const alpha = p.map(d, 0, 100, 40, 0);
+              // Reduced opacity to 50%
+              const alpha = p.map(d, 0, 100, 20, 0);
               p.stroke(0, alpha);
               p.line(this.pos.x, this.pos.y, particle.pos.x, particle.pos.y);
             }
