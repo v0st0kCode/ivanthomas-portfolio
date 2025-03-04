@@ -16,9 +16,7 @@ const Index = () => {
             <span className="inline-block py-1 px-3 mb-6 text-xs font-mono tracking-wider uppercase text-muted-foreground">
               Digital Product Designer
             </span>
-            <h1 className="heading-xl mx-auto mb-8">
-              Creating meaningful digital experiences
-            </h1>
+            <h1 className="heading-xl mx-auto mb-8 text-7xl">Connecting dots since 1986</h1>
             <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10">
               I design and build user-centered interfaces that connect people and technology
             </p>
