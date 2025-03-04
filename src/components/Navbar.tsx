@@ -48,12 +48,6 @@ const Navbar: React.FC = () => {
             Work
           </Link>
           <Link 
-            to="/case-study" 
-            className={`nav-link ${isActive('/case-study') ? 'after:w-full' : 'after:w-0'}`}
-          >
-            Case Studies
-          </Link>
-          <Link 
             to="/about" 
             className={`nav-link ${isActive('/about') ? 'after:w-full' : 'after:w-0'}`}
           >
