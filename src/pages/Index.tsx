@@ -47,7 +47,7 @@ const Index = () => {
             {featuredProjects.slice(0, 4).map((project, index) => <Link key={project.id} to={`/case-study/${project.id}`} className="project-card">
                 <div className="aspect-[16/10] overflow-hidden relative group">
                   <img src={project.image} alt={project.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy" />
-                  <div className="project-overlay absolute inset-0 bg-black/80 opacity-0 transition-opacity duration-300 flex flex-col items-center justify-center text-white p-6 group-hover:opacity-100">
+                  <div className="project-overlay absolute inset-0 bg-black/80 opacity-0 transition-opacity duration-300 flex flex-col items-center justify-center text-white p-6 group-hover:opacity-100 rounded-none">
                     <span className="text-xs font-mono uppercase tracking-wider opacity-75 mb-2">{project.category}</span>
                     <h3 className="text-xl font-medium mb-2">{project.title}</h3>
                     <p className="text-sm opacity-75 mb-4">{project.description}</p>
