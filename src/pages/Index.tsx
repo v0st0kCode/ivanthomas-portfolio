@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 import ParticleHeader from '../components/ParticleHeader';
@@ -66,7 +67,7 @@ const Index = () => {
                     <span className="text-xs font-mono uppercase tracking-wider opacity-75 mb-2">{project.category}</span>
                     <h3 className="text-xl font-medium mb-2">{project.title}</h3>
                     <p className="text-sm opacity-75 mb-4">{project.description}</p>
-                    <span className="text-xs font-mono px-4 py-1 border border-white/30 rounded-sm">View Case Study</span>
+                    <span className="text-xs font-mono px-4 py-1 border border-white/30 rounded-sm transition-all duration-300 hover:bg-white hover:text-black hover:border-white hover:scale-105">View Case Study</span>
                   </div>
                 </div>
                 <div className="pt-4">
