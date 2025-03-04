@@ -13,6 +13,7 @@ export interface Project {
     duration?: string;
     tools?: string[];
   };
+  size?: 'large' | 'medium'; // Adding size property for bento grid
 }
 
 export const projects: Project[] = [
@@ -24,6 +25,7 @@ export const projects: Project[] = [
     category: "Mobile App",
     year: "2023",
     featured: true,
+    size: "large",
     details: {
       client: "FinTech Startup",
       role: "Lead Product Designer",
@@ -39,6 +41,7 @@ export const projects: Project[] = [
     category: "Web Design",
     year: "2023",
     featured: true,
+    size: "medium",
     details: {
       client: "Retail Brand",
       role: "Senior UX Designer",
@@ -54,6 +57,7 @@ export const projects: Project[] = [
     category: "Dashboard",
     year: "2022",
     featured: true,
+    size: "medium",
     details: {
       client: "Healthcare Provider",
       role: "Product Designer",
@@ -68,11 +72,28 @@ export const projects: Project[] = [
     image: "https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7",
     category: "Mobile App",
     year: "2022",
+    size: "medium",
     details: {
       client: "Tech Startup",
       role: "UX/UI Designer",
       duration: "3 months",
       tools: ["Figma", "Adobe XD"]
+    }
+  },
+  {
+    id: "digital-workspace",
+    title: "Digital Workspace Platform",
+    description: "A collaborative workspace platform that helps remote teams stay connected and productive.",
+    image: "https://images.unsplash.com/photo-1649972904349-6e44c42644a7",
+    category: "Web Application",
+    year: "2023",
+    featured: true,
+    size: "medium",
+    details: {
+      client: "Enterprise SaaS",
+      role: "UX Designer & Researcher",
+      duration: "5 months",
+      tools: ["Figma", "Miro", "UserTesting"]
     }
   }
 ];

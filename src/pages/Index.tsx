@@ -1,10 +1,13 @@
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 import ParticleHeader from '../components/ParticleHeader';
 import Navbar from '../components/Navbar';
 import { getFeaturedProjects } from '../data/projects';
+
 const Index = () => {
   const featuredProjects = getFeaturedProjects();
+  
   return <div className="min-h-screen bg-white">
       <Navbar />
       
@@ -43,11 +46,21 @@ const Index = () => {
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-            {featuredProjects.slice(0, 4).map((project, index) => <Link key={project.id} to={`/case-study/${project.id}`} className="project-card">
-                <div className="aspect-[16/10] overflow-hidden relative group">
-                  <img src={project.image} alt={project.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy" />
-                  <div className="project-overlay absolute inset-0 bg-black/80 opacity-0 transition-opacity duration-300 flex flex-col items-center justify-center text-white p-6 group-hover:opacity-100 rounded-none">
+          <div className="bento-grid">
+            {featuredProjects.map((project) => (
+              <Link 
+                key={project.id} 
+                to={`/case-study/${project.id}`} 
+                className={`project-card ${project.size === 'large' ? 'bento-item-large' : 'bento-item-medium'}`}
+              >
+                <div className="project-thumb">
+                  <img 
+                    src={project.image} 
+                    alt={project.title} 
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
+                    loading="lazy" 
+                  />
+                  <div className="project-overlay absolute inset-0 bg-black/80 opacity-0 transition-opacity duration-300 flex flex-col items-center justify-center text-white p-6 group-hover:opacity-100 rounded-md">
                     <span className="text-xs font-mono uppercase tracking-wider opacity-75 mb-2">{project.category}</span>
                     <h3 className="text-xl font-medium mb-2">{project.title}</h3>
                     <p className="text-sm opacity-75 mb-4">{project.description}</p>
@@ -58,7 +71,8 @@ const Index = () => {
                   <span className="text-xs font-mono text-muted-foreground">{project.category}</span>
                   <h3 className="text-lg font-medium mt-1">{project.title}</h3>
                 </div>
-              </Link>)}
+              </Link>
+            ))}
           </div>
           
           <div className="mt-16 flex justify-center">
@@ -154,4 +168,5 @@ const Index = () => {
       </footer>
     </div>;
 };
+
 export default Index;
