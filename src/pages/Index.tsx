@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import ParticleHeader from '../components/ParticleHeader';
 import Navbar from '../components/Navbar';
@@ -7,6 +7,15 @@ import { getFeaturedProjects } from '../data/projects';
 
 const Index = () => {
   const featuredProjects = getFeaturedProjects();
+  const [isLoaded, setIsLoaded] = useState(false);
+  
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoaded(true);
+    }, 300); // Small delay to ensure animation is visible
+    
+    return () => clearTimeout(timer);
+  }, []);
   
   return <div className="min-h-screen bg-white">
       <Navbar />
@@ -15,7 +24,7 @@ const Index = () => {
       <section className="relative overflow-hidden">
         <ParticleHeader />
         <div className="absolute inset-0 flex items-center justify-center">
-          <div className="container-custom text-center max-w-4xl">
+          <div className={`container-custom text-center max-w-4xl transition-opacity duration-1000 ease-in-out ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
             <span className="inline-block py-1 px-3 mb-6 text-xs font-mono tracking-wider uppercase text-muted-foreground">
               Digital Product Designer
             </span>
