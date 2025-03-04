@@ -1,22 +1,18 @@
-
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import ParticleHeader from '../components/ParticleHeader';
 import Navbar from '../components/Navbar';
 import { getFeaturedProjects } from '../data/projects';
-
 const Index = () => {
   const featuredProjects = getFeaturedProjects();
   const [isLoaded, setIsLoaded] = useState(false);
-  
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoaded(true);
     }, 300); // Small delay to ensure animation is visible
-    
+
     return () => clearTimeout(timer);
   }, []);
-  
   return <div className="min-h-screen bg-white">
       <Navbar />
       
@@ -28,7 +24,7 @@ const Index = () => {
             <span className="inline-block py-1 px-3 mb-6 text-xs font-mono tracking-wider uppercase text-muted-foreground">
               Digital Product Designer
             </span>
-            <h1 className="heading-xl mx-auto mb-8 text-7xl">Connecting dots since 1986</h1>
+            <h1 className="heading-xl mx-auto mb-8 text-6xl">Connecting dots since 1986</h1>
             <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10">
               I design and build user-centered interfaces that connect people and technology
             </p>
@@ -57,32 +53,21 @@ const Index = () => {
           
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
             {featuredProjects.map((project, index) => {
-              // Determine grid placement based on index and size
-              let gridClass = "md:col-span-6";
-              if (index === 0) {
-                gridClass = "md:col-span-7"; // First item is larger (like Apple Pencil)
-              } else if (index === 1) {
-                gridClass = "md:col-span-5"; // Second item (like iPad keyboard)
-              } else if (index === 2) {
-                gridClass = "md:col-span-12"; // Full width item for variety
-              } else {
-                gridClass = `md:col-span-${index % 2 === 0 ? '7' : '5'}`; // Alternate sizing
-              }
-              
-              return (
-                <Link 
-                  key={project.id} 
-                  to={`/case-study/${project.id}`} 
-                  className={`project-card ${gridClass}`}
-                >
+            // Determine grid placement based on index and size
+            let gridClass = "md:col-span-6";
+            if (index === 0) {
+              gridClass = "md:col-span-7"; // First item is larger (like Apple Pencil)
+            } else if (index === 1) {
+              gridClass = "md:col-span-5"; // Second item (like iPad keyboard)
+            } else if (index === 2) {
+              gridClass = "md:col-span-12"; // Full width item for variety
+            } else {
+              gridClass = `md:col-span-${index % 2 === 0 ? '7' : '5'}`; // Alternate sizing
+            }
+            return <Link key={project.id} to={`/case-study/${project.id}`} className={`project-card ${gridClass}`}>
                   <div className="project-thumb group bg-white rounded-3xl shadow-sm overflow-hidden border border-gray-100 hover:shadow-md transition-all duration-300">
                     <div className="relative overflow-hidden">
-                      <img 
-                        src={project.image} 
-                        alt={project.title} 
-                        className="w-full h-64 object-cover transition-transform duration-700 group-hover:scale-105" 
-                        loading="lazy" 
-                      />
+                      <img src={project.image} alt={project.title} className="w-full h-64 object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" />
                       <div className="project-overlay absolute inset-0 bg-black/60 opacity-0 transition-opacity duration-300 flex flex-col items-center justify-center text-white p-6 group-hover:opacity-100">
                         <span className="text-xs font-mono uppercase tracking-wider opacity-75 mb-2">{project.category}</span>
                         <span className="text-xs font-mono px-4 py-1 border border-white/30 rounded-sm transition-all duration-300 hover:bg-white/70 hover:text-black hover:border-white hover:scale-105 mt-4">View Case Study</span>
@@ -94,9 +79,8 @@ const Index = () => {
                       <p className="text-sm text-muted-foreground line-clamp-2">{project.description}</p>
                     </div>
                   </div>
-                </Link>
-              );
-            })}
+                </Link>;
+          })}
           </div>
           
           <div className="mt-16 flex justify-center">
@@ -192,5 +176,4 @@ const Index = () => {
       </footer>
     </div>;
 };
-
 export default Index;
