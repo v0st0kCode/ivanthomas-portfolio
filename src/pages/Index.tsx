@@ -55,33 +55,48 @@ const Index = () => {
             </p>
           </div>
           
-          <div className="bento-grid">
-            {featuredProjects.map((project) => (
-              <Link 
-                key={project.id} 
-                to={`/case-study/${project.id}`} 
-                className={`project-card ${project.size === 'large' ? 'bento-item-large' : 'bento-item-medium'}`}
-              >
-                <div className="project-thumb group">
-                  <img 
-                    src={project.image} 
-                    alt={project.title} 
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
-                    loading="lazy" 
-                  />
-                  <div className="project-overlay absolute inset-0 bg-black/80 opacity-0 transition-opacity duration-300 flex flex-col items-center justify-center text-white p-6 group-hover:opacity-100 rounded-lg">
-                    <span className="text-xs font-mono uppercase tracking-wider opacity-75 mb-2">{project.category}</span>
-                    <h3 className="text-xl font-medium mb-2">{project.title}</h3>
-                    <p className="text-sm opacity-75 mb-4">{project.description}</p>
-                    <span className="text-xs font-mono px-4 py-1 border border-white/30 rounded-sm transition-all duration-300 hover:bg-white/70 hover:text-black hover:border-white hover:scale-105">View Case Study</span>
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
+            {featuredProjects.map((project, index) => {
+              // Determine grid placement based on index and size
+              let gridClass = "md:col-span-6";
+              if (index === 0) {
+                gridClass = "md:col-span-7"; // First item is larger (like Apple Pencil)
+              } else if (index === 1) {
+                gridClass = "md:col-span-5"; // Second item (like iPad keyboard)
+              } else if (index === 2) {
+                gridClass = "md:col-span-12"; // Full width item for variety
+              } else {
+                gridClass = `md:col-span-${index % 2 === 0 ? '7' : '5'}`; // Alternate sizing
+              }
+              
+              return (
+                <Link 
+                  key={project.id} 
+                  to={`/case-study/${project.id}`} 
+                  className={`project-card ${gridClass}`}
+                >
+                  <div className="project-thumb group bg-white rounded-3xl shadow-sm overflow-hidden border border-gray-100 hover:shadow-md transition-all duration-300">
+                    <div className="relative overflow-hidden">
+                      <img 
+                        src={project.image} 
+                        alt={project.title} 
+                        className="w-full h-64 object-cover transition-transform duration-700 group-hover:scale-105" 
+                        loading="lazy" 
+                      />
+                      <div className="project-overlay absolute inset-0 bg-black/60 opacity-0 transition-opacity duration-300 flex flex-col items-center justify-center text-white p-6 group-hover:opacity-100">
+                        <span className="text-xs font-mono uppercase tracking-wider opacity-75 mb-2">{project.category}</span>
+                        <span className="text-xs font-mono px-4 py-1 border border-white/30 rounded-sm transition-all duration-300 hover:bg-white/70 hover:text-black hover:border-white hover:scale-105 mt-4">View Case Study</span>
+                      </div>
+                    </div>
+                    <div className="p-6">
+                      <span className="text-xs font-mono text-muted-foreground">{project.category}</span>
+                      <h3 className="text-xl font-medium mt-1 mb-2">{project.title}</h3>
+                      <p className="text-sm text-muted-foreground line-clamp-2">{project.description}</p>
+                    </div>
                   </div>
-                </div>
-                <div className="pt-4">
-                  <span className="text-xs font-mono text-muted-foreground">{project.category}</span>
-                  <h3 className="text-lg font-medium mt-1">{project.title}</h3>
-                </div>
-              </Link>
-            ))}
+                </Link>
+              );
+            })}
           </div>
           
           <div className="mt-16 flex justify-center">
