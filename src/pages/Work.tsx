@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
@@ -83,10 +82,10 @@ const Work = () => {
               <Link 
                 key={project.id}
                 to={`/case-study/${project.id}`} 
-                className="project-card animate-on-scroll opacity-0"
+                className="project-card animate-on-scroll opacity-0 h-full"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
-                <div className="aspect-[4/3] overflow-hidden">
+                <div className="aspect-[4/3] overflow-hidden rounded-lg">
                   <img 
                     src={project.image}
                     alt={project.title}

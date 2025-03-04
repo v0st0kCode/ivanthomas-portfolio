@@ -1,3 +1,4 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Space+Mono&display=swap');
@@ -77,11 +78,11 @@
   }
   
   .project-card {
-    @apply relative overflow-hidden transition-all duration-300;
+    @apply relative overflow-hidden transition-all duration-300 h-full;
   }
 
   .project-thumb {
-    @apply aspect-[16/10] overflow-hidden relative rounded-md;
+    @apply aspect-[16/10] overflow-hidden relative rounded-lg;
   }
   
   .section-title {
