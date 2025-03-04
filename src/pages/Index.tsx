@@ -1,15 +1,11 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import ParticleHeader from '../components/ParticleHeader';
 import Navbar from '../components/Navbar';
 import { getFeaturedProjects } from '../data/projects';
-
 const Index = () => {
   const featuredProjects = getFeaturedProjects();
-
-  return (
-    <div className="min-h-screen bg-white">
+  return <div className="min-h-screen bg-white">
       <Navbar />
       
       {/* Hero Section with Particle Animation */}
@@ -50,43 +46,29 @@ const Index = () => {
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-            {featuredProjects.slice(0, 4).map((project, index) => (
-              <Link 
-                key={project.id}
-                to={`/case-study/${project.id}`} 
-                className="project-card"
-              >
+            {featuredProjects.slice(0, 4).map((project, index) => <Link key={project.id} to={`/case-study/${project.id}`} className="project-card">
                 <div className="aspect-[16/10] overflow-hidden relative group">
-                  <img 
-                    src={project.image}
-                    alt={project.title}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                    loading="lazy"
-                  />
+                  <img src={project.image} alt={project.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy" />
                   <div className="project-overlay absolute inset-0 bg-black/80 opacity-0 transition-opacity duration-300 flex flex-col items-center justify-center text-white p-6 group-hover:opacity-100">
                     <span className="text-xs font-mono uppercase tracking-wider opacity-75 mb-2">{project.category}</span>
                     <h3 className="text-xl font-medium mb-2">{project.title}</h3>
                     <p className="text-sm opacity-75 mb-4">{project.description}</p>
-                    <span className="text-xs font-mono px-4 py-1 border border-white/30 rounded-sm transition-all duration-300 hover:bg-white hover:text-black hover:border-white hover:scale-105">View Case Study</span>
+                    <span className="text-xs font-mono px-4 py-1 border border-white/30 rounded-sm transition-all duration-300 hover:bg-white/70 hover:text-black hover:border-white hover:scale-105">View Case Study</span>
                   </div>
                 </div>
                 <div className="pt-4">
                   <span className="text-xs font-mono text-muted-foreground">{project.category}</span>
                   <h3 className="text-lg font-medium mt-1">{project.title}</h3>
                 </div>
-              </Link>
-            ))}
+              </Link>)}
           </div>
           
           <div className="mt-16 flex justify-center">
-            <Link 
-              to="/work" 
-              className="button-primary flex items-center space-x-2"
-            >
+            <Link to="/work" className="button-primary flex items-center space-x-2">
               <span>View All Projects</span>
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M8 1L15 8L8 15" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                <path d="M15 8H1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M8 1L15 8L8 15" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                <path d="M15 8H1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </Link>
           </div>
@@ -141,10 +123,7 @@ const Index = () => {
             <p className="paragraph mb-8">
               Have a project in mind? I'd love to discuss how we can collaborate to create something exceptional.
             </p>
-            <a 
-              href="mailto:hello@example.com" 
-              className="button-primary inline-block"
-            >
+            <a href="mailto:hello@example.com" className="button-primary inline-block">
               hello@example.com
             </a>
           </div>
@@ -175,8 +154,6 @@ const Index = () => {
           </div>
         </div>
       </footer>
-    </div>
-  );
+    </div>;
 };
-
 export default Index;
