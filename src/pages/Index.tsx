@@ -53,7 +53,7 @@ const Index = () => {
                 to={`/case-study/${project.id}`} 
                 className={`project-card ${project.size === 'large' ? 'bento-item-large' : 'bento-item-medium'}`}
               >
-                <div className="project-thumb">
+                <div className="project-thumb group">
                   <img 
                     src={project.image} 
                     alt={project.title} 
