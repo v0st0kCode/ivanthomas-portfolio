@@ -37,25 +37,25 @@ const Navbar: React.FC = () => {
         <div className="flex space-x-8">
           <Link 
             to="/" 
-            className={`nav-item ${isActive('/') ? 'after:w-full' : ''}`}
+            className={`nav-link ${isActive('/') ? 'after:w-full' : 'after:w-0'}`}
           >
             Home
           </Link>
           <Link 
             to="/work" 
-            className={`nav-item ${isActive('/work') ? 'after:w-full' : ''}`}
+            className={`nav-link ${isActive('/work') ? 'after:w-full' : 'after:w-0'}`}
           >
             Work
           </Link>
           <Link 
             to="/case-study" 
-            className={`nav-item ${isActive('/case-study') ? 'after:w-full' : ''}`}
+            className={`nav-link ${isActive('/case-study') ? 'after:w-full' : 'after:w-0'}`}
           >
             Case Studies
           </Link>
           <Link 
             to="/about" 
-            className={`nav-item ${isActive('/about') ? 'after:w-full' : ''}`}
+            className={`nav-link ${isActive('/about') ? 'after:w-full' : 'after:w-0'}`}
           >
             About
           </Link>

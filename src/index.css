@@ -1,3 +1,4 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Space+Mono&display=swap');
@@ -102,6 +103,10 @@
 
   .nav-item {
     @apply text-sm font-medium transition-colors flex items-center space-x-1;
+  }
+  
+  .nav-link {
+    @apply text-sm font-medium relative inline-block transition-colors after:content-[''] after:absolute after:h-[2px] after:bg-black after:bottom-[-4px] after:left-0 after:transition-all after:duration-300 after:ease-in-out hover:after:w-full;
   }
   
   .button-primary {
