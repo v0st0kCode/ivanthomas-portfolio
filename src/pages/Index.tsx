@@ -1,7 +1,5 @@
-
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import ParticleHeader from '../components/ParticleHeader';
 import Navbar from '../components/Navbar';
 import { getFeaturedProjects } from '../data/projects';
 import { LockKeyhole } from 'lucide-react';
@@ -18,31 +16,29 @@ const Index = () => {
     return () => clearTimeout(timer);
   }, []);
   
-  return <div className="min-h-screen bg-white">
+  return (
+    <div className="min-h-screen">
       <Navbar />
       
-      {/* Hero Section with Particle Animation */}
-      <section className="relative overflow-hidden">
-        <ParticleHeader />
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className={`container-custom text-center max-w-4xl transition-all duration-1000 ease-out ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-            <span className="inline-block py-1 px-3 mb-6 text-xs font-mono tracking-wider uppercase text-muted-foreground">
-              Digital Product Designer
-            </span>
-            <h1 className="heading-xl mx-auto mb-8 text-6xl">
-              Connecting dots since <span className="font-onest whitespace-nowrap">1986</span>
-            </h1>
-            <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10">
-              I'm a digital product designer with 20 years of experience crafting user-friendly digital products that connect people and technology
-            </p>
-            <div className="flex items-center justify-center space-x-4">
-              <Link to="/work" className="button-primary">
-                View Work
-              </Link>
-              <Link to="/about" className="button-secondary">
-                About Me
-              </Link>
-            </div>
+      {/* Hero Section */}
+      <section className="relative h-[95vh] flex items-center justify-center">
+        <div className={`container-custom text-center max-w-4xl transition-all duration-1000 ease-out ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+          <span className="inline-block py-1 px-3 mb-6 text-xs font-mono tracking-wider uppercase text-muted-foreground">
+            Digital Product Designer
+          </span>
+          <h1 className="heading-xl mx-auto mb-8 text-6xl">
+            Connecting dots since <span className="font-onest whitespace-nowrap">1986</span>
+          </h1>
+          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10">
+            I'm a digital product designer with 20 years of experience crafting user-friendly digital products that connect people and technology
+          </p>
+          <div className="flex items-center justify-center space-x-4">
+            <Link to="/work" className="button-primary">
+              View Work
+            </Link>
+            <Link to="/about" className="button-secondary">
+              About Me
+            </Link>
           </div>
         </div>
       </section>
@@ -59,7 +55,7 @@ const Index = () => {
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {featuredProjects.map((project, index) => {
-            return <Link key={project.id} to={`/case-study/${project.id}`} className="feature-card group">
+              return <Link key={project.id} to={`/case-study/${project.id}`} className="feature-card group">
                   <div className="feature-card-bg h-full">
                     <div className="feature-card-image-bg">
                       <img src={project.image} alt={project.title} loading="lazy" />
@@ -78,7 +74,7 @@ const Index = () => {
                     </div>
                   </div>
                 </Link>;
-          })}
+            })}
           </div>
           
           <div className="mt-16 flex justify-center">
@@ -172,7 +168,8 @@ const Index = () => {
           </div>
         </div>
       </footer>
-    </div>;
+    </div>
+  );
 };
 
 export default Index;
