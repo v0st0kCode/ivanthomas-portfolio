@@ -152,7 +152,8 @@
   }
   
   .feature-card-image-bg img {
-    @apply w-full h-full object-cover transition-all duration-500 ease-in-out grayscale opacity-100;
+    @apply w-full h-[115%] object-cover transition-all duration-500 ease-in-out grayscale opacity-100;
+    object-position: center;
     transform: translateY(0);
   }
   

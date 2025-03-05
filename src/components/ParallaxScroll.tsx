@@ -23,7 +23,9 @@ const ParallaxScroll: React.FC = () => {
         
         // Apply parallax effect based on scroll position and visibility
         const offset = scrollPosition * 0.05 * visibilityRatio;
-        const translateY = Math.min(Math.max(-10, offset), 10); // Increased range for more noticeable effect
+        
+        // Limit movement range but allow enough movement to ensure no white spaces
+        const translateY = Math.min(Math.max(-15, offset), 15);
         
         (element as HTMLElement).style.transform = `translateY(${translateY}%)`;
       });
