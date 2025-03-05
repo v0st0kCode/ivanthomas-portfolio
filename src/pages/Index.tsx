@@ -1,9 +1,7 @@
-
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import ParticleHeader from '../components/ParticleHeader';
 import Navbar from '../components/Navbar';
-import ParallaxScroll from '../components/ParallaxScroll';
 import { getFeaturedProjects } from '../data/projects';
 
 const Index = () => {
@@ -20,7 +18,6 @@ const Index = () => {
 
   return <div className="min-h-screen bg-white">
       <Navbar />
-      <ParallaxScroll />
       
       {/* Hero Section with Particle Animation */}
       <section className="relative overflow-hidden">
@@ -64,12 +61,7 @@ const Index = () => {
                 <Link key={project.id} to={`/case-study/${project.id}`} className="feature-card group">
                   <div className="feature-card-bg h-full">
                     <div className="feature-card-image-bg">
-                      <img 
-                        src={project.image} 
-                        alt={project.title} 
-                        loading="lazy" 
-                        className="parallax-element"
-                      />
+                      <img src={project.image} alt={project.title} loading="lazy" />
                       <div className="gradient-overlay"></div>
                     </div>
                     <div className="feature-card-content">
