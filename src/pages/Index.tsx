@@ -1,11 +1,14 @@
+
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import ParticleHeader from '../components/ParticleHeader';
 import Navbar from '../components/Navbar';
 import { getFeaturedProjects } from '../data/projects';
+
 const Index = () => {
   const featuredProjects = getFeaturedProjects();
   const [isLoaded, setIsLoaded] = useState(false);
+
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoaded(true);
@@ -13,6 +16,7 @@ const Index = () => {
 
     return () => clearTimeout(timer);
   }, []);
+
   return <div className="min-h-screen bg-white">
       <Navbar />
       
@@ -64,16 +68,21 @@ const Index = () => {
             } else {
               gridClass = `md:col-span-${index % 2 === 0 ? '7' : '5'}`; // Alternate sizing
             }
-            return <Link key={project.id} to={`/case-study/${project.id}`} className={`project-card ${gridClass}`}>
-                  <div className="project-thumb group bg-white rounded-3xl shadow-sm overflow-hidden border border-gray-100 hover:shadow-md transition-all duration-300">
+            
+            // Add fixed height class for the first two projects to ensure equal heights
+            const heightClass = index < 2 ? "h-full" : "";
+            const thumbnailHeightClass = index < 2 ? "h-64" : "h-64";
+            
+            return <Link key={project.id} to={`/case-study/${project.id}`} className={`project-card ${gridClass} ${heightClass}`}>
+                  <div className="project-thumb group bg-white rounded-3xl shadow-sm overflow-hidden border border-gray-100 hover:shadow-md transition-all duration-300 h-full flex flex-col">
                     <div className="relative overflow-hidden">
-                      <img src={project.image} alt={project.title} className="w-full h-64 object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" />
+                      <img src={project.image} alt={project.title} className={`w-full ${thumbnailHeightClass} object-cover transition-transform duration-700 group-hover:scale-105`} loading="lazy" />
                       <div className="project-overlay absolute inset-0 bg-black/60 opacity-0 transition-opacity duration-300 flex flex-col items-center justify-center text-white p-6 group-hover:opacity-100">
                         <span className="text-xs font-mono uppercase tracking-wider opacity-75 mb-2">{project.category}</span>
                         <span className="text-xs font-mono px-4 py-1 border border-white/30 rounded-sm transition-all duration-300 hover:bg-white/70 hover:text-black hover:border-white hover:scale-105 mt-4">View Case Study</span>
                       </div>
                     </div>
-                    <div className="p-6">
+                    <div className="p-6 flex-grow flex flex-col">
                       <span className="text-xs font-mono text-muted-foreground">{project.category}</span>
                       <h3 className="text-xl font-medium mt-1 mb-2">{project.title}</h3>
                       <p className="text-sm text-muted-foreground line-clamp-2">{project.description}</p>
@@ -176,4 +185,5 @@ const Index = () => {
       </footer>
     </div>;
 };
+
 export default Index;
