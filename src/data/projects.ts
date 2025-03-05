@@ -21,16 +21,16 @@ export const projects: Project[] = [
     id: "financial-app",
     title: "Mediacoach LivePRO",
     description: "Mediacoach LivePRO is the world's first app to deliver real-time pitch data on an iPad.",
-    image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6",
+    image: "https://assets.bwbx.io/images/users/iqjWHBFdfxIU/iEOkrsPpBnrU/v1/-1x-1.webp",
     category: "iPad App",
     year: "2022",
     featured: true,
     size: "large",
     details: {
-      client: "FinTech Startup",
+      client: "LaLiga",
       role: "Lead Product Designer",
       duration: "4 months",
-      tools: ["Figma", "Protopie", "After Effects"]
+      tools: ["Figma", "Protopie", "Mockups"]
     }
   },
   {
