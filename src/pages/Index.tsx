@@ -39,7 +39,7 @@ const Index = () => {
               Connecting dots since <span className="font-onest">1986</span>
             </h1>
             <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10">
-              <!-- I design and build user-centered interfaces that connect people and technology-->
+              <!-- I design and build user-centered interfaces that connect people and technology -->
               I'm a digital product designer with 20 years of experience crafting user-friendly digital products that connect people and technology
             </p>
             <div className="flex items-center justify-center space-x-4">
