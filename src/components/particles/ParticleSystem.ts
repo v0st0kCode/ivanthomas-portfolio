@@ -19,19 +19,19 @@ class ParticleSystem {
     this.mouseX = p.windowWidth / 2;
     this.mouseY = p.windowHeight / 2;
     
-    // Create particles and position them in a grid
-    const cols = 12;
-    const rows = 10;
+    // Create particles in a grid pattern for better coverage
+    const cols = Math.ceil(Math.sqrt(this.particleCount * p.width / p.height));
+    const rows = Math.ceil(this.particleCount / cols);
     const cellWidth = p.width / cols;
     const cellHeight = p.height / rows;
     
     for (let i = 0; i < cols; i++) {
       for (let j = 0; j < rows; j++) {
         if (this.particles.length < this.particleCount) {
-          const x = cellWidth * (i + 0.5);
-          const y = cellHeight * (j + 0.5);
-          const particle = new Particle(p, x, y);
-          this.particles.push(particle);
+          // Add some randomness to grid positions
+          const x = cellWidth * (i + 0.5) + p.random(-cellWidth / 4, cellWidth / 4);
+          const y = cellHeight * (j + 0.5) + p.random(-cellHeight / 4, cellHeight / 4);
+          this.particles.push(new Particle(p, x, y));
         }
       }
     }
@@ -43,30 +43,29 @@ class ParticleSystem {
   }
 
   resize(p: p5) {
-    // Update particle targets on resize
-    const cols = 12;
-    const rows = 10;
+    // Recalculate grid on resize
+    const cols = Math.ceil(Math.sqrt(this.particleCount * p.width / p.height));
+    const rows = Math.ceil(this.particleCount / cols);
     const cellWidth = p.width / cols;
     const cellHeight = p.height / rows;
     
     this.particles.forEach((particle, index) => {
       const i = index % cols;
       const j = Math.floor(index / cols);
-      particle.target.x = cellWidth * (i + 0.5);
-      particle.target.y = cellHeight * (j + 0.5);
+      
+      // Maintain some randomness in target positions
+      particle.target.x = cellWidth * (i + 0.5) + p.random(-cellWidth / 4, cellWidth / 4);
+      particle.target.y = cellHeight * (j + 0.5) + p.random(-cellHeight / 4, cellHeight / 4);
     });
   }
 
   update(p: p5) {
-    // Update and draw all particles
-    p.clear();
-    
-    // Draw connections first (layering)
+    // First draw all connections between particles
     for (let i = 0; i < this.particles.length; i++) {
       this.particles[i].connect(p, this.particles.slice(i + 1));
     }
     
-    // Then update and display particles
+    // Then update and display each particle
     this.particles.forEach(particle => {
       particle.update(p, this.mouseX, this.mouseY);
       particle.display(p);

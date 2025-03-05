@@ -67,8 +67,8 @@ class Particle {
   
   display(p: p5) {
     p.noStroke();
-    // Reduced opacity for background effect
-    const alpha = p.map(p5.Vector.dist(this.pos, this.target), 0, 100, 40, 20);
+    // Increased opacity to make dots more visible
+    const alpha = p.map(p5.Vector.dist(this.pos, this.target), 0, 100, 80, 40);
     p.fill(0, alpha);
     p.circle(this.pos.x, this.pos.y, this.radius * 2);
   }
@@ -77,9 +77,10 @@ class Particle {
     particles.forEach(particle => {
       const d = p5.Vector.dist(this.pos, particle.pos);
       if (d < 100) {
-        // Reduced opacity for background effect
-        const alpha = p.map(d, 0, 100, 10, 0);
+        // Increased opacity to make lines more visible
+        const alpha = p.map(d, 0, 100, 30, 0);
         p.stroke(0, alpha);
+        p.strokeWeight(0.5);
         p.line(this.pos.x, this.pos.y, particle.pos.x, particle.pos.y);
       }
     });

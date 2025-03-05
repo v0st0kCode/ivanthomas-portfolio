@@ -10,7 +10,8 @@ const BackgroundParticles: React.FC = () => {
   useEffect(() => {
     if (!containerRef.current) return;
 
-    const particleSystem = new ParticleSystem(100);
+    // Increased number of particles for better visibility
+    const particleSystem = new ParticleSystem(150);
 
     const sketch = (p: p5) => {
       p.setup = () => {
@@ -20,6 +21,7 @@ const BackgroundParticles: React.FC = () => {
       };
       
       p.draw = () => {
+        p.clear();  // Clear the canvas each frame to avoid overdraw
         particleSystem.update(p);
       };
       
