@@ -19,7 +19,7 @@ const Index = () => {
   }, []);
 
   // Words to cycle through in the hero animation
-  const loopWords = ['dots', 'people', 'teams', 'dreams'];
+  const loopWords = ['dots', 'people', 'teams', 'experiences', 'dreams'];
 
   // Card variants for different background colors and styles
   const cardVariants = [

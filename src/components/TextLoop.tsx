@@ -14,6 +14,12 @@ const TextLoop: React.FC<TextLoopProps> = ({
 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isVisible, setIsVisible] = useState(true);
+  
+  // Find the longest word to set consistent width
+  const longestWord = words.reduce(
+    (longest, word) => word.length > longest.length ? word : longest, 
+    ""
+  );
 
   useEffect(() => {
     if (words.length <= 1) return;
@@ -34,10 +40,18 @@ const TextLoop: React.FC<TextLoopProps> = ({
   }, [currentIndex, interval, words.length]);
 
   return (
-    <span 
-      className={`inline-block transition-opacity duration-700 ${isVisible ? 'opacity-100' : 'opacity-0'} ${className}`}
-    >
-      {words[currentIndex]}
+    <span className="relative inline-block">
+      {/* Invisible text with the longest word to maintain consistent width */}
+      <span className="invisible" aria-hidden="true">
+        {longestWord}
+      </span>
+      
+      {/* Actual displayed word that fades in/out */}
+      <span 
+        className={`absolute top-0 left-0 transition-opacity duration-700 ${isVisible ? 'opacity-100' : 'opacity-0'} ${className}`}
+      >
+        {words[currentIndex]}
+      </span>
     </span>
   );
 };
