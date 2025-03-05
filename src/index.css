@@ -78,7 +78,7 @@
   }
   
   .project-card {
-    @apply relative overflow-hidden transition-all duration-300 h-full hover:shadow-lg hover:-translate-y-1;
+    @apply relative overflow-hidden transition-all duration-300 h-full hover:shadow-xl hover:-translate-y-1;
   }
 
   .project-thumb {
@@ -140,7 +140,7 @@
   }
   
   .feature-card {
-    @apply rounded-3xl overflow-hidden relative h-[500px] md:h-[640px] transition-all duration-300 hover:shadow-lg hover:-translate-y-2;
+    @apply rounded-3xl overflow-hidden relative h-[500px] md:h-[640px] transition-all duration-300 hover:shadow-xl hover:-translate-y-2;
   }
   
   .feature-card-bg {
