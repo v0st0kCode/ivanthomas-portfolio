@@ -1,3 +1,4 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Space+Mono&display=swap');
@@ -181,8 +182,8 @@
   
   .feature-card-accent {
     @apply absolute bottom-8 right-8 p-3 flex items-center justify-center rounded-full text-white opacity-0 transition-all duration-300;
-    width: 48px;
-    height: 48px;
+    width: 56px;
+    height: 56px;
   }
   
   .feature-card:hover .feature-card-accent {
@@ -190,11 +191,13 @@
   }
   
   .feature-card-arrow {
-    @apply transition-transform duration-300;
+    @apply transition-transform duration-300 text-white;
+    transform: translateX(-4px);
+    font-size: 1.5rem;
   }
   
   .feature-card:hover .feature-card-arrow {
-    @apply transform translate-x-1;
+    transform: translateX(4px);
   }
   
   .number-scrambler {
