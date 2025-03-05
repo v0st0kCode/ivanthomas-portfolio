@@ -1,8 +1,10 @@
+
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import ParticleHeader from '../components/ParticleHeader';
 import Navbar from '../components/Navbar';
 import { getFeaturedProjects } from '../data/projects';
+import TextLoop from '../components/TextLoop';
 
 const Index = () => {
   const featuredProjects = getFeaturedProjects();
@@ -15,6 +17,9 @@ const Index = () => {
 
     return () => clearTimeout(timer);
   }, []);
+
+  // Words to cycle through in the hero animation
+  const loopWords = ['dots', 'people', 'teams', 'experiences', 'dreams'];
 
   // Card variants for different background colors and styles
   const cardVariants = [
@@ -36,7 +41,7 @@ const Index = () => {
               Digital Product Designer
             </span>
             <h1 className="heading-xl mx-auto mb-8 text-6xl">
-              Connecting dots since <span className="font-onest">1986</span>
+              Connecting <TextLoop words={loopWords} interval={3500} /> since <span className="font-onest">1986</span>
             </h1>
             <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10">
               I design and build user-centered interfaces that connect people and technology
