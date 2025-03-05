@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import ParticleHeader from '../components/ParticleHeader';
@@ -22,6 +21,9 @@ const Index = () => {
         <ParticleHeader />
         <div className="absolute inset-0 flex items-center justify-center">
           <div className={`container-custom text-center max-w-4xl transition-all duration-1000 ease-out ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+            <span className="inline-block py-1 px-3 mb-6 text-xs font-mono tracking-wider uppercase text-muted-foreground">
+              Digital Product Designer
+            </span>
             <h1 className="heading-xl mx-auto mb-8 text-6xl">Connecting dots since 1986</h1>
             <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10">
               I design and build user-centered interfaces that connect people and technology
@@ -42,6 +44,7 @@ const Index = () => {
       <section className="py-24 bg-white">
         <div className="container-custom">
           <div className="mb-16 max-w-3xl">
+            <span className="section-title">Selected Work</span>
             <h2 className="heading-lg mb-4">Recent Projects</h2>
             <p className="paragraph">
               A collection of projects I've worked on that showcase my approach to problem-solving and design thinking.
@@ -96,6 +99,7 @@ const Index = () => {
       <section className="py-24 bg-secondary">
         <div className="container-custom">
           <div className="max-w-3xl mb-16">
+            <span className="section-title">Design Approach</span>
             <h2 className="heading-lg mb-6">How I Work</h2>
             <p className="paragraph">
               My process is built around understanding your business goals and user needs to create designs that deliver results.
@@ -134,6 +138,7 @@ const Index = () => {
       <section className="py-24 bg-white">
         <div className="container-custom">
           <div className="max-w-3xl">
+            <span className="section-title">Get in Touch</span>
             <h2 className="heading-lg mb-6">Let's Work Together</h2>
             <p className="paragraph mb-8">
               Have a project in mind? I'd love to discuss how we can collaborate to create something exceptional.
