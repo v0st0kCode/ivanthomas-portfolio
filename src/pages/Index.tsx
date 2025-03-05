@@ -30,7 +30,7 @@ const Index = () => {
               Digital Product Designer
             </span>
             <h1 className="heading-xl mx-auto mb-8 text-6xl">
-              Connecting dots since <span className="font-onest whitespace-nowrap">1986</span>
+              Connecting the dots since 1986
             </h1>
             <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10">
               I'm a digital product designer with 20 years of experience crafting user-friendly digital products that connect people and technology
