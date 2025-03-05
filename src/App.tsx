@@ -9,8 +9,6 @@ import Work from "./pages/Work";
 import About from "./pages/About";
 import CaseStudy from "./pages/CaseStudy";
 import NotFound from "./pages/NotFound";
-import BackgroundParticles from "./components/BackgroundParticles";
-import ScrollBlurProvider from "./components/ScrollBlurProvider";
 
 const queryClient = new QueryClient();
 
@@ -20,17 +18,14 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        <ScrollBlurProvider>
-          <BackgroundParticles />
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/work" element={<Work />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/case-study" element={<CaseStudy />} />
-            <Route path="/case-study/:id" element={<CaseStudy />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </ScrollBlurProvider>
+        <Routes>
+          <Route path="/" element={<Index />} />
+          <Route path="/work" element={<Work />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/case-study" element={<CaseStudy />} />
+          <Route path="/case-study/:id" element={<CaseStudy />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
