@@ -1,12 +1,15 @@
+
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import ParticleHeader from '../components/ParticleHeader';
 import Navbar from '../components/Navbar';
 import { getFeaturedProjects } from '../data/projects';
 import { LockKeyhole } from 'lucide-react';
+
 const Index = () => {
   const featuredProjects = getFeaturedProjects();
   const [isLoaded, setIsLoaded] = useState(false);
+  
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoaded(true);
@@ -14,6 +17,7 @@ const Index = () => {
 
     return () => clearTimeout(timer);
   }, []);
+  
   return <div className="min-h-screen bg-white">
       <Navbar />
       
@@ -50,7 +54,7 @@ const Index = () => {
             <h2 className="heading-lg mb-4">Recent Projects</h2>
             <p className="paragraph">
               A collection of projects I've worked on that showcase my approach to problem-solving and design thinking.
-            A collection of projects I've worked on that showcase my approach to problem-solving and design thinking.</p>
+            </p>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -170,4 +174,5 @@ const Index = () => {
       </footer>
     </div>;
 };
+
 export default Index;
