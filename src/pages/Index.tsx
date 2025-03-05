@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import ParticleHeader from '../components/ParticleHeader';
@@ -46,7 +47,7 @@ const Index = () => {
       </section>
       
       {/* Featured Projects Section with Updated Card Style */}
-      <section className="py-16 bg-white relative">
+      <section className="py-20 bg-white relative">
         <div className="container-custom">
           <div className="mb-16 max-w-3xl">
             <h2 className="heading-lg mb-4">Recent Projects</h2>
@@ -55,7 +56,7 @@ const Index = () => {
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {featuredProjects.map((project, index) => {              
               return (
                 <Link key={project.id} to={`/case-study/${project.id}`} className="feature-card group">

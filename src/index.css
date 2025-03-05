@@ -1,3 +1,4 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Space+Mono&display=swap');
@@ -141,7 +142,7 @@
   
   /* Updated card styles with full background image and gradient overlay */
   .feature-card {
-    @apply rounded-3xl overflow-hidden relative h-full transition-all duration-300;
+    @apply rounded-3xl overflow-hidden relative h-[500px] md:h-[640px] transition-all duration-300;
   }
   
   .feature-card-bg {
@@ -166,7 +167,7 @@
   }
   
   .feature-card-content {
-    @apply relative z-10 p-8 flex flex-col h-full text-white;
+    @apply relative z-10 p-8 md:p-10 flex flex-col h-full text-white;
   }
   
   .feature-card-category {
@@ -174,11 +175,11 @@
   }
   
   .feature-card-title {
-    @apply text-2xl md:text-3xl font-display mb-3 leading-tight text-white;
+    @apply text-2xl md:text-3xl lg:text-4xl font-display mb-3 leading-tight text-white;
   }
   
   .feature-card-description {
-    @apply text-sm text-white/80 mb-6;
+    @apply text-sm md:text-base text-white/80 mb-6;
   }
   
   .feature-card-accent {
