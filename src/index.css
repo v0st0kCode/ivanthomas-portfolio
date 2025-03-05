@@ -1,3 +1,4 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Space+Mono&display=swap');
@@ -152,7 +153,7 @@
   }
   
   .feature-card-image-bg img {
-    @apply w-full h-full object-cover transition-all duration-500 ease-in-out grayscale opacity-50;
+    @apply w-full h-full object-cover transition-all duration-500 ease-in-out grayscale opacity-100;
   }
   
   .feature-card:hover .feature-card-image-bg img {
