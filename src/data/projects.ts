@@ -50,37 +50,6 @@ export const projects: Project[] = [
     }
   },
   {
-    id: "healthcare-dashboard",
-    title: "Healthcare Dashboard",
-    description: "A comprehensive dashboard for healthcare professionals to monitor patient data and streamline workflows.",
-    image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158",
-    category: "Dashboard",
-    year: "2022",
-    featured: true,
-    size: "medium",
-    details: {
-      client: "Healthcare Provider",
-      role: "Product Designer",
-      duration: "6 months",
-      tools: ["Sketch", "InVision", "Framer"]
-    }
-  },
-  {
-    id: "productivity-app",
-    title: "Productivity App",
-    description: "A minimal task management application designed for focus and productivity enhancement.",
-    image: "https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7",
-    category: "Mobile App",
-    year: "2022",
-    size: "medium",
-    details: {
-      client: "Tech Startup",
-      role: "UX/UI Designer",
-      duration: "3 months",
-      tools: ["Figma", "Adobe XD"]
-    }
-  },
-  {
     id: "digital-workspace",
     title: "Digital Workspace Platform",
     description: "A collaborative workspace platform that helps remote teams stay connected and productive.",
