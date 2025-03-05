@@ -1,4 +1,3 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Space+Mono&display=swap');
@@ -149,11 +148,21 @@
   }
   
   .feature-card-image-bg {
-    @apply absolute inset-0 w-full h-full;
+    @apply absolute inset-0 w-full h-full overflow-hidden;
   }
   
   .feature-card-image-bg img {
     @apply w-full h-full object-cover transition-all duration-500 ease-in-out grayscale opacity-100;
+    animation: subtle-float 15s ease-in-out infinite alternate;
+  }
+  
+  @keyframes subtle-float {
+    from {
+      transform: translateY(0);
+    }
+    to {
+      transform: translateY(-5%);
+    }
   }
   
   .feature-card:hover .feature-card-image-bg img {
