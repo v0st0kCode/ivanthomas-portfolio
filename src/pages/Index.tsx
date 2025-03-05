@@ -41,7 +41,7 @@ const Index = () => {
               Digital Product Designer
             </span>
             <h1 className="heading-xl mx-auto mb-8 text-6xl">
-              Connecting <TextLoop words={loopWords} interval={3500} /> <span className="whitespace-nowrap">since 1986</span>
+              Connecting<TextLoop words={loopWords} interval={3500} /> <span className="whitespace-nowrap">since 1986</span>
             </h1>
             <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10">
               I design and build user-centered interfaces that connect people and technology

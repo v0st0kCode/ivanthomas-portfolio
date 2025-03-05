@@ -40,7 +40,7 @@ const TextLoop: React.FC<TextLoopProps> = ({
   }, [currentIndex, interval, words.length]);
 
   return (
-    <span className="relative inline-block">
+    <span className="relative inline-block" style={{ marginRight: '-0.2em' }}>
       {/* Invisible text with the longest word to maintain consistent width */}
       <span className="invisible" aria-hidden="true">
         {longestWord}
