@@ -1,3 +1,4 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Space+Mono&display=swap');
@@ -139,64 +140,66 @@
     @apply md:col-span-1 md:row-span-1;
   }
   
+  /* Updated card styles with full background image and gradient overlay */
   .feature-card {
     @apply rounded-3xl overflow-hidden relative h-full transition-all duration-300;
   }
   
-  .feature-card-light {
-    @apply bg-gray-50;
+  .feature-card-bg {
+    @apply relative rounded-3xl overflow-hidden h-full;
   }
   
-  .feature-card-dark {
-    @apply bg-gray-900 text-white;
+  .feature-card-image-bg {
+    @apply absolute inset-0 w-full h-full;
   }
   
-  .feature-card-green {
-    @apply bg-[#F2FCE2];
+  .feature-card-image-bg img {
+    @apply w-full h-full object-cover transition-transform duration-700 ease-out;
   }
   
-  .feature-card-blue {
-    @apply bg-[#D3E4FD];
+  .feature-card:hover .feature-card-image-bg img {
+    @apply scale-105;
+  }
+  
+  /* Gradient overlays for better text readability */
+  .gradient-overlay-dark {
+    @apply absolute inset-0 bg-gradient-to-t from-black/80 to-black/30;
+  }
+  
+  .gradient-overlay-blue {
+    @apply absolute inset-0 bg-gradient-to-t from-blue-900/90 to-blue-900/40;
+  }
+  
+  .gradient-overlay-green {
+    @apply absolute inset-0 bg-gradient-to-t from-emerald-900/90 to-emerald-800/40;
+  }
+  
+  .gradient-overlay-purple {
+    @apply absolute inset-0 bg-gradient-to-t from-purple-900/90 to-purple-800/40;
   }
   
   .feature-card-content {
-    @apply p-8 flex flex-col h-full;
+    @apply relative z-10 p-8 flex flex-col h-full text-white;
   }
   
   .feature-card-category {
-    @apply text-xs font-mono mb-2 opacity-80;
+    @apply text-xs font-mono mb-2 text-white/80;
   }
   
   .feature-card-title {
-    @apply text-2xl md:text-3xl font-display mb-3 leading-tight;
-  }
-  
-  .feature-card-subtitle {
-    @apply text-xl md:text-2xl font-display leading-tight mb-6;
+    @apply text-2xl md:text-3xl font-display mb-3 leading-tight text-white;
   }
   
   .feature-card-description {
-    @apply text-sm opacity-80 mb-6;
-  }
-  
-  .feature-card-image {
-    @apply mt-auto w-full h-[260px] overflow-hidden;
-  }
-  
-  .feature-card-image img {
-    @apply w-full h-full object-cover transition-all duration-500 ease-out;
+    @apply text-sm text-white/80 mb-6;
   }
   
   .feature-card-accent {
-    @apply absolute bottom-6 right-6 p-3 rounded-full bg-white opacity-0 transition-all duration-300;
+    @apply absolute bottom-6 right-6 p-3 rounded-full bg-white/20 text-white opacity-0 transition-all duration-300;
   }
   
   .feature-card:hover .feature-card-accent {
-    @apply opacity-100;
-  }
-  
-  .feature-card:hover .feature-card-image img {
-    @apply scale-105;
+    @apply opacity-100 bg-white text-black;
   }
   
   .feature-card-arrow {

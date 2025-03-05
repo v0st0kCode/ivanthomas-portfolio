@@ -17,12 +17,12 @@ const Index = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  // Card variants for different background colors and styles
+  // Card variants for different gradient overlays
   const cardVariants = [
-    { bgClass: 'feature-card-light', accent: 'arrow-right' },
-    { bgClass: 'feature-card-dark', accent: 'arrow-right' },
-    { bgClass: 'feature-card-green', accent: 'arrow-right' },
-    { bgClass: 'feature-card-blue', accent: 'arrow-right' },
+    { overlayClass: 'gradient-overlay-dark', accent: 'arrow-right' },
+    { overlayClass: 'gradient-overlay-blue', accent: 'arrow-right' },
+    { overlayClass: 'gradient-overlay-green', accent: 'arrow-right' },
+    { overlayClass: 'gradient-overlay-purple', accent: 'arrow-right' },
   ];
 
   return <div className="min-h-screen bg-white">
@@ -37,7 +37,7 @@ const Index = () => {
               Digital Product Designer
             </span>
             <h1 className="heading-xl mx-auto mb-8 text-6xl">
-              Connecting dots since <span className="font-onest">1986</span>
+              Connecting dots since <span className="font-onest whitespace-nowrap">1986</span>
             </h1>
             <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10">
               I'm a digital product designer with 20 years of experience crafting user-friendly digital products that connect people and technology
@@ -71,14 +71,16 @@ const Index = () => {
               
               return (
                 <Link key={project.id} to={`/case-study/${project.id}`} className="feature-card group">
-                  <div className={`feature-card ${variant.bgClass} h-full`}>
+                  <div className="feature-card-bg h-full">
+                    <div className="feature-card-image-bg">
+                      <img src={project.image} alt={project.title} loading="lazy" />
+                      <div className={`${variant.overlayClass}`}></div>
+                    </div>
                     <div className="feature-card-content">
                       <span className="feature-card-category">{project.category}</span>
                       <h3 className="feature-card-title">{project.title}</h3>
                       <p className="feature-card-description">{project.description}</p>
-                      <div className="feature-card-image">
-                        <img src={project.image} alt={project.title} loading="lazy" />
-                      </div>
+                      
                       <div className="feature-card-accent">
                         <svg className="feature-card-arrow" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
