@@ -18,7 +18,7 @@ export interface Project {
 
 export const projects: Project[] = [
   {
-    id: "financial-app",
+    id: "livepro-app",
     title: "Mediacoach LivePRO",
     description: "Mediacoach LivePRO is the world's first app to deliver real-time pitch data on an iPad.",
     image: "https://assets.bwbx.io/images/users/iqjWHBFdfxIU/iEOkrsPpBnrU/v1/-1x-1.webp",
