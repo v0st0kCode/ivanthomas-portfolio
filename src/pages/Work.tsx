@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
@@ -48,7 +49,6 @@ const Work = () => {
       <section className="pt-32 pb-20">
         <div className="container-custom">
           <div className="max-w-4xl mx-auto text-center mb-16">
-            <span className="section-title animate-fade-in">Portfolio</span>
             <h1 className="heading-lg mb-6 animate-fade-in" style={{ animationDelay: '0.1s' }}>
               Selected Projects
             </h1>
@@ -125,7 +125,6 @@ const Work = () => {
       <section className="py-24 bg-secondary">
         <div className="container-custom">
           <div className="max-w-4xl mx-auto text-center">
-            <span className="section-title animate-on-scroll opacity-0">Get in Touch</span>
             <h2 className="heading-lg mb-6 animate-on-scroll opacity-0">Have a Project in Mind?</h2>
             <p className="paragraph mx-auto mb-8 animate-on-scroll opacity-0">
               I'm always open to discussing new projects, creative ideas or opportunities to be part of your vision.
