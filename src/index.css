@@ -1,3 +1,4 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Space+Mono&display=swap');
@@ -153,11 +154,12 @@
   }
   
   .feature-card-image-bg img {
-    @apply w-full h-full object-cover transition-transform duration-700 ease-out grayscale;
+    @apply w-full h-full object-cover transition-transform duration-700 ease-out grayscale opacity-20;
+    transition: transform 0.7s ease-out, opacity 0.5s ease-out, filter 0.5s ease-out;
   }
   
   .feature-card:hover .feature-card-image-bg img {
-    @apply scale-105;
+    @apply scale-105 opacity-60 grayscale-0;
   }
   
   /* Black to transparent gradient overlay for better text readability */
