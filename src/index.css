@@ -163,11 +163,11 @@
   
   /* Black to transparent gradient overlay for better text readability */
   .gradient-overlay {
-    @apply absolute inset-0 bg-gradient-to-t from-black to-transparent;
+    @apply absolute inset-0 bg-gradient-to-t from-black via-black/70 to-transparent;
   }
   
   .feature-card-content {
-    @apply relative z-10 p-8 md:p-10 flex flex-col h-full text-white;
+    @apply relative z-10 p-8 md:p-10 flex flex-col justify-end h-full text-white;
   }
   
   .feature-card-category {
