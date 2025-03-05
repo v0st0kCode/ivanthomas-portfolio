@@ -1,15 +1,12 @@
-
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import ParticleHeader from '../components/ParticleHeader';
 import Navbar from '../components/Navbar';
 import { getFeaturedProjects } from '../data/projects';
 import { LockKeyhole } from 'lucide-react';
-
 const Index = () => {
   const featuredProjects = getFeaturedProjects();
   const [isLoaded, setIsLoaded] = useState(false);
-
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoaded(true);
@@ -17,7 +14,6 @@ const Index = () => {
 
     return () => clearTimeout(timer);
   }, []);
-
   return <div className="min-h-screen bg-white">
       <Navbar />
       
@@ -54,13 +50,12 @@ const Index = () => {
             <h2 className="heading-lg mb-4">Recent Projects</h2>
             <p className="paragraph">
               A collection of projects I've worked on that showcase my approach to problem-solving and design thinking.
-            </p>
+            A collection of projects I've worked on that showcase my approach to problem-solving and design thinking.</p>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {featuredProjects.map((project, index) => {              
-              return (
-                <Link key={project.id} to={`/case-study/${project.id}`} className="feature-card group">
+            {featuredProjects.map((project, index) => {
+            return <Link key={project.id} to={`/case-study/${project.id}`} className="feature-card group">
                   <div className="feature-card-bg h-full">
                     <div className="feature-card-image-bg">
                       <img src={project.image} alt={project.title} loading="lazy" />
@@ -72,19 +67,14 @@ const Index = () => {
                       <p className="feature-card-description">{project.description}</p>
                       
                       <div className="feature-card-accent">
-                        {project.protected ? (
-                          <LockKeyhole size={64} />
-                        ) : (
-                          <svg width="64" height="64" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="feature-card-arrow">
+                        {project.protected ? <LockKeyhole size={64} /> : <svg width="64" height="64" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="feature-card-arrow">
                             <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                          </svg>
-                        )}
+                          </svg>}
                       </div>
                     </div>
                   </div>
-                </Link>
-              );
-            })}
+                </Link>;
+          })}
           </div>
           
           <div className="mt-16 flex justify-center">
@@ -180,5 +170,4 @@ const Index = () => {
       </footer>
     </div>;
 };
-
 export default Index;
