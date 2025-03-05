@@ -1,3 +1,4 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Space+Mono&display=swap');
@@ -110,7 +111,13 @@
   }
   
   .nav-link {
-    @apply text-sm font-medium relative inline-block transition-colors after:content-[''] after:absolute after:h-[2px] after:bg-black after:bottom-[-4px] after:left-0 after:transition-all after:duration-300 after:ease-in-out hover:after:w-full;
+    @apply text-sm font-medium relative inline-block transition-colors text-black after:content-[''] after:absolute after:h-[2px] after:bg-black after:bottom-[-4px] after:left-0 after:transition-all after:duration-300 after:ease-in-out hover:after:w-full;
+    text-shadow: 0 0 1px rgba(0,0,0,0.05);
+    letter-spacing: 0.01em;
+  }
+  
+  .text-shadow {
+    text-shadow: 0 0 1px rgba(0,0,0,0.1);
   }
   
   .button-primary {

@@ -24,12 +24,12 @@ const Navbar: React.FC = () => {
 
   return (
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-      isScrolled ? 'py-3 bg-white/90 backdrop-blur-md shadow-sm' : 'py-5 bg-transparent'
+      isScrolled ? 'py-3 bg-white/95 backdrop-blur-md shadow-sm' : 'py-5 bg-white/10 backdrop-blur-sm'
     }`}>
       <nav className="container-custom flex justify-between items-center">
         <Link 
           to="/" 
-          className="font-display font-bold text-xl tracking-tight hover:opacity-80 transition-opacity"
+          className="font-display font-bold text-xl tracking-tight hover:opacity-80 transition-opacity text-shadow"
         >
           Ivan Thomas
         </Link>
@@ -37,19 +37,19 @@ const Navbar: React.FC = () => {
         <div className="flex space-x-8">
           <Link 
             to="/" 
-            className={`nav-link ${isActive('/') ? 'after:w-full' : 'after:w-0'}`}
+            className={`nav-link ${isActive('/') ? 'after:w-full font-medium' : 'after:w-0'}`}
           >
             Home
           </Link>
           <Link 
             to="/work" 
-            className={`nav-link ${isActive('/work') ? 'after:w-full' : 'after:w-0'}`}
+            className={`nav-link ${isActive('/work') ? 'after:w-full font-medium' : 'after:w-0'}`}
           >
             Work
           </Link>
           <Link 
             to="/about" 
-            className={`nav-link ${isActive('/about') ? 'after:w-full' : 'after:w-0'}`}
+            className={`nav-link ${isActive('/about') ? 'after:w-full font-medium' : 'after:w-0'}`}
           >
             About
           </Link>
