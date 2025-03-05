@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import ParticleHeader from '../components/ParticleHeader';
@@ -16,6 +15,14 @@ const Index = () => {
 
     return () => clearTimeout(timer);
   }, []);
+
+  // Card variants for different background colors and styles
+  const cardVariants = [
+    { bgClass: 'feature-card-light', accent: '+' },
+    { bgClass: 'feature-card-dark', accent: '+' },
+    { bgClass: 'feature-card-green', accent: '+' },
+    { bgClass: 'feature-card-blue', accent: '+' },
+  ];
 
   return <div className="min-h-screen bg-white">
       <Navbar />
@@ -44,7 +51,7 @@ const Index = () => {
         </div>
       </section>
       
-      {/* Featured Projects Section */}
+      {/* Featured Projects Section with New Card Style */}
       <section className="py-24 bg-white">
         <div className="container-custom">
           <div className="mb-16 max-w-3xl">
@@ -55,41 +62,31 @@ const Index = () => {
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {featuredProjects.map((project, index) => {
-            // Determine grid placement based on index and size
-            let gridClass = "md:col-span-6";
-            if (index === 0) {
-              gridClass = "md:col-span-7"; // First item is larger
-            } else if (index === 1) {
-              gridClass = "md:col-span-5"; // Second item
-            } else if (index === 2) {
-              gridClass = "md:col-span-12"; // Full width item for variety
-            } else {
-              gridClass = `md:col-span-${index % 2 === 0 ? '7' : '5'}`; // Alternate sizing
-            }
-            
-            // Use same height for all projects in a row
-            const heightClass = index < 2 ? "h-full" : "";
-            const thumbnailHeightClass = "h-64"; // Consistent thumbnail height
-            
-            return <Link key={project.id} to={`/case-study/${project.id}`} className={`project-card ${gridClass} ${heightClass}`}>
-                  <div className="project-thumb group bg-white rounded-3xl shadow-sm overflow-hidden border border-gray-100 hover:shadow-md transition-all duration-300 h-full flex flex-col">
-                    <div className="relative overflow-hidden">
-                      <img src={project.image} alt={project.title} className={`w-full ${thumbnailHeightClass} object-cover transition-transform duration-700 group-hover:scale-105`} loading="lazy" />
-                      <div className="project-overlay absolute inset-0 bg-black/60 opacity-0 transition-opacity duration-300 flex flex-col items-center justify-center text-white p-6 group-hover:opacity-100">
-                        <span className="text-xs font-mono uppercase tracking-wider opacity-75 mb-2">{project.category}</span>
-                        <span className="text-xs font-mono px-4 py-1 border border-white/30 rounded-sm transition-all duration-300 hover:bg-white/70 hover:text-black hover:border-white hover:scale-105 mt-4">View Case Study</span>
+              // Pick a card variant based on index
+              const variant = cardVariants[index % cardVariants.length];
+              
+              return (
+                <Link key={project.id} to={`/case-study/${project.id}`} className="feature-card group">
+                  <div className={`feature-card ${variant.bgClass} h-full`}>
+                    <div className="feature-card-content">
+                      <span className="feature-card-category">{project.category}</span>
+                      <h3 className="feature-card-title">{project.title}</h3>
+                      <p className="feature-card-description">{project.description}</p>
+                      <div className="feature-card-image">
+                        <img src={project.image} alt={project.title} loading="lazy" />
+                      </div>
+                      <div className="feature-card-accent">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M12 5V19M5 12H19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
                       </div>
                     </div>
-                    <div className="p-6 flex-grow flex flex-col">
-                      <span className="text-xs font-mono text-muted-foreground">{project.category}</span>
-                      <h3 className="text-xl font-medium mt-1 mb-2">{project.title}</h3>
-                      <p className="text-sm text-muted-foreground line-clamp-2">{project.description}</p>
-                    </div>
                   </div>
-                </Link>;
-          })}
+                </Link>
+              );
+            })}
           </div>
           
           <div className="mt-16 flex justify-center">
