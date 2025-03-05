@@ -9,9 +9,21 @@ const ParallaxScroll: React.FC = () => {
       const scrollPosition = window.scrollY;
       
       parallaxElements.forEach((element) => {
-        const elementPosition = element.getBoundingClientRect().top + scrollPosition;
-        const offset = (scrollPosition - elementPosition) * 0.1;
-        const translateY = Math.min(Math.max(-5, offset), 5); // Limit movement to -5% to 5%
+        // Get element's parent container position instead of the element itself
+        const parentElement = element.closest('.feature-card-image-bg');
+        if (!parentElement) return;
+        
+        const elementPosition = parentElement.getBoundingClientRect().top + scrollPosition;
+        const windowHeight = window.innerHeight;
+        
+        // Start parallax effect when element is still below viewport
+        // This creates a more continuous effect as user scrolls
+        const distanceToElement = elementPosition - scrollPosition;
+        const visibilityRatio = 1 - Math.min(Math.max(0, distanceToElement / (windowHeight * 1.5)), 1);
+        
+        // Apply parallax effect based on scroll position and visibility
+        const offset = scrollPosition * 0.05 * visibilityRatio;
+        const translateY = Math.min(Math.max(-10, offset), 10); // Increased range for more noticeable effect
         
         (element as HTMLElement).style.transform = `translateY(${translateY}%)`;
       });
