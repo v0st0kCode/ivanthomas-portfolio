@@ -21,7 +21,7 @@ export default {
 		extend: {
 			fontFamily: {
 				sans: ['Inter', 'sans-serif'],
-				display: ['Onest', 'Inter', 'sans-serif'],
+				display: ['Instrument Sans', 'Inter', 'sans-serif'],
 				mono: ['Space Mono', 'monospace'],
 			},
 			colors: {
