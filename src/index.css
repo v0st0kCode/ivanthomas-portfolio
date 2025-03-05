@@ -153,16 +153,7 @@
   
   .feature-card-image-bg img {
     @apply w-full h-full object-cover transition-all duration-500 ease-in-out grayscale opacity-100;
-    animation: subtle-float 15s ease-in-out infinite alternate;
-  }
-  
-  @keyframes subtle-float {
-    from {
-      transform: translateY(0);
-    }
-    to {
-      transform: translateY(-5%);
-    }
+    transform: translateY(0);
   }
   
   .feature-card:hover .feature-card-image-bg img {
@@ -210,5 +201,10 @@
   .number-scrambler {
     @apply inline-block font-mono font-bold;
     text-rendering: optimizeSpeed;
+  }
+  
+  .parallax-element {
+    @apply will-change-transform;
+    transition: transform 0.1s ease-out;
   }
 }
