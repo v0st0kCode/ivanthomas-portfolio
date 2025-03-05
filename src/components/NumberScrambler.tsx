@@ -14,8 +14,7 @@ const NumberScrambler: React.FC<NumberScramblerProps> = ({
 }) => {
   const [displayValue, setDisplayValue] = useState<string>("");
   const timerRef = useRef<NodeJS.Timeout | null>(null);
-  const intervalRef = useRef<NodeJS.Timeout | null>(null);
-  const startTimeRef = useRef<number | null>(null);
+  const startTimeRef = useRef<number>(0);
   const animationFrameRef = useRef<number | null>(null);
 
   // Generate a random digit
@@ -28,74 +27,65 @@ const NumberScrambler: React.FC<NumberScramblerProps> = ({
     }).join('');
   };
 
-  // Animation function with smoother transitions
-  const animate = () => {
+  // Animation function
+  const animate = (timestamp: number) => {
     if (!startTimeRef.current) {
-      startTimeRef.current = Date.now();
+      startTimeRef.current = timestamp;
     }
 
-    const elapsed = Date.now() - startTimeRef.current;
+    const elapsed = timestamp - startTimeRef.current;
     const progress = Math.min(elapsed / duration, 1);
     
-    // Generate a flowing random pattern
-    let newValue = "";
+    // More frequent changes at the beginning, slowing down towards the end
+    const shouldUpdate = Math.random() < (1 - progress) * 0.8;
     
-    // Create a flowing effect where digits stabilize from left to right
-    for (let i = 0; i < finalValue.length; i++) {
-      const char = finalValue[i];
-      const stabilizeThreshold = Math.min(1, progress * 1.5); // Adjust for stabilization speed
-      const positionProgress = i / finalValue.length; // Position weight (0 to 1)
+    if (shouldUpdate || displayValue.length !== finalValue.length) {
+      // Generate a new random value
+      let newValue = getRandomValue(finalValue);
       
-      // Earlier positions stabilize faster than later positions
-      const shouldStabilize = progress > 0.8 || 
-                             (Math.random() < (stabilizeThreshold - positionProgress * 0.5));
-      
-      if (shouldStabilize && progress > 0.5) {
-        newValue += char;
-      } else {
-        newValue += isNaN(parseInt(char)) ? char : getRandomDigit();
+      // As we get closer to the end, gradually reveal the correct digits
+      if (progress > 0.5) {
+        newValue = Array.from(finalValue).map((char, index) => {
+          const revealThreshold = (progress - 0.5) * 2; // Scale from 0 to 1
+          const shouldReveal = Math.random() < revealThreshold;
+          return shouldReveal ? char : (isNaN(parseInt(char)) ? char : getRandomDigit());
+        }).join('');
       }
+      
+      // When we're very close to the end, ensure some digits are correct
+      if (progress > 0.8) {
+        newValue = Array.from(finalValue).map((char, index) => {
+          return index < Math.floor(finalValue.length * (progress - 0.7) * 5) ? char : 
+                 (isNaN(parseInt(char)) ? char : getRandomDigit());
+        }).join('');
+      }
+      
+      setDisplayValue(newValue);
     }
-    
-    setDisplayValue(newValue);
 
-    // Final state - ensure we show the final value
+    // Final state
     if (progress >= 1) {
       setDisplayValue(finalValue);
-      clearInterval(intervalRef.current!);
       return;
     }
+
+    animationFrameRef.current = requestAnimationFrame(animate);
   };
 
   useEffect(() => {
-    // Initialize with random value
-    setDisplayValue(getRandomValue(finalValue));
-    
-    // Reset the animation when finalValue changes
-    if (startTimeRef.current) {
-      startTimeRef.current = null;
-    }
-    
-    // Clear any existing timers
-    if (intervalRef.current) {
-      clearInterval(intervalRef.current);
-    }
-    
     // Start animation after a small delay
     timerRef.current = setTimeout(() => {
-      // Run the animation at 30fps (approximately)
-      intervalRef.current = setInterval(animate, 33);
-    }, 100);
+      animationFrameRef.current = requestAnimationFrame(animate);
+    }, 300);
 
     return () => {
       if (timerRef.current) clearTimeout(timerRef.current);
-      if (intervalRef.current) clearInterval(intervalRef.current);
       if (animationFrameRef.current) cancelAnimationFrame(animationFrameRef.current);
     };
   }, [finalValue, duration]);
 
   return (
-    <span className={`number-scrambler font-display ${className}`}>
+    <span className={`number-scrambler ${className}`}>
       {displayValue || getRandomValue(finalValue)}
     </span>
   );
