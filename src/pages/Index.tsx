@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import ParticleHeader from '../components/ParticleHeader';
@@ -57,7 +58,6 @@ const Index = () => {
       <section className="py-24 bg-white">
         <div className="container-custom">
           <div className="mb-16 max-w-3xl">
-            <span className="section-title">Selected Work</span>
             <h2 className="heading-lg mb-4">Recent Projects</h2>
             <p className="paragraph">
               A collection of projects I've worked on that showcase my approach to problem-solving and design thinking.
