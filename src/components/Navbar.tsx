@@ -31,7 +31,7 @@ const Navbar: React.FC = () => {
           to="/" 
           className="font-display font-bold text-xl tracking-tight hover:opacity-80 transition-opacity"
         >
-          Portfolio.
+          Ivan Thomas
         </Link>
         
         <div className="flex space-x-8">
