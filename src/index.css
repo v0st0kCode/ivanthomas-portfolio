@@ -139,7 +139,6 @@
     @apply md:col-span-1 md:row-span-1;
   }
   
-  /* Updated card styles with full background image and gradient overlay */
   .feature-card {
     @apply rounded-3xl overflow-hidden relative h-[500px] md:h-[640px] transition-all duration-300;
   }
@@ -153,14 +152,13 @@
   }
   
   .feature-card-image-bg img {
-    @apply w-full h-full object-cover transition-all duration-500 ease-out grayscale opacity-50;
+    @apply w-full h-full object-cover transition-all duration-500 ease-in-out grayscale opacity-50;
   }
   
   .feature-card:hover .feature-card-image-bg img {
     @apply scale-105 grayscale-0 opacity-100;
   }
   
-  /* Black to transparent gradient overlay for better text readability */
   .gradient-overlay {
     @apply absolute inset-0 bg-gradient-to-t from-black via-black/70 to-transparent;
   }
