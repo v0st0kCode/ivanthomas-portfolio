@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import ParticleHeader from '../components/ParticleHeader';
@@ -15,14 +16,6 @@ const Index = () => {
 
     return () => clearTimeout(timer);
   }, []);
-
-  // Card variants for different background colors and styles
-  const cardVariants = [
-    { bgClass: 'feature-card-light', accent: 'arrow-right' },
-    { bgClass: 'feature-card-dark', accent: 'arrow-right' },
-    { bgClass: 'feature-card-green', accent: 'arrow-right' },
-    { bgClass: 'feature-card-blue', accent: 'arrow-right' },
-  ];
 
   return <div className="min-h-screen bg-white">
       <Navbar />
@@ -51,7 +44,7 @@ const Index = () => {
         </div>
       </section>
       
-      {/* Featured Projects Section with New Card Style */}
+      {/* Featured Projects Section with Full Card Style */}
       <section className="py-24 bg-white">
         <div className="container-custom">
           <div className="mb-16 max-w-3xl">
@@ -63,30 +56,36 @@ const Index = () => {
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {featuredProjects.map((project, index) => {
-              // Pick a card variant based on index
-              const variant = cardVariants[index % cardVariants.length];
-              
-              return (
-                <Link key={project.id} to={`/case-study/${project.id}`} className="feature-card group">
-                  <div className={`feature-card ${variant.bgClass} h-full`}>
-                    <div className="feature-card-content">
-                      <span className="feature-card-category">{project.category}</span>
-                      <h3 className="feature-card-title">{project.title}</h3>
-                      <p className="feature-card-description">{project.description}</p>
-                      <div className="feature-card-image">
-                        <img src={project.image} alt={project.title} loading="lazy" />
-                      </div>
-                      <div className="feature-card-accent">
-                        <svg className="feature-card-arrow" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                        </svg>
-                      </div>
+            {featuredProjects.map((project, index) => (
+              <Link key={project.id} to={`/case-study/${project.id}`} className="project-card-full overflow-hidden rounded-lg group">
+                <div className="project-card-full-inner relative h-full w-full">
+                  <div className="project-card-full-image h-full w-full">
+                    <img 
+                      src={project.image} 
+                      alt={project.title} 
+                      className="h-full w-full object-cover" 
+                    />
+                  </div>
+                  
+                  <div className="project-card-full-content">
+                    <div className="project-card-full-text">
+                      <h3 className="project-card-full-title">{project.title}</h3>
+                      <p className="project-card-full-category">{project.category}</p>
+                    </div>
+                    
+                    <div className="project-card-full-client">
+                      {project.clientName}
                     </div>
                   </div>
-                </Link>
-              );
-            })}
+                  
+                  <div className="project-card-full-arrow">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </div>
+                </div>
+              </Link>
+            ))}
           </div>
           
           <div className="mt-16 flex justify-center">
