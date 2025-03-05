@@ -7,6 +7,7 @@ export interface Project {
   category: string;
   year: string;
   featured?: boolean;
+  protected?: boolean; // New property for protected projects
   details?: {
     client?: string;
     role?: string;
@@ -25,6 +26,7 @@ export const projects: Project[] = [
     category: "iPad App",
     year: "2022",
     featured: true,
+    protected: true, // Making this project protected
     size: "large",
     details: {
       client: "LaLiga",
@@ -57,6 +59,7 @@ export const projects: Project[] = [
     category: "Web Application",
     year: "2023",
     featured: true,
+    protected: true, // Making this project protected
     size: "medium",
     details: {
       client: "Enterprise SaaS",

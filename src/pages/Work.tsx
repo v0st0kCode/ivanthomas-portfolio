@@ -1,14 +1,13 @@
-
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import { projects, Project } from '../data/projects';
+import { LockKeyhole } from 'lucide-react';
 
 const Work = () => {
   const [filter, setFilter] = useState<string>('all');
   const [filteredProjects, setFilteredProjects] = useState<Project[]>(projects);
   
-  // Filter projects when category filter changes
   useEffect(() => {
     if (filter === 'all') {
       setFilteredProjects(projects);
@@ -17,7 +16,6 @@ const Work = () => {
     }
   }, [filter]);
 
-  // Animation on scroll
   useEffect(() => {
     const handleScroll = () => {
       const elements = document.querySelectorAll('.animate-on-scroll');
@@ -31,20 +29,17 @@ const Work = () => {
     };
 
     window.addEventListener('scroll', handleScroll);
-    // Trigger once on mount
     handleScroll();
     
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Get unique categories
   const categories = ['all', ...new Set(projects.map(project => project.category.toLowerCase()))];
 
   return (
     <div className="min-h-screen bg-white">
       <Navbar />
       
-      {/* Work Hero */}
       <section className="pt-32 pb-20">
         <div className="container-custom">
           <div className="max-w-4xl mx-auto text-center mb-16">
@@ -57,7 +52,6 @@ const Work = () => {
             </p>
           </div>
           
-          {/* Filter */}
           <div className="flex justify-center mb-16 animate-fade-in" style={{ animationDelay: '0.3s' }}>
             <div className="flex flex-wrap justify-center gap-2">
               {categories.map(category => (
@@ -76,7 +70,6 @@ const Work = () => {
             </div>
           </div>
           
-          {/* Projects Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
             {filteredProjects.map((project, index) => (
               <Link 
@@ -100,7 +93,12 @@ const Work = () => {
                   <span className="text-sm px-4 py-1 border border-white/30 rounded-full">View Case Study</span>
                 </div>
                 <div className="p-4">
-                  <span className="text-xs text-muted-foreground">{project.category} • {project.year}</span>
+                  <div className="flex justify-between items-center">
+                    <span className="text-xs text-muted-foreground">{project.category} • {project.year}</span>
+                    {project.protected && (
+                      <LockKeyhole size={16} className="text-muted-foreground" />
+                    )}
+                  </div>
                   <h3 className="text-lg font-medium mt-1">{project.title}</h3>
                 </div>
               </Link>
@@ -121,7 +119,6 @@ const Work = () => {
         </div>
       </section>
       
-      {/* Contact Section */}
       <section className="py-24 bg-secondary">
         <div className="container-custom">
           <div className="max-w-4xl mx-auto text-center">
@@ -140,7 +137,6 @@ const Work = () => {
         </div>
       </section>
       
-      {/* Footer */}
       <footer className="py-12 border-t border-border">
         <div className="container-custom">
           <div className="flex flex-col md:flex-row justify-between items-center">
