@@ -27,7 +27,7 @@ const NumberScrambler: React.FC<NumberScramblerProps> = ({
     }).join('');
   };
 
-  // Animation function
+  // Animation function with smoother transitions
   const animate = (timestamp: number) => {
     if (!startTimeRef.current) {
       startTimeRef.current = timestamp;
@@ -36,28 +36,29 @@ const NumberScrambler: React.FC<NumberScramblerProps> = ({
     const elapsed = timestamp - startTimeRef.current;
     const progress = Math.min(elapsed / duration, 1);
     
-    // More frequent changes at the beginning, slowing down towards the end
-    const shouldUpdate = Math.random() < (1 - progress) * 0.8;
+    // Create a smoother, flowing animation pattern
+    // More frequent changes at the beginning, gradually slowing down
+    const changeFrequency = Math.cos(progress * Math.PI) * 0.5 + 0.5; // Creates a smooth curve from 1 to 0
+    const shouldUpdate = Math.random() < changeFrequency;
     
     if (shouldUpdate || displayValue.length !== finalValue.length) {
-      // Generate a new random value
-      let newValue = getRandomValue(finalValue);
+      // Generate a flowing random pattern
+      let newValue = "";
       
-      // As we get closer to the end, gradually reveal the correct digits
-      if (progress > 0.5) {
-        newValue = Array.from(finalValue).map((char, index) => {
-          const revealThreshold = (progress - 0.5) * 2; // Scale from 0 to 1
-          const shouldReveal = Math.random() < revealThreshold;
-          return shouldReveal ? char : (isNaN(parseInt(char)) ? char : getRandomDigit());
-        }).join('');
-      }
-      
-      // When we're very close to the end, ensure some digits are correct
-      if (progress > 0.8) {
-        newValue = Array.from(finalValue).map((char, index) => {
-          return index < Math.floor(finalValue.length * (progress - 0.7) * 5) ? char : 
-                 (isNaN(parseInt(char)) ? char : getRandomDigit());
-        }).join('');
+      // Create a flowing effect where digits stabilize from left to right
+      for (let i = 0; i < finalValue.length; i++) {
+        const char = finalValue[i];
+        const stabilizeThreshold = Math.min(1, progress * 1.5); // Adjust multiplier for speed of stabilization
+        const positionProgress = i / finalValue.length; // Position weight (0 to 1)
+        
+        // Earlier positions stabilize faster than later positions
+        const shouldStabilize = Math.random() < (stabilizeThreshold - positionProgress * 0.5);
+        
+        if (shouldStabilize || !isNaN(parseInt(char))) {
+          newValue += char;
+        } else {
+          newValue += isNaN(parseInt(char)) ? char : getRandomDigit();
+        }
       }
       
       setDisplayValue(newValue);
@@ -73,6 +74,9 @@ const NumberScrambler: React.FC<NumberScramblerProps> = ({
   };
 
   useEffect(() => {
+    // Reset the animation when finalValue changes
+    startTimeRef.current = 0;
+    
     // Start animation after a small delay
     timerRef.current = setTimeout(() => {
       animationFrameRef.current = requestAnimationFrame(animate);
@@ -85,7 +89,7 @@ const NumberScrambler: React.FC<NumberScramblerProps> = ({
   }, [finalValue, duration]);
 
   return (
-    <span className={`number-scrambler ${className}`}>
+    <span className={`number-scrambler font-display ${className}`}>
       {displayValue || getRandomValue(finalValue)}
     </span>
   );
