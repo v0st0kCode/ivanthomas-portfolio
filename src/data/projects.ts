@@ -19,11 +19,11 @@ export interface Project {
 export const projects: Project[] = [
   {
     id: "financial-app",
-    title: "Financial App Redesign",
-    description: "Complete UX/UI overhaul of a financial management application, focusing on simplicity and clear data visualization.",
+    title: "Mediacoach LivePRO",
+    description: "Mediacoach LivePRO is the world's first app to deliver real-time pitch data on an iPad.",
     image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6",
-    category: "Mobile App",
-    year: "2023",
+    category: "iPad App",
+    year: "2022",
     featured: true,
     size: "large",
     details: {
