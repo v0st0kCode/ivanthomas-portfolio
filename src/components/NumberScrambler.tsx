@@ -3,13 +3,13 @@ import React, { useState, useEffect, useRef } from 'react';
 
 interface NumberScramblerProps {
   finalValue: string;
-  duration?: number;
+  duration?: number; // Duration in milliseconds
   className?: string;
 }
 
 const NumberScrambler: React.FC<NumberScramblerProps> = ({ 
   finalValue, 
-  duration = 2000, 
+  duration = 3500, // Increased from 2000 to 3500 for a slower animation
   className = ""
 }) => {
   const [displayValue, setDisplayValue] = useState<string>("");
@@ -37,25 +37,29 @@ const NumberScrambler: React.FC<NumberScramblerProps> = ({
     const progress = Math.min(elapsed / duration, 1);
     
     // More frequent changes at the beginning, slowing down towards the end
-    const shouldUpdate = Math.random() < (1 - progress) * 0.8;
+    // Reduced frequency rate for a more gradual animation
+    const shouldUpdate = Math.random() < (1 - progress) * 0.6; // Reduced from 0.8 to 0.6
     
     if (shouldUpdate || displayValue.length !== finalValue.length) {
       // Generate a new random value
       let newValue = getRandomValue(finalValue);
       
       // As we get closer to the end, gradually reveal the correct digits
-      if (progress > 0.5) {
+      // Start revealing digits earlier in the animation
+      if (progress > 0.4) { // Changed from 0.5 to 0.4 to start stabilizing earlier
         newValue = Array.from(finalValue).map((char, index) => {
-          const revealThreshold = (progress - 0.5) * 2; // Scale from 0 to 1
+          const revealThreshold = (progress - 0.4) * 1.7; // Adjusted for smoother transition
           const shouldReveal = Math.random() < revealThreshold;
           return shouldReveal ? char : (isNaN(parseInt(char)) ? char : getRandomDigit());
         }).join('');
       }
       
-      // When we're very close to the end, ensure some digits are correct
-      if (progress > 0.8) {
+      // Added a more gradual stabilization from left to right
+      if (progress > 0.6) { // Start left-to-right stabilization earlier
         newValue = Array.from(finalValue).map((char, index) => {
-          return index < Math.floor(finalValue.length * (progress - 0.7) * 5) ? char : 
+          // Stabilize digits from left to right
+          const positionStabilizeThreshold = progress - 0.6 + (index * 0.15);
+          return positionStabilizeThreshold > 0.2 ? char : 
                  (isNaN(parseInt(char)) ? char : getRandomDigit());
         }).join('');
       }

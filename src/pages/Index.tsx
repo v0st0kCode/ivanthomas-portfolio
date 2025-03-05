@@ -38,7 +38,7 @@ const Index = () => {
               Digital Product Designer
             </span>
             <h1 className="heading-xl mx-auto mb-8 text-6xl">
-              Connecting dots since <NumberScrambler finalValue="1986" duration={2500} />
+              Connecting dots since <NumberScrambler finalValue="1986" duration={3500} className="font-onest" />
             </h1>
             <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10">
               I design and build user-centered interfaces that connect people and technology
