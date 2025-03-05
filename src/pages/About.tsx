@@ -44,7 +44,6 @@ const About = () => {
             </div>
             
             <div className="w-full md:w-3/5">
-              <span className="section-title animate-fade-in">About Me</span>
               <h1 className="heading-lg mb-8 animate-fade-in" style={{ animationDelay: '0.1s' }}>
                 Senior Digital Product Designer with 8+ years of experience
               </h1>
@@ -156,7 +155,6 @@ const About = () => {
       <section className="py-24 bg-secondary">
         <div className="container-custom">
           <div className="max-w-4xl mx-auto text-center">
-            <span className="section-title animate-on-scroll opacity-0">Contact</span>
             <h2 className="heading-lg mb-6 animate-on-scroll opacity-0">Let's Work Together</h2>
             <p className="paragraph mx-auto mb-8 animate-on-scroll opacity-0">
               If you're interested in collaborating or would like to discuss a project, feel free to reach out.
