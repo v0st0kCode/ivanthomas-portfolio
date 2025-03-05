@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import ParticleHeader from '../components/ParticleHeader';
@@ -16,14 +15,6 @@ const Index = () => {
 
     return () => clearTimeout(timer);
   }, []);
-
-  // Card variants for different gradient overlays
-  const cardVariants = [
-    { overlayClass: 'gradient-overlay-dark', accent: 'arrow-right' },
-    { overlayClass: 'gradient-overlay-blue', accent: 'arrow-right' },
-    { overlayClass: 'gradient-overlay-green', accent: 'arrow-right' },
-    { overlayClass: 'gradient-overlay-purple', accent: 'arrow-right' },
-  ];
 
   return <div className="min-h-screen bg-white">
       <Navbar />
@@ -54,7 +45,7 @@ const Index = () => {
         </div>
       </section>
       
-      {/* Featured Projects Section with New Card Style */}
+      {/* Featured Projects Section with Updated Card Style */}
       <section className="py-16 bg-white relative">
         <div className="container-custom">
           <div className="mb-16 max-w-3xl">
@@ -65,16 +56,13 @@ const Index = () => {
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {featuredProjects.map((project, index) => {
-              // Pick a card variant based on index
-              const variant = cardVariants[index % cardVariants.length];
-              
+            {featuredProjects.map((project, index) => {              
               return (
                 <Link key={project.id} to={`/case-study/${project.id}`} className="feature-card group">
                   <div className="feature-card-bg h-full">
                     <div className="feature-card-image-bg">
                       <img src={project.image} alt={project.title} loading="lazy" />
-                      <div className={`${variant.overlayClass}`}></div>
+                      <div className="gradient-overlay"></div>
                     </div>
                     <div className="feature-card-content">
                       <span className="feature-card-category">{project.category}</span>

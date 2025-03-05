@@ -1,4 +1,3 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Space+Mono&display=swap');
@@ -154,28 +153,16 @@
   }
   
   .feature-card-image-bg img {
-    @apply w-full h-full object-cover transition-transform duration-700 ease-out;
+    @apply w-full h-full object-cover transition-transform duration-700 ease-out grayscale;
   }
   
   .feature-card:hover .feature-card-image-bg img {
     @apply scale-105;
   }
   
-  /* Gradient overlays for better text readability */
-  .gradient-overlay-dark {
-    @apply absolute inset-0 bg-gradient-to-t from-black/80 to-black/30;
-  }
-  
-  .gradient-overlay-blue {
-    @apply absolute inset-0 bg-gradient-to-t from-blue-900/90 to-blue-900/40;
-  }
-  
-  .gradient-overlay-green {
-    @apply absolute inset-0 bg-gradient-to-t from-emerald-900/90 to-emerald-800/40;
-  }
-  
-  .gradient-overlay-purple {
-    @apply absolute inset-0 bg-gradient-to-t from-purple-900/90 to-purple-800/40;
+  /* Black to transparent gradient overlay for better text readability */
+  .gradient-overlay {
+    @apply absolute inset-0 bg-gradient-to-t from-black to-transparent;
   }
   
   .feature-card-content {
