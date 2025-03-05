@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
@@ -25,7 +26,6 @@ const Work = () => {
         const elementVisible = 150;
         if (elementTop < window.innerHeight - elementVisible) {
           element.classList.add('animate-slide-in');
-          element.classList.remove('opacity-0');
         }
       });
     };
@@ -82,7 +82,7 @@ const Work = () => {
               <Link 
                 key={project.id}
                 to={`/case-study/${project.id}`} 
-                className="project-card animate-on-scroll opacity-0 h-full"
+                className="project-card animate-on-scroll h-full"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
                 <div className="aspect-[4/3] overflow-hidden rounded-lg">
@@ -125,14 +125,14 @@ const Work = () => {
       <section className="py-24 bg-secondary">
         <div className="container-custom">
           <div className="max-w-4xl mx-auto text-center">
-            <span className="section-title animate-on-scroll opacity-0">Get in Touch</span>
-            <h2 className="heading-lg mb-6 animate-on-scroll opacity-0">Have a Project in Mind?</h2>
-            <p className="paragraph mx-auto mb-8 animate-on-scroll opacity-0">
+            <span className="section-title animate-on-scroll">Get in Touch</span>
+            <h2 className="heading-lg mb-6 animate-on-scroll">Have a Project in Mind?</h2>
+            <p className="paragraph mx-auto mb-8 animate-on-scroll">
               I'm always open to discussing new projects, creative ideas or opportunities to be part of your vision.
             </p>
             <a 
               href="mailto:contact@example.com" 
-              className="inline-block px-8 py-4 bg-black text-white rounded-md hover:bg-black/90 transition-colors animate-on-scroll opacity-0"
+              className="inline-block px-8 py-4 bg-black text-white rounded-md hover:bg-black/90 transition-colors animate-on-scroll"
             >
               Let's Talk
             </a>
