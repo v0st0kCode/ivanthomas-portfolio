@@ -140,7 +140,7 @@
   }
   
   .feature-card {
-    @apply rounded-3xl overflow-hidden relative h-full transition-all duration-300 hover:shadow-md;
+    @apply rounded-3xl overflow-hidden relative h-full transition-all duration-300;
   }
   
   .feature-card-light {
@@ -188,7 +188,7 @@
   }
   
   .feature-card-accent {
-    @apply absolute bottom-6 right-6 p-3 rounded-full bg-white shadow-sm opacity-0 transition-opacity duration-300;
+    @apply absolute bottom-6 right-6 p-3 rounded-full bg-white opacity-0 transition-all duration-300;
   }
   
   .feature-card:hover .feature-card-accent {
@@ -197,5 +197,13 @@
   
   .feature-card:hover .feature-card-image img {
     @apply scale-105;
+  }
+  
+  .feature-card-arrow {
+    @apply transition-transform duration-300;
+  }
+  
+  .feature-card:hover .feature-card-arrow {
+    @apply transform translate-x-1;
   }
 }
