@@ -14,7 +14,8 @@ const NumberScrambler: React.FC<NumberScramblerProps> = ({
 }) => {
   const [displayValue, setDisplayValue] = useState<string>("");
   const timerRef = useRef<NodeJS.Timeout | null>(null);
-  const startTimeRef = useRef<number>(0);
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
+  const startTimeRef = useRef<number | null>(null);
   const animationFrameRef = useRef<number | null>(null);
 
   // Generate a random digit
@@ -28,62 +29,67 @@ const NumberScrambler: React.FC<NumberScramblerProps> = ({
   };
 
   // Animation function with smoother transitions
-  const animate = (timestamp: number) => {
+  const animate = () => {
     if (!startTimeRef.current) {
-      startTimeRef.current = timestamp;
+      startTimeRef.current = Date.now();
     }
 
-    const elapsed = timestamp - startTimeRef.current;
+    const elapsed = Date.now() - startTimeRef.current;
     const progress = Math.min(elapsed / duration, 1);
     
-    // Create a smoother, flowing animation pattern
-    // More frequent changes at the beginning, gradually slowing down
-    const changeFrequency = Math.cos(progress * Math.PI) * 0.5 + 0.5; // Creates a smooth curve from 1 to 0
-    const shouldUpdate = Math.random() < changeFrequency;
+    // Generate a flowing random pattern
+    let newValue = "";
     
-    if (shouldUpdate || displayValue.length !== finalValue.length) {
-      // Generate a flowing random pattern
-      let newValue = "";
+    // Create a flowing effect where digits stabilize from left to right
+    for (let i = 0; i < finalValue.length; i++) {
+      const char = finalValue[i];
+      const stabilizeThreshold = Math.min(1, progress * 1.5); // Adjust for stabilization speed
+      const positionProgress = i / finalValue.length; // Position weight (0 to 1)
       
-      // Create a flowing effect where digits stabilize from left to right
-      for (let i = 0; i < finalValue.length; i++) {
-        const char = finalValue[i];
-        const stabilizeThreshold = Math.min(1, progress * 1.5); // Adjust multiplier for speed of stabilization
-        const positionProgress = i / finalValue.length; // Position weight (0 to 1)
-        
-        // Earlier positions stabilize faster than later positions
-        const shouldStabilize = Math.random() < (stabilizeThreshold - positionProgress * 0.5);
-        
-        if (shouldStabilize || !isNaN(parseInt(char))) {
-          newValue += char;
-        } else {
-          newValue += isNaN(parseInt(char)) ? char : getRandomDigit();
-        }
+      // Earlier positions stabilize faster than later positions
+      const shouldStabilize = progress > 0.8 || 
+                             (Math.random() < (stabilizeThreshold - positionProgress * 0.5));
+      
+      if (shouldStabilize && progress > 0.5) {
+        newValue += char;
+      } else {
+        newValue += isNaN(parseInt(char)) ? char : getRandomDigit();
       }
-      
-      setDisplayValue(newValue);
     }
+    
+    setDisplayValue(newValue);
 
-    // Final state
+    // Final state - ensure we show the final value
     if (progress >= 1) {
       setDisplayValue(finalValue);
+      clearInterval(intervalRef.current!);
       return;
     }
-
-    animationFrameRef.current = requestAnimationFrame(animate);
   };
 
   useEffect(() => {
+    // Initialize with random value
+    setDisplayValue(getRandomValue(finalValue));
+    
     // Reset the animation when finalValue changes
-    startTimeRef.current = 0;
+    if (startTimeRef.current) {
+      startTimeRef.current = null;
+    }
+    
+    // Clear any existing timers
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+    }
     
     // Start animation after a small delay
     timerRef.current = setTimeout(() => {
-      animationFrameRef.current = requestAnimationFrame(animate);
-    }, 300);
+      // Run the animation at 30fps (approximately)
+      intervalRef.current = setInterval(animate, 33);
+    }, 100);
 
     return () => {
       if (timerRef.current) clearTimeout(timerRef.current);
+      if (intervalRef.current) clearInterval(intervalRef.current);
       if (animationFrameRef.current) cancelAnimationFrame(animationFrameRef.current);
     };
   }, [finalValue, duration]);
