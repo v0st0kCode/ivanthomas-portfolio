@@ -55,7 +55,7 @@ const Index = () => {
       </section>
       
       {/* Featured Projects Section with New Card Style */}
-      <section className="py-24 bg-white">
+      <section className="py-16 bg-white relative">
         <div className="container-custom">
           <div className="mb-16 max-w-3xl">
             <h2 className="heading-lg mb-4">Recent Projects</h2>

@@ -105,12 +105,13 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
       }
       
       p.setup = () => {
-        const canvas = p.createCanvas(p.windowWidth, p.windowHeight * 0.7);
+        // Increase the canvas height to reach the Recent Projects section
+        const canvas = p.createCanvas(p.windowWidth, p.windowHeight * 0.95);
         canvas.parent(containerRef.current!);
         
         // Create particles and position them in a grid
         const cols = 10;
-        const rows = 8;
+        const rows = 9; // Increased rows to fill the taller canvas
         const cellWidth = p.width / cols;
         const cellHeight = p.height / rows;
         
@@ -142,11 +143,12 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
       };
       
       p.windowResized = () => {
-        p.resizeCanvas(p.windowWidth, p.windowHeight * 0.7);
+        // Update canvas size when window is resized
+        p.resizeCanvas(p.windowWidth, p.windowHeight * 0.95);
         
         // Update particle targets on resize
         const cols = 10;
-        const rows = 8;
+        const rows = 9; // Keep consistent with setup
         const cellWidth = p.width / cols;
         const cellHeight = p.height / rows;
         
@@ -183,11 +185,15 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
   }, []);
 
   return (
-    <div 
-      ref={containerRef} 
-      className={`w-full h-[70vh] relative ${className || ''}`}
-      style={{ touchAction: 'none' }}
-    />
+    <div className="relative">
+      <div 
+        ref={containerRef} 
+        className={`w-full h-[95vh] relative ${className || ''}`}
+        style={{ touchAction: 'none' }}
+      />
+      <div className="absolute bottom-0 left-0 right-0 h-64 bg-gradient-to-t from-white to-transparent pointer-events-none" 
+           style={{ zIndex: 10 }} />
+    </div>
   );
 };
 
