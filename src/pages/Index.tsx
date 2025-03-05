@@ -60,18 +60,18 @@ const Index = () => {
             // Determine grid placement based on index and size
             let gridClass = "md:col-span-6";
             if (index === 0) {
-              gridClass = "md:col-span-7"; // First item is larger (like Apple Pencil)
+              gridClass = "md:col-span-7"; // First item is larger
             } else if (index === 1) {
-              gridClass = "md:col-span-5"; // Second item (like iPad keyboard)
+              gridClass = "md:col-span-5"; // Second item
             } else if (index === 2) {
               gridClass = "md:col-span-12"; // Full width item for variety
             } else {
               gridClass = `md:col-span-${index % 2 === 0 ? '7' : '5'}`; // Alternate sizing
             }
             
-            // Add fixed height class for the first two projects to ensure equal heights
+            // Use same height for all projects in a row
             const heightClass = index < 2 ? "h-full" : "";
-            const thumbnailHeightClass = index < 2 ? "h-64" : "h-64";
+            const thumbnailHeightClass = "h-64"; // Consistent thumbnail height
             
             return <Link key={project.id} to={`/case-study/${project.id}`} className={`project-card ${gridClass} ${heightClass}`}>
                   <div className="project-thumb group bg-white rounded-3xl shadow-sm overflow-hidden border border-gray-100 hover:shadow-md transition-all duration-300 h-full flex flex-col">
