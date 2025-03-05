@@ -180,23 +180,21 @@
   }
   
   .feature-card-accent {
-    @apply absolute bottom-8 right-8 p-3 flex items-center justify-center rounded-full text-white opacity-0 transition-all duration-300;
-    width: 56px;
-    height: 56px;
+    @apply absolute bottom-8 right-8 p-3 flex items-center justify-center rounded-full bg-white/20 text-white opacity-0 transition-all duration-300;
+    width: 48px;
+    height: 48px;
   }
   
   .feature-card:hover .feature-card-accent {
-    @apply opacity-100;
+    @apply opacity-100 bg-white text-black;
   }
   
   .feature-card-arrow {
-    @apply transition-transform duration-300 text-white;
-    transform: translateX(-4px);
-    font-size: 2rem;
+    @apply transition-transform duration-300;
   }
   
   .feature-card:hover .feature-card-arrow {
-    transform: translateX(4px);
+    @apply transform translate-x-1;
   }
   
   .number-scrambler {
