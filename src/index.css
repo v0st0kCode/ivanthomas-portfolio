@@ -206,4 +206,9 @@
   .feature-card:hover .feature-card-arrow {
     @apply transform translate-x-1;
   }
+  
+  .number-scrambler {
+    @apply inline-block font-mono font-bold;
+    text-rendering: optimizeSpeed;
+  }
 }

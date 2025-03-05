@@ -1,8 +1,10 @@
+
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import ParticleHeader from '../components/ParticleHeader';
 import Navbar from '../components/Navbar';
 import { getFeaturedProjects } from '../data/projects';
+import NumberScrambler from '../components/NumberScrambler';
 
 const Index = () => {
   const featuredProjects = getFeaturedProjects();
@@ -35,7 +37,9 @@ const Index = () => {
             <span className="inline-block py-1 px-3 mb-6 text-xs font-mono tracking-wider uppercase text-muted-foreground">
               Digital Product Designer
             </span>
-            <h1 className="heading-xl mx-auto mb-8 text-6xl">Connecting dots since 1986</h1>
+            <h1 className="heading-xl mx-auto mb-8 text-6xl">
+              Connecting dots since <NumberScrambler finalValue="1986" duration={2500} />
+            </h1>
             <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10">
               I design and build user-centered interfaces that connect people and technology
             </p>
