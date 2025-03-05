@@ -53,7 +53,7 @@ const Index = () => {
           <div className="mb-16 max-w-3xl">
             <h2 className="heading-lg mb-4">Recent Projects</h2>
             <p className="paragraph">
-              A collection of projects I've worked on that showcase my approach to problem-solving and design thinking.
+              
             </p>
           </div>
           
