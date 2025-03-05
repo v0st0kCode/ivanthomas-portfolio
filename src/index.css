@@ -1,3 +1,4 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Space+Mono&display=swap');
@@ -208,7 +209,7 @@
   }
   
   .number-scrambler {
-    @apply inline-block font-mono font-bold;
+    @apply inline-block font-display font-medium;
     text-rendering: optimizeSpeed;
   }
 }
