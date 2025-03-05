@@ -13,77 +13,56 @@ export interface Project {
     duration?: string;
     tools?: string[];
   };
-  size?: 'large' | 'medium';
-  clientName?: string; // Adding clientName for display on cards
+  size?: 'large' | 'medium'; // Adding size property for bento grid
 }
 
 export const projects: Project[] = [
   {
-    id: "boxed-water",
-    title: "Boxed Water is Better",
-    description: "Brand identity and packaging design for an eco-friendly water company.",
-    image: "/lovable-uploads/bf06704c-28d1-4696-a123-cb87c18ca555.png",
-    category: "Brand Design",
-    year: "2023",
-    featured: true,
-    size: "large",
-    clientName: "Atica",
-    details: {
-      client: "Boxed Water Inc.",
-      role: "Lead Brand Designer",
-      duration: "3 months",
-      tools: ["Photoshop", "Illustrator", "InDesign"]
-    }
-  },
-  {
-    id: "next-step",
-    title: "Next Step",
-    description: "Strategic brand positioning and visual identity for a premium footwear line.",
-    image: "/lovable-uploads/bf06704c-28d1-4696-a123-cb87c18ca555.png",
-    category: "Brand Strategy",
-    year: "2023",
-    featured: true,
-    size: "medium",
-    clientName: "FlyTops",
-    details: {
-      client: "FlyTops Footwear",
-      role: "Brand Strategist",
-      duration: "4 months",
-      tools: ["Figma", "Photoshop", "After Effects"]
-    }
-  },
-  {
-    id: "simplicity-design",
-    title: "Simplicity in Design",
-    description: "Minimalist design approach for a tech company's web presence and campaign materials.",
-    image: "/lovable-uploads/bf06704c-28d1-4696-a123-cb87c18ca555.png",
-    category: "Web & Campaign",
+    id: "financial-app",
+    title: "Mediacoach LivePRO",
+    description: "Mediacoach LivePRO is the world's first app to deliver real-time pitch data on an iPad.",
+    image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6",
+    category: "iPad App",
     year: "2022",
     featured: true,
-    size: "medium",
-    clientName: "mnnml",
+    size: "large",
     details: {
-      client: "Apple Inc.",
-      role: "UX Designer & Art Director",
-      duration: "6 months",
-      tools: ["Sketch", "Principle", "HTML/CSS"]
+      client: "FinTech Startup",
+      role: "Lead Product Designer",
+      duration: "4 months",
+      tools: ["Figma", "Protopie", "After Effects"]
     }
   },
   {
-    id: "future-bright",
-    title: "The Future is Bright",
-    description: "Abstract brand design for a forward-thinking tech startup in the AR/VR space.",
-    image: "/lovable-uploads/bf06704c-28d1-4696-a123-cb87c18ca555.png",
-    category: "Brand Design",
+    id: "e-commerce-platform",
+    title: "E-Commerce Platform",
+    description: "Design of a minimalist e-commerce platform with a focus on product photography and intuitive navigation.",
+    image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085",
+    category: "Web Design",
     year: "2023",
     featured: true,
     size: "medium",
-    clientName: "Creation Co.",
     details: {
-      client: "NextReality Labs",
-      role: "Creative Director",
+      client: "Retail Brand",
+      role: "Senior UX Designer",
+      duration: "3 months",
+      tools: ["Figma", "Adobe XD", "Principle"]
+    }
+  },
+  {
+    id: "digital-workspace",
+    title: "Digital Workspace Platform",
+    description: "A collaborative workspace platform that helps remote teams stay connected and productive.",
+    image: "https://images.unsplash.com/photo-1518770660439-4636190af475",
+    category: "Web Application",
+    year: "2023",
+    featured: true,
+    size: "medium",
+    details: {
+      client: "Enterprise SaaS",
+      role: "UX Designer & Researcher",
       duration: "5 months",
-      tools: ["Cinema 4D", "Blender", "Adobe Suite"]
+      tools: ["Figma", "Miro", "UserTesting"]
     }
   }
 ];
