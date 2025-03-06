@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
@@ -36,15 +35,6 @@ const Work = () => {
   }, []);
 
   const categories = ['all', ...new Set(projects.map(project => project.category.toLowerCase()))];
-
-  // Function to generate client logo placeholder or initials
-  const getClientLogo = (client?: string) => {
-    if (!client) return null;
-    
-    // For now, just return the first letter of the client name
-    // In a real app, you would map client names to actual logo images
-    return client.charAt(0);
-  };
 
   return (
     <div className="min-h-screen bg-white">
@@ -85,16 +75,9 @@ const Work = () => {
               <Link 
                 key={project.id}
                 to={`/case-study/${project.id}`} 
-                className="project-card animate-on-scroll h-full relative"
+                className="project-card animate-on-scroll h-full"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
-                {/* Client logo in the top-right corner */}
-                {project.details?.client && (
-                  <div className="absolute top-3 right-3 z-10 w-8 h-8 flex items-center justify-center rounded-full bg-black/50 text-white font-medium">
-                    {getClientLogo(project.details.client)}
-                  </div>
-                )}
-                
                 <div className="aspect-[4/3] overflow-hidden rounded-lg">
                   <img 
                     src={project.image}
