@@ -8,5 +8,11 @@ export interface Project {
   year: string;
   protected: boolean;
   featured: boolean;
+  details?: {
+    client?: string;
+    role?: string;
+    duration?: string;
+    tools?: string[];
+  };
   // Other project properties if they exist
 }

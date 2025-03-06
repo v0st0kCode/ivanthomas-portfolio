@@ -1,8 +1,8 @@
-// Assuming this is the structure of the file, we need to add videoUrl to the project type
+
 import { Project } from '../types/Project';
 
 // Example projects data with videoUrl field added
-const projects: Project[] = [
+export const projects: Project[] = [
   {
     id: '1',
     title: 'SonyLIV 3D Audio Experience',
@@ -13,6 +13,12 @@ const projects: Project[] = [
     year: '2023',
     protected: false,
     featured: true,
+    details: {
+      client: 'SonyLIV',
+      role: 'Lead Designer',
+      duration: '4 months',
+      tools: ['Figma', 'After Effects', 'WebGL']
+    }
   },
   {
     id: '2',
@@ -24,6 +30,12 @@ const projects: Project[] = [
     year: '2022',
     protected: false,
     featured: true,
+    details: {
+      client: 'Spotify',
+      role: 'UX/UI Designer',
+      duration: '3 months',
+      tools: ['Figma', 'Principle', 'ProtoPie']
+    }
   },
   {
     id: '3',
@@ -35,6 +47,12 @@ const projects: Project[] = [
     year: '2022',
     protected: true,
     featured: true,
+    details: {
+      client: 'Financial Institution',
+      role: 'Product Designer',
+      duration: '6 months',
+      tools: ['Figma', 'Webflow', 'Framer']
+    }
   },
   {
     id: '4',
@@ -46,6 +64,12 @@ const projects: Project[] = [
     year: '2021',
     protected: false,
     featured: true,
+    details: {
+      client: 'Travel Agency',
+      role: 'UX/UI Designer',
+      duration: '5 months',
+      tools: ['Sketch', 'InVision', 'Zeplin']
+    }
   },
   {
     id: '5',
@@ -57,6 +81,12 @@ const projects: Project[] = [
     year: '2021',
     protected: false,
     featured: false,
+    details: {
+      client: 'Fitness Brand',
+      role: 'Mobile Designer',
+      duration: '4 months',
+      tools: ['Figma', 'After Effects', 'ProtoPie']
+    }
   },
   {
     id: '6',
@@ -68,6 +98,12 @@ const projects: Project[] = [
     year: '2020',
     protected: false,
     featured: false,
+    details: {
+      client: 'E-commerce Company',
+      role: 'UX Designer',
+      duration: '3 months',
+      tools: ['Figma', 'Sketch', 'Framer']
+    }
   }
 ];
 
