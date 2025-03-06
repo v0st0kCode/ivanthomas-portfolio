@@ -1,9 +1,7 @@
-
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
-import { getAllProjects, projects } from '../data/projects';
-import { Project } from '../types/Project';
+import { projects, Project } from '../data/projects';
 import { LockKeyhole } from 'lucide-react';
 
 const Work = () => {
@@ -56,7 +54,7 @@ const Work = () => {
           
           <div className="flex justify-center mb-16 animate-fade-in" style={{ animationDelay: '0.3s' }}>
             <div className="flex flex-wrap justify-center gap-2">
-              {categories.map((category) => (
+              {categories.map(category => (
                 <button
                   key={category}
                   onClick={() => setFilter(category)}

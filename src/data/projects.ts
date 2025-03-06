@@ -1,116 +1,91 @@
 
-import { Project } from '../types/Project';
+export interface Project {
+  id: string;
+  title: string;
+  description: string;
+  image: string;
+  category: string;
+  year: string;
+  featured?: boolean;
+  protected?: boolean; // New property for protected projects
+  details?: {
+    client?: string;
+    role?: string;
+    duration?: string;
+    tools?: string[];
+  };
+  size?: 'large' | 'medium'; // Adding size property for bento grid
+}
 
-// Example projects data with videoUrl field added
 export const projects: Project[] = [
   {
-    id: '1',
-    title: 'SonyLIV 3D Audio Experience',
-    description: 'An immersive 3D audio experience for SonyLIV streaming platform',
-    image: '/Sony3D_bg.png',
-    videoUrl: 'https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4', // Sample video URL
-    category: 'Web Application',
-    year: '2023',
-    protected: false,
+    id: "livepro-app",
+    title: "Mediacoach LivePRO",
+    description: "The world's first app to deliver real-time pitch data on an iPad.",
+    image: "https://www.krea.ai/api/img?f=webp&i=https%3A%2F%2Ftest1-emgndhaqd0c9h2db.a01.azurefd.net%2Fimages%2Fcfa84ae7-802d-459e-8206-bb95f0147022.png",
+    category: "iPad App",
+    year: "2022",
     featured: true,
+    protected: true, // Making this project protected
+    size: "large",
     details: {
-      client: 'SonyLIV',
-      role: 'Lead Designer',
-      duration: '4 months',
-      tools: ['Figma', 'After Effects', 'WebGL']
+      client: "LaLiga",
+      role: "Lead Product Designer",
+      duration: "4 months",
+      tools: ["Figma", "Protopie", "Mockups"]
     }
   },
   {
-    id: '2',
-    title: 'Spotify Redesign',
-    description: 'A fresh take on the Spotify mobile app with enhanced user experience',
-    image: '/spotify_redesign.jpg',
-    videoUrl: 'https://storage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
-    category: 'Mobile App',
-    year: '2022',
-    protected: false,
+    id: "sony-app",
+    title: "Sony 3D Live Replayer",
+    description: "Replays like you never saw before.",
+    image: "/Sony3D_bg.png", // Updated path with leading slash for public directory
+    category: "iPad App",
+    year: "2025",
     featured: true,
+    protected: true, // Making this project protected
+    size: "large",
     details: {
-      client: 'Spotify',
-      role: 'UX/UI Designer',
-      duration: '3 months',
-      tools: ['Figma', 'Principle', 'ProtoPie']
+      client: "Sony",
+      role: "Concept Product Designer",
+      duration: "4 days",
+      tools: ["Figma", "Spline"]
     }
   },
   {
-    id: '3',
-    title: 'Banking Dashboard',
-    description: 'Modern banking dashboard with advanced analytics and user-friendly interface',
-    image: '/banking_dashboard.jpg',
-    videoUrl: 'https://storage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4',
-    category: 'Web Application',
-    year: '2022',
-    protected: true,
+    id: "e-commerce-platform",
+    title: "E-Commerce Platform",
+    description: "Design of a minimalist e-commerce platform with a focus on product photography and intuitive navigation.",
+    image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085",
+    category: "Web Design",
+    year: "2023",
     featured: true,
+    size: "medium",
     details: {
-      client: 'Financial Institution',
-      role: 'Product Designer',
-      duration: '6 months',
-      tools: ['Figma', 'Webflow', 'Framer']
+      client: "Retail Brand",
+      role: "Senior UX Designer",
+      duration: "3 months",
+      tools: ["Figma", "Adobe XD", "Principle"]
     }
   },
   {
-    id: '4',
-    title: 'Travel Booking Platform',
-    description: 'End-to-end travel booking platform with personalized recommendations',
-    image: '/travel_booking.jpg',
-    videoUrl: 'https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4',
-    category: 'Web Application',
-    year: '2021',
-    protected: false,
+    id: "digital-workspace",
+    title: "Digital Workspace Platform",
+    description: "A collaborative workspace platform that helps remote teams stay connected and productive.",
+    image: "https://images.unsplash.com/photo-1518770660439-4636190af475",
+    category: "Web Application",
+    year: "2023",
     featured: true,
+    protected: true, // Making this project protected
+    size: "medium",
     details: {
-      client: 'Travel Agency',
-      role: 'UX/UI Designer',
-      duration: '5 months',
-      tools: ['Sketch', 'InVision', 'Zeplin']
-    }
-  },
-  {
-    id: '5',
-    title: 'Health & Fitness App',
-    description: 'Comprehensive health tracking and workout planning mobile application',
-    image: '/fitness_app.jpg',
-    videoUrl: 'https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4',
-    category: 'Mobile App',
-    year: '2021',
-    protected: false,
-    featured: false,
-    details: {
-      client: 'Fitness Brand',
-      role: 'Mobile Designer',
-      duration: '4 months',
-      tools: ['Figma', 'After Effects', 'ProtoPie']
-    }
-  },
-  {
-    id: '6',
-    title: 'E-commerce Redesign',
-    description: 'Complete redesign of an e-commerce platform focusing on conversion optimization',
-    image: '/ecommerce_redesign.jpg',
-    videoUrl: 'https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4',
-    category: 'Web Application',
-    year: '2020',
-    protected: false,
-    featured: false,
-    details: {
-      client: 'E-commerce Company',
-      role: 'UX Designer',
-      duration: '3 months',
-      tools: ['Figma', 'Sketch', 'Framer']
+      client: "Enterprise SaaS",
+      role: "UX Designer & Researcher",
+      duration: "5 months",
+      tools: ["Figma", "Miro", "UserTesting"]
     }
   }
 ];
-
-// The functions below should remain the same, just copying them to maintain functionality
-export const getAllProjects = (): Project[] => {
-  return projects;
-};
 
 export const getFeaturedProjects = (): Project[] => {
   return projects.filter(project => project.featured);
