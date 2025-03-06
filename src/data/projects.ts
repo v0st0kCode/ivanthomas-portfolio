@@ -39,7 +39,7 @@ export const projects: Project[] = [
     id: "sony-app",
     title: "Sony 3D Live Replayer",
     description: "Replays like you never saw before.",
-    image: "https://www.krea.ai/api/img?f=webp&i=https%3A%2F%2Ftest1-emgndhaqd0c9h2db.a01.azurefd.net%2Fimages%2Fcfa84ae7-802d-459e-8206-bb95f0147022.png",
+    image: "public/Sony3D_bg.png",
     category: "iPad App",
     year: "2025",
     featured: true,
