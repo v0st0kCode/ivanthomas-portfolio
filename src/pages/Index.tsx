@@ -1,15 +1,12 @@
-
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import ParticleHeader from '../components/ParticleHeader';
 import Navbar from '../components/Navbar';
 import { getFeaturedProjects } from '../data/projects';
 import { LockKeyhole } from 'lucide-react';
-
 const Index = () => {
   const featuredProjects = getFeaturedProjects();
   const [isLoaded, setIsLoaded] = useState(false);
-  
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoaded(true);
@@ -17,7 +14,6 @@ const Index = () => {
 
     return () => clearTimeout(timer);
   }, []);
-  
   return <div className="min-h-screen bg-white">
       <Navbar />
       
@@ -66,7 +62,7 @@ const Index = () => {
                       <div className="gradient-overlay"></div>
                     </div>
                     <div className="feature-card-content">
-                      <span className="text-xs font-display tracking-wide text-muted-foreground">
+                      <span className="font-display tracking-wide text-base font-medium text-zinc-500">
                         {project.year}
                       </span>
                       <h3 className="feature-card-title">{project.title}</h3>
@@ -176,5 +172,4 @@ const Index = () => {
       </footer>
     </div>;
 };
-
 export default Index;
