@@ -22,6 +22,7 @@ export default {
 			fontFamily: {
 				sans: ['Inter', 'sans-serif'],
 				display: ['Onest', 'Inter', 'sans-serif'],
+				outfit: ['Outfit', 'sans-serif'],
 				mono: ['Space Mono', 'monospace'],
 			},
 			colors: {
