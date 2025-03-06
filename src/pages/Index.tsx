@@ -4,9 +4,11 @@ import ParticleHeader from '../components/ParticleHeader';
 import Navbar from '../components/Navbar';
 import { getFeaturedProjects } from '../data/projects';
 import { LockKeyhole } from 'lucide-react';
+
 const Index = () => {
   const featuredProjects = getFeaturedProjects();
   const [isLoaded, setIsLoaded] = useState(false);
+  
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoaded(true);
@@ -14,6 +16,15 @@ const Index = () => {
 
     return () => clearTimeout(timer);
   }, []);
+  
+  // Function to get client logo based on client name
+  const getClientLogo = (project) => {
+    if (project.details?.client === 'Sony') {
+      return '/sony-2-logo.svg';
+    }
+    return null;
+  };
+
   return <div className="min-h-screen bg-white">
       <Navbar />
       
@@ -55,7 +66,16 @@ const Index = () => {
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {featuredProjects.map((project, index) => {
-            return <Link key={project.id} to={`/case-study/${project.id}`} className="feature-card group">
+            return <Link key={project.id} to={`/case-study/${project.id}`} className="feature-card group relative">
+                  {getClientLogo(project) && (
+                    <div className="absolute top-4 right-4 z-10 w-16 h-16 flex items-center justify-center">
+                      <img 
+                        src={getClientLogo(project)} 
+                        alt={`${project.details?.client} logo`} 
+                        className="w-full h-full object-contain"
+                      />
+                    </div>
+                  )}
                   <div className="feature-card-bg h-full">
                     <div className="feature-card-image-bg">
                       <img src={project.image} alt={project.title} loading="lazy" />
