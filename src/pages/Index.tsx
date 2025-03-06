@@ -66,7 +66,9 @@ const Index = () => {
                       <div className="gradient-overlay"></div>
                     </div>
                     <div className="feature-card-content">
-                      <span className="feature-card-category">{project.category}</span>
+                      <span className="text-xs font-mono tracking-wide text-muted-foreground">
+                        {project.year} — {project.category}
+                      </span>
                       <h3 className="feature-card-title">{project.title}</h3>
                       <p className="feature-card-description">{project.description}</p>
                       
