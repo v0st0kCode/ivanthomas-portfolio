@@ -70,19 +70,19 @@ export const projects: Project[] = [
     }
   },
   {
-    id: "e-commerce-platform",
-    title: "E-Commerce Platform",
-    description: "Design of a minimalist e-commerce platform with a focus on product photography and intuitive navigation.",
+    id: "desktop-app",
+    title: "Mediacoach Desktop",
+    description: "The evolution of the Mediacoach video-analysis tool.",
     image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085",
-    category: "Web Design",
-    year: "2023",
+    category: "App Design",
+    year: "2022",
     featured: true,
     size: "medium",
     details: {
-      client: "Retail Brand",
-      role: "Senior UX Designer",
+      client: "LaLiga",
+      role: "Senior Product Designer",
       duration: "3 months",
-      tools: ["Figma", "Adobe XD", "Principle"]
+      tools: ["Sketch", "Protopie"]
     }
   },
   {
