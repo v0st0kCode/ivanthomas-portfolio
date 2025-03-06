@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import ParticleHeader from '../components/ParticleHeader';
@@ -68,7 +69,7 @@ const Index = () => {
             {featuredProjects.map((project, index) => {
             return <Link key={project.id} to={`/case-study/${project.id}`} className="feature-card group relative">
                   {getClientLogo(project) && (
-                    <div className="absolute top-4 right-4 z-10 w-16 h-16 flex items-center justify-center">
+                    <div className="absolute top-8 right-8 z-10 w-16 h-16 flex items-center justify-center">
                       <img 
                         src={getClientLogo(project)} 
                         alt={`${project.details?.client} logo`} 
