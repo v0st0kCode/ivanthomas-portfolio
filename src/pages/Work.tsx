@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
@@ -35,6 +36,14 @@ const Work = () => {
   }, []);
 
   const categories = ['all', ...new Set(projects.map(project => project.category.toLowerCase()))];
+
+  // Function to get client logo based on client name
+  const getClientLogo = (project: Project) => {
+    if (project.details?.client === 'Sony') {
+      return '/sony-2-logo.svg';
+    }
+    return null;
+  };
 
   return (
     <div className="min-h-screen bg-white">
@@ -75,9 +84,18 @@ const Work = () => {
               <Link 
                 key={project.id}
                 to={`/case-study/${project.id}`} 
-                className="project-card animate-on-scroll h-full"
+                className="project-card animate-on-scroll relative h-full"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
+                {getClientLogo(project) && (
+                  <div className="absolute top-4 right-4 z-10 w-16 h-16 flex items-center justify-center">
+                    <img 
+                      src={getClientLogo(project)} 
+                      alt={`${project.details?.client} logo`} 
+                      className="w-full h-full object-contain"
+                    />
+                  </div>
+                )}
                 <div className="aspect-[4/3] overflow-hidden rounded-lg">
                   <img 
                     src={project.image}
