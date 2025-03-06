@@ -31,7 +31,7 @@ const Navbar: React.FC = () => {
       <nav className="container-custom flex justify-between items-center">
         <Link 
           to="/" 
-          className="font-display font-bold text-xl tracking-tight hover:opacity-80 transition-opacity text-shadow"
+          className="font-display font-normal text-xl tracking-tight hover:opacity-80 transition-opacity text-shadow"
         >
           Ivan Thomas
         </Link>
