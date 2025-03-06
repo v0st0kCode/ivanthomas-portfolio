@@ -1,12 +1,16 @@
+
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import ParticleHeader from '../components/ParticleHeader';
 import Navbar from '../components/Navbar';
 import { getFeaturedProjects } from '../data/projects';
 import { LockKeyhole } from 'lucide-react';
+
 const Index = () => {
   const featuredProjects = getFeaturedProjects();
   const [isLoaded, setIsLoaded] = useState(false);
+  const [hoveredProjectId, setHoveredProjectId] = useState<string | null>(null);
+
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoaded(true);
@@ -14,6 +18,7 @@ const Index = () => {
 
     return () => clearTimeout(timer);
   }, []);
+
   return <div className="min-h-screen bg-white">
       <Navbar />
       
@@ -55,10 +60,28 @@ const Index = () => {
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {featuredProjects.map((project, index) => {
-            return <Link key={project.id} to={`/case-study/${project.id}`} className="feature-card group">
+            return <Link 
+                    key={project.id} 
+                    to={`/case-study/${project.id}`} 
+                    className="feature-card group"
+                    onMouseEnter={() => setHoveredProjectId(project.id)}
+                    onMouseLeave={() => setHoveredProjectId(null)}
+                  >
                   <div className="feature-card-bg h-full">
                     <div className="feature-card-image-bg">
-                      <img src={project.image} alt={project.title} loading="lazy" />
+                      {project.videoUrl && hoveredProjectId === project.id ? (
+                        <video 
+                          autoPlay 
+                          muted 
+                          loop 
+                          className="w-full h-full object-cover"
+                        >
+                          <source src={project.videoUrl} type="video/mp4" />
+                          Your browser does not support the video tag.
+                        </video>
+                      ) : (
+                        <img src={project.image} alt={project.title} loading="lazy" />
+                      )}
                       <div className="gradient-overlay"></div>
                     </div>
                     <div className="feature-card-content">
@@ -172,4 +195,5 @@ const Index = () => {
       </footer>
     </div>;
 };
+
 export default Index;
