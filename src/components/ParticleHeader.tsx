@@ -325,22 +325,17 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
         className={`w-full h-[95vh] relative ${className || ''}`}
         style={{ touchAction: 'none' }}
       />
+      
       <div 
         className="absolute bottom-0 left-0 right-0 h-64 bg-gradient-to-t from-white to-transparent pointer-events-none" 
         style={{ zIndex: 10 }} 
       />
       
       <div 
-        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center z-30"
+        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-30 w-64 h-32"
         onMouseEnter={handleMouseEnterContent}
         onMouseLeave={handleMouseLeaveContent}
-      >
-        <h1 className="text-4xl md:text-6xl font-bold mb-4">Welcome</h1>
-        <p className="text-lg md:text-xl mb-6">Interactive particle experience</p>
-        <button className="px-6 py-2 bg-black/80 text-white rounded-full hover:bg-black/90 transition-colors">
-          Explore
-        </button>
-      </div>
+      />
       
       <div 
         className={`fixed px-3 py-1 bg-black/70 text-white rounded-full text-sm font-mono z-20 pointer-events-none transform -translate-x-1/2 -translate-y-1/2 transition-opacity duration-300 ease-in-out ${isNewImant ? 'opacity-100' : isMouseInside && !isHoveringContent ? 'opacity-20' : 'opacity-0'}`}
