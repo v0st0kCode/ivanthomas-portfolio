@@ -1,4 +1,3 @@
-
 import React, { useRef, useEffect, useState } from 'react';
 import p5 from 'p5';
 import { useToast } from "@/hooks/use-toast";
@@ -68,7 +67,6 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
       setGameActive(false);
       setImantedCount(0);
       setIsNewImant(false);
-      // Don't adjust opacity here to avoid the visibility bump
       setTimeout(() => {
         setShowWinMessage(false);
         setFadeOutCollected(false);
