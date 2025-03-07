@@ -1,3 +1,4 @@
+
 import React, { useRef, useEffect, useState } from 'react';
 import p5 from 'p5';
 import { useToast } from "@/hooks/use-toast";
@@ -15,6 +16,8 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
   const [counterPosition, setCounterPosition] = useState({ x: 0, y: 0 });
   const [isMouseInside, setIsMouseInside] = useState(false);
   const [isHoveringContent, setIsHoveringContent] = useState(false);
+  const [showWinMessage, setShowWinMessage] = useState(false);
+  const [gameActive, setGameActive] = useState(true);
   const totalParticles = 80; // Total number of dots
   const { toast } = useToast();
 
@@ -26,6 +29,25 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
       return () => clearTimeout(timer);
     }
   }, [isNewImant]);
+
+  useEffect(() => {
+    const handleDoubleClick = () => {
+      setGameActive(false);
+      setImantedCount(0);
+      setIsNewImant(false);
+      setShowWinMessage(false);
+    };
+
+    if (containerRef.current) {
+      containerRef.current.addEventListener('dblclick', handleDoubleClick);
+    }
+
+    return () => {
+      if (containerRef.current) {
+        containerRef.current.removeEventListener('dblclick', handleDoubleClick);
+      }
+    };
+  }, []);
 
   useEffect(() => {
     if (!containerRef.current) return;
@@ -72,7 +94,7 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
           const mouseInfluence = p5.Vector.sub(mouse, this.pos);
           const mouseDistance = mouseInfluence.mag();
           
-          if (isMouseInsideCanvas && mouseDistance < 60 && !this.imanted && !isHoveringContent) {
+          if (gameActive && isMouseInsideCanvas && mouseDistance < 60 && !this.imanted && !isHoveringContent) {
             this.imanted = true;
             imantedParticles.add(this.id);
             
@@ -87,7 +109,7 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
             }
           }
           
-          if (this.imanted) {
+          if (this.imanted && gameActive) {
             if (!isHoveringContent) {
               mouseInfluence.setMag(this.maxSpeed * 2);
               this.vel = mouseInfluence;
@@ -133,10 +155,10 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
         display() {
           p.noStroke();
           
-          if (this.imanted && !isHoveringContent) {
+          if (this.imanted && gameActive && !isHoveringContent) {
             p.fill(0, 200);
             p.circle(this.pos.x, this.pos.y, this.radius * 2.5 * dotSizeMultiplier);
-          } else if (this.imanted && isHoveringContent) {
+          } else if (this.imanted && gameActive && isHoveringContent) {
             p.fill(0, 50);
             p.circle(this.pos.x, this.pos.y, this.radius * 2.5 * dotSizeMultiplier);
           } else {
@@ -159,7 +181,9 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
       }
       
       const celebrateSuccess = () => {
-        if (celebrationCount === 0 && !hasShownToast) {
+        setShowWinMessage(true);
+        
+        if (!hasShownToast) {
           toast({
             title: "Congratulations!",
             description: "You've collected all dots!",
@@ -167,17 +191,30 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
           hasShownToast = true;
         }
         
-        if (celebrationCount < 3) {
-          fireworksEffect();
-          celebrationCount++;
-          
+        fireworksEffect();
+        celebrationCount++;
+        
+        if (celebrationCount < 4) {
           setTimeout(() => {
-            if (celebrationCount < 3) {
-              fireworksEffect();
-            } else {
+            fireworksEffect();
+            celebrationCount++;
+            
+            if (celebrationCount < 4) {
               setTimeout(() => {
-                resetGame();
-              }, 1000);
+                fireworksEffect();
+                celebrationCount++;
+                
+                if (celebrationCount < 4) {
+                  setTimeout(() => {
+                    fireworksEffect();
+                    celebrationCount++;
+                    
+                    setTimeout(() => {
+                      resetGame();
+                    }, 1000);
+                  }, 800);
+                }
+              }, 800);
             }
           }, 800);
         }
@@ -203,9 +240,11 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
         particles.forEach(p => p.imanted = false);
         setImantedCount(0);
         setIsNewImant(false);
+        setShowWinMessage(false);
         celebrationCount = 0;
         hasShownToast = false;
         dotSizeMultiplier = 1;
+        setGameActive(false);
       };
       
       p.setup = () => {
@@ -308,7 +347,7 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
     return () => {
       sketchRef.current?.remove();
     };
-  }, []);
+  }, [gameActive]);
 
   const handleMouseEnterContent = () => {
     setIsHoveringContent(true);
@@ -326,6 +365,12 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
         style={{ touchAction: 'none' }}
       />
       
+      {showWinMessage && (
+        <div className="absolute top-1/3 left-1/2 transform -translate-x-1/2 px-6 py-4 bg-black/80 text-white rounded-lg text-xl font-medium z-50 text-center whitespace-nowrap">
+          Congratulations! You collected all dots too!
+        </div>
+      )}
+      
       <div 
         className="absolute bottom-0 left-0 right-0 h-64 bg-gradient-to-t from-white to-transparent pointer-events-none" 
         style={{ zIndex: 10 }} 
@@ -338,7 +383,7 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
       />
       
       <div 
-        className={`fixed px-3 py-1 bg-black/70 text-white rounded-full text-sm font-mono z-20 pointer-events-none transition-opacity duration-300 ease-in-out ${isNewImant ? 'opacity-100' : isMouseInside && !isHoveringContent ? 'opacity-20' : 'opacity-0'}`}
+        className={`fixed px-3 py-1 bg-black/70 text-white rounded-full text-sm font-mono z-20 pointer-events-none transition-opacity duration-300 ease-in-out ${isNewImant ? 'opacity-100' : isMouseInside && !isHoveringContent && gameActive ? 'opacity-20' : 'opacity-0'}`}
         style={{ 
           left: `calc(${typeof window !== 'undefined' ? (counterPosition.x || window.mouseX || window.innerWidth / 2) : '50%'}px + 1em)`,
           top: `calc(${typeof window !== 'undefined' ? (counterPosition.y || window.mouseY || window.innerHeight / 2) : '50%'}px + 1em)`,
