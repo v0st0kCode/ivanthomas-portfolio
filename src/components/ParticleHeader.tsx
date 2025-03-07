@@ -60,14 +60,17 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
     setTimeout(() => fireworksEffect(), 2400);
     
     setTimeout(() => {
+      setGridVisible(true);
+    }, 3000);
+    
+    setTimeout(() => {
       setGameActive(false);
       setImantedCount(0);
       setIsNewImant(false);
       setTimeout(() => {
         setShowWinMessage(false);
         setFadeOutCollected(false);
-        setGridVisible(true);
-      }, 5000);
+      }, 1000);
     }, 4000);
   };
 
@@ -428,3 +431,4 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
 };
 
 export default ParticleHeader;
+
