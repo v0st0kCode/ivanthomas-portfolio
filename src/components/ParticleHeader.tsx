@@ -1,4 +1,3 @@
-
 import React, { useRef, useEffect, useState } from 'react';
 import p5 from 'p5';
 import { useToast } from "@/hooks/use-toast";
@@ -411,15 +410,15 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
       <div 
         className={`fixed px-3 py-1 bg-black/70 text-white rounded-full text-sm font-mono z-20 pointer-events-none ${
           isNewImant 
-            ? 'opacity-100 transition-opacity duration-500 ease-in-out' 
+            ? 'opacity-100 transition-all duration-700 ease-in-out' 
             : isMouseInside && !isHoveringContent && gameActive 
-              ? 'opacity-10 transition-opacity duration-700 ease-in-out delay-2000' 
-              : 'opacity-0 transition-opacity duration-700 ease-in-out'
+              ? 'opacity-10 transition-all duration-1000 ease-in-out delay-2000' 
+              : 'opacity-0 transition-all duration-1000 ease-in-out'
         }`}
         style={{ 
           left: `calc(${typeof window !== 'undefined' ? (counterPosition.x || window.mouseX || window.innerWidth / 2) : '50%'}px + 1em)`,
           top: `calc(${typeof window !== 'undefined' ? (counterPosition.y || window.mouseY || window.innerHeight / 2) : '50%'}px + 1em)`,
-          transition: 'left 0.3s ease-out, top 0.3s ease-out'
+          transition: 'left 0.4s ease-out, top 0.4s ease-out'
         }}
       >
         {imantedCount}/{totalParticles}
