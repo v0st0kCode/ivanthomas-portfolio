@@ -19,23 +19,6 @@ export interface Project {
 
 export const projects: Project[] = [
   {
-    id: "sony-app",
-    title: "Sony 3D Live Replayer",
-    description: "Replays like you never saw before.",
-    image: "/Sony3D_bg.png", // Updated path with leading slash for public directory
-    category: "iPad App",
-    year: "2025",
-    featured: true,
-    protected: true, // Making this project protected
-    size: "large",
-    details: {
-      client: "Sony",
-      role: "Concept Product Designer",
-      duration: "4 days",
-      tools: ["Figma", "Spline"]
-    }
-  },
-  {
     id: "livepro-app",
     title: "Mediacoach LivePRO",
     description: "Real-time video-analysis iPad app.",
@@ -53,20 +36,20 @@ export const projects: Project[] = [
     }
   },  
   {
-    id: "portal-app",
-    title: "Mediacoach Portal v9",
-    description: "Data-driven dashboard for analysts and coaches.",
-    image: "/portal_9.jpg",
-    category: "Web App",
-    year: "2023",
+    id: "sony-app",
+    title: "Sony 3D Live Replayer",
+    description: "Replays like you never saw before.",
+    image: "/Sony3D_bg.png", // Updated path with leading slash for public directory
+    category: "iPad App",
+    year: "2025",
     featured: true,
     protected: true, // Making this project protected
     size: "large",
     details: {
-      client: "LaLiga",
-      role: "Lead Product Designer",
-      duration: "2 months",
-      tools: ["Figma", "Protopie", "Mockups"]
+      client: "Sony",
+      role: "Concept Product Designer",
+      duration: "4 days",
+      tools: ["Figma", "Spline"]
     }
   },
   {
@@ -83,6 +66,23 @@ export const projects: Project[] = [
       role: "Senior Product Designer",
       duration: "3 months",
       tools: ["Sketch", "Protopie"]
+    }
+  },
+  {
+    id: "portal-app",
+    title: "Mediacoach Portal v9",
+    description: "Data-driven dashboard for analysts and coaches.",
+    image: "/portal_9.jpg",
+    category: "Web App",
+    year: "2023",
+    featured: true,
+    protected: true, // Making this project protected
+    size: "large",
+    details: {
+      client: "LaLiga",
+      role: "Lead Product Designer",
+      duration: "2 months",
+      tools: ["Figma", "Protopie", "Mockups"]
     }
   },
   {
