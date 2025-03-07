@@ -71,7 +71,7 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
       } else if (distance <= 1 * pixelsPerEm) {
         newOpacity = 0.05; // 5% opacity when distance <= 1em
       } else {
-        newOpacity = 0; // 0% opacity when distance > 1em
+        newOpacity = 0.05; // Changed from 0 to 0.05 (5%) to ensure minimum visibility
       }
       
       setCounterOpacity(newOpacity);
