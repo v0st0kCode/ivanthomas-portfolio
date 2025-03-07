@@ -28,6 +28,7 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
   const [gameActive, setGameActive] = useState(true);
   const [fadeOutCollected, setFadeOutCollected] = useState(false);
   const [celebrationActive, setCelebrationActive] = useState(false);
+  const [dotsVisible, setDotsVisible] = useState(true);
   const totalParticles = 80;
   const { toast } = useToast();
 
@@ -51,9 +52,10 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
   const triggerCelebration = () => {
     console.log("Triggering celebration");
     setShowWinMessage(true);
-    setGameActive(true);
+    setGameActive(false);
     setFadeOutCollected(true);
     setCelebrationActive(true);
+    setDotsVisible(false); // Hide dots during celebration
     fireworksEffect();
     
     setTimeout(() => fireworksEffect(), 800);
@@ -61,13 +63,16 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
     setTimeout(() => fireworksEffect(), 2400);
     
     setTimeout(() => {
-      setGameActive(false);
+      // Reset game state
       setImantedCount(0);
       setIsNewImant(false);
+      
+      // Transition to non-interactive dot grid
       setTimeout(() => {
         setShowWinMessage(false);
         setFadeOutCollected(false);
         setCelebrationActive(false);
+        setDotsVisible(true); // Show dots again as non-interactive grid
       }, 5000);
     }, 4000);
   };
@@ -115,6 +120,7 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
         color: number;
         id: number;
         imanted: boolean;
+        opacity: number;
 
         constructor(x: number, y: number, id: number) {
           this.pos = p.createVector(
@@ -130,6 +136,7 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
           this.color = p.random(200, 255);
           this.id = id;
           this.imanted = false;
+          this.opacity = 255;
         }
 
         update() {
@@ -190,6 +197,13 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
             this.pos.add(this.vel);
             this.acc.mult(0);
           }
+          
+          // Handle transition opacity for dots
+          if (!dotsVisible) {
+            this.opacity = p.max(this.opacity - 15, 0); // Fade out faster
+          } else {
+            this.opacity = p.min(this.opacity + 10, 255); // Fade in slower
+          }
         }
         
         applyForce(force: p5.Vector) {
@@ -199,31 +213,35 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
         display() {
           p.noStroke();
 
-          // Update fadeOutOpacity based on the fadeOutCollected state
-          if (fadeOutCollected) {
-            fadeOutOpacity = p.max(fadeOutOpacity - 0.02, 0); // Gradually decrease to 0
-          } else {
-            fadeOutOpacity = 1;
-          }
+          // Skip drawing if opacity is 0
+          if (this.opacity <= 0) return;
+          
+          // Apply the opacity from the particle state
+          const displayOpacity = this.opacity / 255;
           
           if (this.imanted && gameActive && !isHoveringContent) {
-            p.fill(0, 200 * fadeOutOpacity);
+            p.fill(0, 200 * displayOpacity * fadeOutOpacity);
             p.circle(this.pos.x, this.pos.y, this.radius * 2.5 * dotSizeMultiplier);
           } else if (this.imanted && gameActive && isHoveringContent) {
-            p.fill(0, 50 * fadeOutOpacity);
+            p.fill(0, 50 * displayOpacity * fadeOutOpacity);
             p.circle(this.pos.x, this.pos.y, this.radius * 2.5 * dotSizeMultiplier);
           } else {
             const alpha = p.map(p5.Vector.dist(this.pos, this.target), 0, 100, 90, 40);
-            p.fill(0, alpha);
+            p.fill(0, alpha * displayOpacity);
             p.circle(this.pos.x, this.pos.y, this.radius * 2);
           }
         }
         
         connect(particles: Particle[]) {
+          // Skip connections if dots aren't visible
+          if (this.opacity <= 40) return;
+          
           particles.forEach(particle => {
+            if (particle.opacity <= 40) return;
+            
             const d = p5.Vector.dist(this.pos, particle.pos);
             if (d < 100) {
-              const alpha = p.map(d, 0, 100, 20, 0);
+              const alpha = p.map(d, 0, 100, 20, 0) * (this.opacity / 255) * (particle.opacity / 255);
               p.stroke(0, alpha);
               p.line(this.pos.x, this.pos.y, particle.pos.x, particle.pos.y);
             }
@@ -370,7 +388,7 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
     return () => {
       sketchRef.current?.remove();
     };
-  }, [gameActive, fadeOutCollected, celebrationActive]);
+  }, [gameActive, fadeOutCollected, celebrationActive, dotsVisible]);
 
   const handleMouseEnterContent = () => {
     setIsHoveringContent(true);
