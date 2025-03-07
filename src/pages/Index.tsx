@@ -1,10 +1,20 @@
-
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import ParticleHeader from '../components/ParticleHeader';
 import Navbar from '../components/Navbar';
 import { getFeaturedProjects } from '../data/projects';
 import { LockKeyhole } from 'lucide-react';
+
+// Add mouse position tracking to the window object
+if (typeof window !== 'undefined') {
+  window.mouseX = 0;
+  window.mouseY = 0;
+  
+  window.addEventListener('mousemove', (e) => {
+    window.mouseX = e.clientX;
+    window.mouseY = e.clientY;
+  });
+}
 
 const Index = () => {
   const featuredProjects = getFeaturedProjects();
