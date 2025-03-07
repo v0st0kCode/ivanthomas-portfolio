@@ -12,6 +12,7 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
   const sketchRef = useRef<p5>();
   const [imantedCount, setImantedCount] = useState(0);
   const [isNewImant, setIsNewImant] = useState(false);
+  const [counterPosition, setCounterPosition] = useState({ x: 0, y: 0 });
   const totalParticles = 80; // Total number of dots
   const { toast } = useToast();
 
@@ -34,6 +35,8 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
       let mouseY = p.windowHeight / 2;
       let imantedParticles = new Set<number>();
       let isMouseInside = false;
+      let celebrationCount = 0;
+      let hasShownToast = false;
 
       class Particle {
         pos: p5.Vector;
@@ -83,6 +86,10 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
             mouseInfluence.setMag(this.maxSpeed * 2);
             this.vel = mouseInfluence;
             this.pos = p5.Vector.lerp(this.pos, mouse, 0.1);
+            
+            if (this.id === Array.from(imantedParticles)[0]) {
+              setCounterPosition({ x: this.pos.x, y: this.pos.y });
+            }
           } else {
             if (mouseDistance < 120) {
               mouseInfluence.setMag(-1 * (120 - mouseDistance) * 0.05);
@@ -142,11 +149,31 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
       }
       
       const celebrateSuccess = () => {
-        toast({
-          title: "Congratulations!",
-          description: "You've collected all dots!",
-        });
+        if (celebrationCount === 0 && !hasShownToast) {
+          toast({
+            title: "Congratulations!",
+            description: "You've collected all dots!",
+          });
+          hasShownToast = true;
+        }
         
+        if (celebrationCount < 3) {
+          fireworksEffect();
+          celebrationCount++;
+          
+          setTimeout(() => {
+            if (celebrationCount < 3) {
+              fireworksEffect();
+            } else {
+              setTimeout(() => {
+                resetGame();
+              }, 1000);
+            }
+          }, 800);
+        }
+      };
+      
+      const fireworksEffect = () => {
         if (containerRef.current) {
           const rect = containerRef.current.getBoundingClientRect();
           const x = rect.width / 2 / rect.width;
@@ -159,10 +186,6 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
             colors: ['#9b87f5', '#D946EF', '#F97316', '#0EA5E9', '#8B5CF6']
           });
         }
-        
-        setTimeout(() => {
-          resetGame();
-        }, 2000);
       };
       
       const resetGame = () => {
@@ -170,6 +193,8 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
         particles.forEach(p => p.imanted = false);
         setImantedCount(0);
         setIsNewImant(false);
+        celebrationCount = 0;
+        hasShownToast = false;
       };
       
       p.setup = () => {
@@ -285,8 +310,9 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
       <div 
         className={`fixed px-3 py-1 bg-black/70 text-white rounded-full text-sm font-mono z-20 pointer-events-none transform -translate-x-1/2 -translate-y-1/2 transition-opacity duration-300 ease-in-out ${isNewImant ? 'opacity-100' : 'opacity-20'}`}
         style={{ 
-          left: typeof window !== 'undefined' ? `${window.mouseX || window.innerWidth / 2}px` : '50%',
-          top: typeof window !== 'undefined' ? `${window.mouseY || window.innerHeight / 2}px` : '50%', 
+          left: `${typeof window !== 'undefined' ? (counterPosition.x || window.mouseX || window.innerWidth / 2) : '50%'}px`,
+          top: `${typeof window !== 'undefined' ? (counterPosition.y || window.mouseY || window.innerHeight / 2) : '50%'}px`,
+          transition: 'left 0.2s ease-out, top 0.2s ease-out'
         }}
       >
         {imantedCount}/{totalParticles}
@@ -296,3 +322,4 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
 };
 
 export default ParticleHeader;
+
