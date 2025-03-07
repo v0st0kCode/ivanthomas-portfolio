@@ -1,3 +1,4 @@
+
 import React, { useRef, useEffect, useState } from 'react';
 import p5 from 'p5';
 import { useToast } from "@/hooks/use-toast";
@@ -387,7 +388,7 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
       
       {showWinMessage && (
         <div className="absolute left-1/2 transform -translate-x-1/2 px-6 py-4 bg-black/80 text-white rounded-lg text-xl font-medium z-50 text-center whitespace-nowrap animate-win-message"
-             style={{ top: '3em' }}>
+             style={{ top: '1em' }}>
           Congratulations! You collected all dots too!
         </div>
       )}
@@ -403,17 +404,19 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
         onMouseLeave={handleMouseLeaveContent}
       />
       
-      <div 
-        className="fixed px-3 py-1 bg-black/70 text-white rounded-full text-sm font-mono z-20 pointer-events-none"
-        style={{ 
-          left: `calc(${typeof window !== 'undefined' ? (counterPosition.x || window.mouseX || window.innerWidth / 2) : '50%'}px + 1em)`,
-          top: `calc(${typeof window !== 'undefined' ? (counterPosition.y || window.mouseY || window.innerHeight / 2) : '50%'}px + 1em)`,
-          opacity: 1,
-          transition: 'left 0.3s ease-out, top 0.3s ease-out'
-        }}
-      >
-        {imantedCount}/{totalParticles}
-      </div>
+      {gameActive && (
+        <div 
+          className="fixed px-3 py-1 bg-black/70 text-white rounded-full text-sm font-mono z-20 pointer-events-none"
+          style={{ 
+            left: `calc(${typeof window !== 'undefined' ? (counterPosition.x || window.mouseX || window.innerWidth / 2) : '50%'}px + 1em)`,
+            top: `calc(${typeof window !== 'undefined' ? (counterPosition.y || window.mouseY || window.innerHeight / 2) : '50%'}px + 1em)`,
+            opacity: 1,
+            transition: 'left 0.3s ease-out, top 0.3s ease-out'
+          }}
+        >
+          {imantedCount}/{totalParticles}
+        </div>
+      )}
       
       {import.meta.env.DEV && (
         <div className="fixed bottom-4 right-4 px-3 py-1 bg-black/50 text-white rounded-md text-xs font-mono z-20">
