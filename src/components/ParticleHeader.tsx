@@ -1,3 +1,4 @@
+
 import React, { useRef, useEffect, useState } from 'react';
 import p5 from 'p5';
 import { useToast } from "@/hooks/use-toast";
@@ -61,7 +62,7 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
     
     setTimeout(() => {
       setGridVisible(true);
-    }, 3000);
+    }, 2000);  // Changed from 3000 to 2000 to make dots appear 2 seconds before the effect ends
     
     setTimeout(() => {
       setGameActive(false);
@@ -431,4 +432,3 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
 };
 
 export default ParticleHeader;
-
