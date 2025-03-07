@@ -31,10 +31,7 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
 
   useEffect(() => {
     const handleDoubleClick = () => {
-      setGameActive(false);
-      setImantedCount(0);
-      setIsNewImant(false);
-      setShowWinMessage(false);
+      triggerCelebration();
     };
 
     if (containerRef.current) {
@@ -47,6 +44,42 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
       }
     };
   }, []);
+
+  const triggerCelebration = () => {
+    setShowWinMessage(true);
+    fireworksEffect();
+    
+    // Schedule multiple confetti bursts
+    setTimeout(() => fireworksEffect(), 800);
+    setTimeout(() => fireworksEffect(), 1600);
+    setTimeout(() => fireworksEffect(), 2400);
+    
+    // Reset the game after celebration
+    setTimeout(() => {
+      setGameActive(false);
+      setImantedCount(0);
+      setIsNewImant(false);
+      // Allow the animation to complete before hiding the message
+      setTimeout(() => {
+        setShowWinMessage(false);
+      }, 3000);
+    }, 4000);
+  };
+  
+  const fireworksEffect = () => {
+    if (containerRef.current) {
+      const rect = containerRef.current.getBoundingClientRect();
+      const x = rect.width / 2 / rect.width;
+      const y = rect.height / 2 / rect.height;
+      
+      confetti({
+        particleCount: 100,
+        spread: 70,
+        origin: { x, y },
+        colors: ['#9b87f5', '#D946EF', '#F97316', '#0EA5E9', '#8B5CF6']
+      });
+    }
+  };
 
   useEffect(() => {
     if (!containerRef.current) return;
@@ -180,53 +213,7 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
       }
       
       const celebrateSuccess = () => {
-        setShowWinMessage(true);
-        
-        fireworksEffect();
-        celebrationCount++;
-        
-        if (celebrationCount < 4) {
-          setTimeout(() => {
-            fireworksEffect();
-            celebrationCount++;
-            
-            if (celebrationCount < 4) {
-              setTimeout(() => {
-                fireworksEffect();
-                celebrationCount++;
-                
-                if (celebrationCount < 4) {
-                  setTimeout(() => {
-                    fireworksEffect();
-                    celebrationCount++;
-                    
-                    setTimeout(() => {
-                      setTimeout(() => {
-                        setShowWinMessage(false);
-                      }, 1500);
-                      resetGame();
-                    }, 1000);
-                  }, 800);
-                }
-              }, 800);
-            }
-          }, 800);
-        }
-      };
-      
-      const fireworksEffect = () => {
-        if (containerRef.current) {
-          const rect = containerRef.current.getBoundingClientRect();
-          const x = rect.width / 2 / rect.width;
-          const y = rect.height / 2 / rect.height;
-          
-          confetti({
-            particleCount: 100,
-            spread: 70,
-            origin: { x, y },
-            colors: ['#9b87f5', '#D946EF', '#F97316', '#0EA5E9', '#8B5CF6']
-          });
-        }
+        triggerCelebration();
       };
       
       const resetGame = () => {
