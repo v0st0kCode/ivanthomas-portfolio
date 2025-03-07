@@ -17,7 +17,7 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
   const [isHoveringContent, setIsHoveringContent] = useState(false);
   const [showWinMessage, setShowWinMessage] = useState(false);
   const [gameActive, setGameActive] = useState(true);
-  const totalParticles = 80; // Total number of dots
+  const totalParticles = 80;
   const { toast } = useToast();
 
   useEffect(() => {
