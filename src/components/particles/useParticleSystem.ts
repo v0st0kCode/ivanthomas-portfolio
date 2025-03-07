@@ -1,8 +1,13 @@
-
 import { useRef, useEffect, useState } from 'react';
 import p5 from 'p5';
 import { Particle } from './Particle';
 import confetti from 'canvas-confetti';
+
+declare module 'p5' {
+  interface p5 {
+    resetGame?: () => void;
+  }
+}
 
 interface UseParticleSystemProps {
   containerRef: React.RefObject<HTMLDivElement>;
@@ -30,6 +35,7 @@ export const useParticleSystem = ({
   triggerCelebration
 }: UseParticleSystemProps) => {
   const sketchRef = useRef<p5>();
+  const resetGameRef = useRef<(() => void) | null>(null);
 
   useEffect(() => {
     if (!containerRef.current) return;
@@ -183,13 +189,14 @@ export const useParticleSystem = ({
         }
       };
 
-      // Public method to reset the game
-      p.resetGame = () => {
+      const resetGame = () => {
         imantedParticles.clear();
         particles.forEach(p => p.imanted = false);
         dotSizeMultiplier = 1;
         fadeOutOpacity = 1;
       };
+
+      resetGameRef.current = resetGame;
     };
 
     sketchRef.current = new p5(sketch);
@@ -210,5 +217,14 @@ export const useParticleSystem = ({
     triggerCelebration
   ]);
 
-  return sketchRef;
+  const resetGame = () => {
+    if (resetGameRef.current) {
+      resetGameRef.current();
+    }
+  };
+
+  return {
+    sketch: sketchRef.current,
+    resetGame
+  };
 };

@@ -52,7 +52,7 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
   });
 
   // Handle particle system
-  useParticleSystem({
+  const { resetGame } = useParticleSystem({
     containerRef,
     totalParticles,
     gameActive,
