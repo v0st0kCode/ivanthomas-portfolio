@@ -27,6 +27,7 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
   const [showWinMessage, setShowWinMessage] = useState(false);
   const [gameActive, setGameActive] = useState(true);
   const [fadeOutCollected, setFadeOutCollected] = useState(false);
+  const [celebrationActive, setCelebrationActive] = useState(false);
   const totalParticles = 80;
   const { toast } = useToast();
 
@@ -52,6 +53,7 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
     setShowWinMessage(true);
     setGameActive(true);
     setFadeOutCollected(true);
+    setCelebrationActive(true);
     fireworksEffect();
     
     setTimeout(() => fireworksEffect(), 800);
@@ -65,6 +67,7 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
       setTimeout(() => {
         setShowWinMessage(false);
         setFadeOutCollected(false);
+        setCelebrationActive(false);
       }, 5000);
     }, 4000);
   };
@@ -98,6 +101,8 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
       let hasShownToast = false;
       let dotSizeMultiplier = 1;
       let fadeOutOpacity = 1;
+      let lastGridUpdate = 0;
+      const gridUpdateDelay = 500; // ms between grid updates
 
       class Particle {
         pos: p5.Vector;
@@ -133,7 +138,7 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
           const mouseInfluence = p5.Vector.sub(mouse, this.pos);
           const mouseDistance = mouseInfluence.mag();
           
-          if (gameActive && isMouseInsideCanvas && mouseDistance < 60 && !this.imanted && !isHoveringContent) {
+          if (gameActive && isMouseInsideCanvas && mouseDistance < 60 && !this.imanted && !isHoveringContent && !celebrationActive) {
             this.imanted = true;
             imantedParticles.add(this.id);
             
@@ -149,7 +154,7 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
           }
           
           if (this.imanted && gameActive) {
-            if (!isHoveringContent) {
+            if (!isHoveringContent && !celebrationActive) {
               mouseInfluence.setMag(this.maxSpeed * 2);
               this.vel = mouseInfluence;
               this.pos = p5.Vector.lerp(this.pos, mouse, 0.1);
@@ -159,10 +164,10 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
               setCounterPosition({ x: this.pos.x, y: this.pos.y });
             }
           } else {
-            if (mouseDistance < 120) {
+            if (mouseDistance < 120 && !celebrationActive) {
               mouseInfluence.setMag(-1 * (120 - mouseDistance) * 0.05);
               this.applyForce(mouseInfluence);
-            } else if (mouseDistance < 200) {
+            } else if (mouseDistance < 200 && !celebrationActive) {
               mouseInfluence.setMag((mouseDistance - 120) * 0.01);
               this.applyForce(mouseInfluence);
             }
@@ -282,6 +287,14 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
       };
       
       p.windowResized = () => {
+        // Don't update grid during celebration
+        if (celebrationActive) return;
+        
+        // Throttle grid updates
+        const now = Date.now();
+        if (now - lastGridUpdate < gridUpdateDelay) return;
+        lastGridUpdate = now;
+        
         p.resizeCanvas(p.windowWidth, p.windowHeight * 0.95);
         
         const cols = 10;
@@ -304,6 +317,8 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
       };
       
       p.mouseMoved = () => {
+        if (celebrationActive) return; // Don't update mouse position during celebration
+        
         mouseX = p.mouseX;
         mouseY = p.mouseY;
         
@@ -324,6 +339,8 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
       };
       
       p.touchMoved = () => {
+        if (celebrationActive) return false; // Don't update touch position during celebration
+        
         if (p.touches.length > 0 && p.touches[0]) {
           const touch = p.touches[0] as unknown as { x: number, y: number };
           mouseX = touch.x || p.windowWidth / 2;
@@ -353,7 +370,7 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
     return () => {
       sketchRef.current?.remove();
     };
-  }, [gameActive, fadeOutCollected]);
+  }, [gameActive, fadeOutCollected, celebrationActive]);
 
   const handleMouseEnterContent = () => {
     setIsHoveringContent(true);
