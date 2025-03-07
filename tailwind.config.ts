@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -92,19 +93,19 @@ export default {
         "win-message": {
           "0%": { 
             opacity: "0",
-            transform: "translate(-50%, 100%)"
+            transform: "translate(-50%, 4em)"
           },
           "10%": {
             opacity: "1",
-            transform: "translate(-50%, 0)"
+            transform: "translate(-50%, 2em)"
           },
           "80%": {
             opacity: "1",
-            transform: "translate(-50%, 0)"
+            transform: "translate(-50%, 2em)"
           },
           "100%": {
             opacity: "0",
-            transform: "translate(-50%, -50%)"
+            transform: "translate(-50%, -2em)"
           }
         }
       },
