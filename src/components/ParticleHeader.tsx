@@ -152,7 +152,10 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
         imanted: boolean;
 
         constructor(x: number, y: number, id: number) {
-          this.pos = p.createVector(p.random(p.width), p.random(p.height));
+          this.pos = p.createVector(
+            x + p.random(-p.width * 0.1, p.width * 0.1), 
+            y + p.random(-p.height * 0.1, p.height * 0.1)
+          );
           this.vel = p5.Vector.random2D().mult(p.random(0.5, 1.5));
           this.acc = p.createVector(0, 0);
           this.target = p.createVector(x, y);
@@ -276,15 +279,21 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
         canvas.parent(containerRef.current!);
         
         const cols = 10;
-        const rows = 9;
-        const cellWidth = p.width / cols;
-        const cellHeight = p.height / rows;
+        const rows = 8;
+        const gridWidth = p.width * 0.8;
+        const gridHeight = p.height * 0.8;
+        
+        const cellWidth = gridWidth / cols;
+        const cellHeight = gridHeight / rows;
+        
+        const startX = (p.width - gridWidth) / 2;
+        const startY = (p.height - gridHeight) / 2;
         
         for (let i = 0; i < cols; i++) {
           for (let j = 0; j < rows; j++) {
             if (particles.length < particleCount) {
-              const x = cellWidth * (i + 0.5);
-              const y = cellHeight * (j + 0.5);
+              const x = startX + cellWidth * (i + 0.5);
+              const y = startY + cellHeight * (j + 0.5);
               const particle = new Particle(x, y, particles.length);
               particles.push(particle);
             }
@@ -309,15 +318,21 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
         p.resizeCanvas(p.windowWidth, p.windowHeight * 0.95);
         
         const cols = 10;
-        const rows = 9;
-        const cellWidth = p.width / cols;
-        const cellHeight = p.height / rows;
+        const rows = 8;
+        const gridWidth = p.width * 0.8;
+        const gridHeight = p.height * 0.8;
+        
+        const cellWidth = gridWidth / cols;
+        const cellHeight = gridHeight / rows;
+        
+        const startX = (p.width - gridWidth) / 2;
+        const startY = (p.height - gridHeight) / 2;
         
         particles.forEach((particle, index) => {
           const i = index % cols;
           const j = Math.floor(index / cols);
-          particle.target.x = cellWidth * (i + 0.5);
-          particle.target.y = cellHeight * (j + 0.5);
+          particle.target.x = startX + cellWidth * (i + 0.5);
+          particle.target.y = startY + cellHeight * (j + 0.5);
         });
       };
       
