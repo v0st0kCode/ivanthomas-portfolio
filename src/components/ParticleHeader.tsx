@@ -21,7 +21,7 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
   const sketchRef = useRef<p5>();
   const [imantedCount, setImantedCount] = useState(0);
   const [isNewImant, setIsNewImant] = useState(false);
-  const [counterPosition, setCounterPosition] = useState({ x: 0, y: 0 });
+  const [counterPosition, setCounterPosition] = useState({ x: window?.innerWidth / 2 || 0, y: window?.innerHeight / 2 || 0 });
   const [isMouseInside, setIsMouseInside] = useState(false);
   const [isHoveringContent, setIsHoveringContent] = useState(false);
   const [showWinMessage, setShowWinMessage] = useState(false);
@@ -31,6 +31,8 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
   const [dotsVisible, setDotsVisible] = useState(true);
   const totalParticles = 80;
   const { toast } = useToast();
+  const counterColor = "bg-black/70"; // Using the same color as the counter background
+  const dotColor = { r: 0, g: 0, b: 0 }; // Black color for dots
 
   useEffect(() => {
     if (isNewImant) {
@@ -220,14 +222,15 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
           const displayOpacity = this.opacity / 255;
           
           if (this.imanted && gameActive && !isHoveringContent) {
-            p.fill(0, 200 * displayOpacity * fadeOutOpacity);
+            // Use the counter background color for imanted dots
+            p.fill(dotColor.r, dotColor.g, dotColor.b, 200 * displayOpacity * fadeOutOpacity);
             p.circle(this.pos.x, this.pos.y, this.radius * 2.5 * dotSizeMultiplier);
           } else if (this.imanted && gameActive && isHoveringContent) {
-            p.fill(0, 50 * displayOpacity * fadeOutOpacity);
+            p.fill(dotColor.r, dotColor.g, dotColor.b, 50 * displayOpacity * fadeOutOpacity);
             p.circle(this.pos.x, this.pos.y, this.radius * 2.5 * dotSizeMultiplier);
           } else {
             const alpha = p.map(p5.Vector.dist(this.pos, this.target), 0, 100, 90, 40);
-            p.fill(0, alpha * displayOpacity);
+            p.fill(dotColor.r, dotColor.g, dotColor.b, alpha * displayOpacity);
             p.circle(this.pos.x, this.pos.y, this.radius * 2);
           }
         }
@@ -425,11 +428,11 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
       
       {gameActive && (
         <div 
-          className={`fixed px-3 py-1 bg-black/70 text-white rounded-full text-sm font-mono z-20 pointer-events-none transition-opacity duration-1000 ease-out ${fadeOutCollected ? 'opacity-0' : 'opacity-100'}`}
+          className={`fixed px-3 py-1 ${counterColor} text-white rounded-full text-sm font-mono z-20 pointer-events-none transition-all duration-300 ease-out ${isMouseInside ? 'opacity-100' : 'opacity-0'}`}
           style={{ 
             left: `calc(${typeof window !== 'undefined' ? (counterPosition.x || window.mouseX || window.innerWidth / 2) : '50%'}px + 1em)`,
             top: `calc(${typeof window !== 'undefined' ? (counterPosition.y || window.mouseY || window.innerHeight / 2) : '50%'}px + 1em)`,
-            transition: 'left 0.3s ease-out, top 0.3s ease-out, opacity 1s ease-out'
+            transition: 'left 0.3s ease-out, top 0.3s ease-out, opacity 0.3s ease-out'
           }}
         >
           {imantedCount}/{totalParticles}
