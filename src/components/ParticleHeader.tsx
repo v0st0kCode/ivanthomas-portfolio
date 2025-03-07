@@ -3,7 +3,6 @@ import p5 from 'p5';
 import { useToast } from "@/hooks/use-toast";
 import confetti from 'canvas-confetti';
 
-// Define triggerParticleCelebration on the window object
 declare global {
   interface Window {
     mouseX: number;
@@ -16,7 +15,6 @@ interface ParticleHeaderProps {
   className?: string;
 }
 
-// Keep track of completions (this will persist between renders as it's outside component)
 let globalCompletionCount = 0;
 
 const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
@@ -43,11 +41,9 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
   }, [isNewImant]);
 
   useEffect(() => {
-    // Expose the triggerCelebration function to the window object
     window.triggerParticleCelebration = triggerCelebration;
     
     return () => {
-      // Clean up the global function when component unmounts
       delete window.triggerParticleCelebration;
     };
   }, []);
@@ -55,26 +51,23 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
   const triggerCelebration = () => {
     console.log("Triggering celebration");
     setShowWinMessage(true);
-    setGameActive(true); // Ensure game is active for effects
+    setGameActive(true);
     fireworksEffect();
     
-    // Schedule multiple confetti bursts
     setTimeout(() => fireworksEffect(), 800);
     setTimeout(() => fireworksEffect(), 1600);
     setTimeout(() => fireworksEffect(), 2400);
     
-    // Reset the game after celebration
     setTimeout(() => {
       setGameActive(false);
       setImantedCount(0);
       setIsNewImant(false);
-      // Allow the animation to complete before hiding the message
       setTimeout(() => {
         setShowWinMessage(false);
-      }, 5000); // Increased time for longer fade out
+      }, 5000);
     }, 4000);
   };
-  
+
   const fireworksEffect = () => {
     if (containerRef.current) {
       const rect = containerRef.current.getBoundingClientRect();
@@ -90,32 +83,25 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
     }
   };
 
-  // Function to record challenge completion
   const recordCompletion = () => {
-    // Increment global counter
     globalCompletionCount++;
     setCompletionCount(globalCompletionCount);
     
-    // Here you would typically send data to your analytics or backend
     console.log(`Challenge completed! Total completions: ${globalCompletionCount}`);
     
-    // You can also store in localStorage to persist between sessions
     try {
       const storedCount = localStorage.getItem('dotChallengeCompletions');
       const newCount = storedCount ? parseInt(storedCount, 10) + 1 : 1;
       localStorage.setItem('dotChallengeCompletions', newCount.toString());
     } catch (e) {
-      // Silent fail if localStorage is not available
     }
-    
-    // Show a toast notification about the achievement
+
     toast({
       title: "Challenge Completed!",
       description: `You're the ${globalCompletionCount}${getOrdinalSuffix(globalCompletionCount)} person to collect all dots!`,
     });
   };
-  
-  // Helper function to get ordinal suffix (1st, 2nd, 3rd, etc.)
+
   const getOrdinalSuffix = (n: number): string => {
     const j = n % 10;
     const k = n % 100;
@@ -153,8 +139,8 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
 
         constructor(x: number, y: number, id: number) {
           this.pos = p.createVector(
-            x + p.random(-p.width * 0.1, p.width * 0.1), 
-            y + p.random(-p.height * 0.1, p.height * 0.1)
+            x + p.random(-p.width * 0.05, p.width * 0.05), 
+            y + p.random(-p.height * 0.05, p.height * 0.05)
           );
           this.vel = p5.Vector.random2D().mult(p.random(0.5, 1.5));
           this.acc = p.createVector(0, 0);
@@ -280,8 +266,8 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
         
         const cols = 10;
         const rows = 8;
-        const gridWidth = p.width * 0.8;
-        const gridHeight = p.height * 0.8;
+        const gridWidth = p.width * 0.95;
+        const gridHeight = p.height * 0.95;
         
         const cellWidth = gridWidth / cols;
         const cellHeight = gridHeight / rows;
@@ -319,8 +305,8 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
         
         const cols = 10;
         const rows = 8;
-        const gridWidth = p.width * 0.8;
-        const gridHeight = p.height * 0.8;
+        const gridWidth = p.width * 0.95;
+        const gridHeight = p.height * 0.95;
         
         const cellWidth = gridWidth / cols;
         const cellHeight = gridHeight / rows;
@@ -432,7 +418,6 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
         {imantedCount}/{totalParticles}
       </div>
       
-      {/* Dev-only counter display - remove in production or make it admin-only */}
       {import.meta.env.DEV && (
         <div className="fixed bottom-4 right-4 px-3 py-1 bg-black/50 text-white rounded-md text-xs font-mono z-20">
           Total completions: {completionCount}
