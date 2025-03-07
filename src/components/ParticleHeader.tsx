@@ -50,20 +50,34 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
     };
   }, []);
 
-  // Function to calculate opacity based on distance
+  // Calculate opacity based on cursor proximity
   useEffect(() => {
     if (typeof window !== 'undefined' && window.mouseX && window.mouseY) {
       const distX = Math.abs((counterPosition.x || window.mouseX) - window.mouseX);
       const distY = Math.abs((counterPosition.y || window.mouseY) - window.mouseY);
       const distance = Math.sqrt(distX * distX + distY * distY);
       
-      // Calculate opacity based on distance (closer = more opaque)
-      const maxDistance = 200; // Maximum distance where opacity becomes 0
-      const opacity = isNewImant ? 1 : Math.max(0, 1 - (distance / maxDistance));
+      // Convert 2em to pixels (approximately 32px at standard font size)
+      const proximityThreshold = 32; 
       
-      setCounterOpacity(opacity);
+      // Calculate opacity: 1 when distance < threshold, 0 when greater
+      // Use isNewImant to force opacity to 1 regardless of distance when a new dot is collected
+      let newOpacity;
+      if (isNewImant) {
+        newOpacity = 1;
+      } else if (distance <= proximityThreshold) {
+        newOpacity = 1;
+      } else {
+        // Linear transition between threshold and threshold*2
+        const fadeDistance = proximityThreshold * 3;
+        newOpacity = distance <= fadeDistance 
+          ? Math.max(0, 1 - ((distance - proximityThreshold) / (fadeDistance - proximityThreshold)))
+          : 0;
+      }
+      
+      setCounterOpacity(newOpacity);
     }
-  }, [counterPosition, isNewImant]);
+  }, [counterPosition, isNewImant, window.mouseX, window.mouseY]);
 
   const triggerCelebration = () => {
     console.log("Triggering celebration");
@@ -425,12 +439,12 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
       />
       
       <div 
-        className="fixed px-3 py-1 bg-black/70 text-white rounded-full text-sm font-mono z-20 pointer-events-none transition-all duration-1000 ease-in-out"
+        className="fixed px-3 py-1 bg-black/70 text-white rounded-full text-sm font-mono z-20 pointer-events-none"
         style={{ 
           left: `calc(${typeof window !== 'undefined' ? (counterPosition.x || window.mouseX || window.innerWidth / 2) : '50%'}px + 1em)`,
           top: `calc(${typeof window !== 'undefined' ? (counterPosition.y || window.mouseY || window.innerHeight / 2) : '50%'}px + 1em)`,
-          transition: 'left 0.4s ease-out, top 0.4s ease-out',
-          opacity: isNewImant ? 1 : (isMouseInside && !isHoveringContent && gameActive) ? Math.max(0.1, counterOpacity) : 0
+          opacity: counterOpacity,
+          transition: 'opacity 0.3s ease-in-out, left 0.3s ease-out, top 0.3s ease-out'
         }}
       >
         {imantedCount}/{totalParticles}
