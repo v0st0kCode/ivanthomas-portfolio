@@ -410,8 +410,8 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
       />
       
       {showWinMessage && (
-        <div className="absolute left-1/2 top-[1em] transform -translate-x-1/2 px-6 py-4 bg-black/80 text-white rounded-lg text-xl font-medium z-50 text-center whitespace-nowrap animate-win-message">
-          Congratulations! You collected all dots too!
+        <div className="absolute left-1/2 top-[1em] transform -translate-x-1/2 px-6 py-4 bg-white text-black rounded-lg text-xl font-medium z-50 text-center whitespace-nowrap animate-win-message border-2 border-black shadow-md">
+          Congratulations! You've collected all dots!
         </div>
       )}
       
