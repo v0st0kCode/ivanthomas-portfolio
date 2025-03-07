@@ -338,10 +338,10 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
       />
       
       <div 
-        className={`fixed px-3 py-1 bg-black/70 text-white rounded-full text-sm font-mono z-20 pointer-events-none transform -translate-x-1/2 -translate-y-1/2 transition-opacity duration-300 ease-in-out ${isNewImant ? 'opacity-100' : isMouseInside && !isHoveringContent ? 'opacity-20' : 'opacity-0'}`}
+        className={`fixed px-3 py-1 bg-black/70 text-white rounded-full text-sm font-mono z-20 pointer-events-none transition-opacity duration-300 ease-in-out ${isNewImant ? 'opacity-100' : isMouseInside && !isHoveringContent ? 'opacity-20' : 'opacity-0'}`}
         style={{ 
-          left: `${typeof window !== 'undefined' ? (counterPosition.x || window.mouseX || window.innerWidth / 2) : '50%'}px`,
-          top: `${typeof window !== 'undefined' ? (counterPosition.y || window.mouseY || window.innerHeight / 2) : '50%'}px`,
+          left: `calc(${typeof window !== 'undefined' ? (counterPosition.x || window.mouseX || window.innerWidth / 2) : '50%'}px + 1em)`,
+          top: `calc(${typeof window !== 'undefined' ? (counterPosition.y || window.mouseY || window.innerHeight / 2) : '50%'}px + 1em)`,
           transition: 'left 0.2s ease-out, top 0.2s ease-out, opacity 0.3s ease-out'
         }}
       >
