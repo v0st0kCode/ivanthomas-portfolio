@@ -13,6 +13,7 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
   const [imantedCount, setImantedCount] = useState(0);
   const [isNewImant, setIsNewImant] = useState(false);
   const [counterPosition, setCounterPosition] = useState({ x: 0, y: 0 });
+  const [isMouseInside, setIsMouseInside] = useState(false);
   const totalParticles = 80; // Total number of dots
   const { toast } = useToast();
 
@@ -34,7 +35,7 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
       let mouseX = p.windowWidth / 2;
       let mouseY = p.windowHeight / 2;
       let imantedParticles = new Set<number>();
-      let isMouseInside = false;
+      let isMouseInsideCanvas = false;
       let celebrationCount = 0;
       let hasShownToast = false;
       let dotSizeMultiplier = 1;
@@ -70,7 +71,7 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
           const mouseInfluence = p5.Vector.sub(mouse, this.pos);
           const mouseDistance = mouseInfluence.mag();
           
-          if (isMouseInside && mouseDistance < 60 && !this.imanted) {
+          if (isMouseInsideCanvas && mouseDistance < 60 && !this.imanted) {
             this.imanted = true;
             imantedParticles.add(this.id);
             
@@ -261,12 +262,13 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
         }
         
         if (mouseX < 0 || mouseX > p.width || mouseY < 0 || mouseY > p.height) {
-          if (isMouseInside) {
-            isMouseInside = false;
-            resetGame();
+          if (isMouseInsideCanvas) {
+            isMouseInsideCanvas = false;
+            setIsMouseInside(false);
           }
         } else {
-          isMouseInside = true;
+          isMouseInsideCanvas = true;
+          setIsMouseInside(true);
         }
       };
       
@@ -282,12 +284,13 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
           }
           
           if (mouseX < 0 || mouseX > p.width || mouseY < 0 || mouseY > p.height) {
-            if (isMouseInside) {
-              isMouseInside = false;
-              resetGame();
+            if (isMouseInsideCanvas) {
+              isMouseInsideCanvas = false;
+              setIsMouseInside(false);
             }
           } else {
-            isMouseInside = true;
+            isMouseInsideCanvas = true;
+            setIsMouseInside(true);
           }
         }
         return false;
@@ -312,11 +315,11 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
            style={{ zIndex: 10 }} />
       
       <div 
-        className={`fixed px-3 py-1 bg-black/70 text-white rounded-full text-sm font-mono z-20 pointer-events-none transform -translate-x-1/2 -translate-y-1/2 transition-opacity duration-300 ease-in-out ${isNewImant ? 'opacity-100' : 'opacity-20'}`}
+        className={`fixed px-3 py-1 bg-black/70 text-white rounded-full text-sm font-mono z-20 pointer-events-none transform -translate-x-1/2 -translate-y-1/2 transition-opacity duration-300 ease-in-out ${isNewImant ? 'opacity-100' : isMouseInside ? 'opacity-20' : 'opacity-0'}`}
         style={{ 
           left: `${typeof window !== 'undefined' ? (counterPosition.x || window.mouseX || window.innerWidth / 2) : '50%'}px`,
           top: `${typeof window !== 'undefined' ? (counterPosition.y || window.mouseY || window.innerHeight / 2) : '50%'}px`,
-          transition: 'left 0.2s ease-out, top 0.2s ease-out'
+          transition: 'left 0.2s ease-out, top 0.2s ease-out, opacity 0.3s ease-out'
         }}
       >
         {imantedCount}/{totalParticles}
