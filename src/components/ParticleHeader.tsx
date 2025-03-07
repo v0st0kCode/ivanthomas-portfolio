@@ -1,4 +1,3 @@
-
 import React, { useRef, useEffect, useState } from 'react';
 import p5 from 'p5';
 import { useToast } from "@/hooks/use-toast";
@@ -50,29 +49,21 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
     };
   }, []);
 
-  // Calculate opacity based on cursor proximity
   useEffect(() => {
     if (typeof window !== 'undefined' && window.mouseX && window.mouseY) {
       const distX = Math.abs((counterPosition.x || window.mouseX) - window.mouseX);
       const distY = Math.abs((counterPosition.y || window.mouseY) - window.mouseY);
       const distance = Math.sqrt(distX * distX + distY * distY);
       
-      // Convert 2em to pixels (approximately 32px at standard font size)
-      const proximityThreshold = 32; 
+      const proximityThreshold = 8; 
       
-      // Calculate opacity: 1 when distance < threshold, 0 when greater
-      // Use isNewImant to force opacity to 1 regardless of distance when a new dot is collected
       let newOpacity;
       if (isNewImant) {
         newOpacity = 1;
       } else if (distance <= proximityThreshold) {
         newOpacity = 1;
       } else {
-        // Linear transition between threshold and threshold*2
-        const fadeDistance = proximityThreshold * 3;
-        newOpacity = distance <= fadeDistance 
-          ? Math.max(0, 1 - ((distance - proximityThreshold) / (fadeDistance - proximityThreshold)))
-          : 0;
+        newOpacity = 0;
       }
       
       setCounterOpacity(newOpacity);
@@ -444,7 +435,7 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
           left: `calc(${typeof window !== 'undefined' ? (counterPosition.x || window.mouseX || window.innerWidth / 2) : '50%'}px + 1em)`,
           top: `calc(${typeof window !== 'undefined' ? (counterPosition.y || window.mouseY || window.innerHeight / 2) : '50%'}px + 1em)`,
           opacity: counterOpacity,
-          transition: 'opacity 0.3s ease-in-out, left 0.3s ease-out, top 0.3s ease-out'
+          transition: 'opacity 0.2s ease-in-out, left 0.3s ease-out, top 0.3s ease-out'
         }}
       >
         {imantedCount}/{totalParticles}
