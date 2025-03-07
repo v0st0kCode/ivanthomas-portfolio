@@ -1,4 +1,3 @@
-
 import React, { useRef, useEffect, useState } from 'react';
 import p5 from 'p5';
 import { useToast } from "@/hooks/use-toast";
@@ -182,14 +181,6 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
       
       const celebrateSuccess = () => {
         setShowWinMessage(true);
-        
-        if (!hasShownToast) {
-          toast({
-            title: "Congratulations!",
-            description: "You've collected all dots!",
-          });
-          hasShownToast = true;
-        }
         
         fireworksEffect();
         celebrationCount++;
