@@ -408,11 +408,11 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
       />
       
       <div 
-        className={`fixed px-3 py-1 bg-black/70 text-white rounded-full text-sm font-mono z-20 pointer-events-none transition-opacity duration-300 ease-in-out ${isNewImant ? 'opacity-100' : isMouseInside && !isHoveringContent && gameActive ? 'opacity-10' : 'opacity-0'}`}
+        className={`fixed px-3 py-1 bg-black/70 text-white rounded-full text-sm font-mono z-20 pointer-events-none ${isNewImant ? 'opacity-100 transition-opacity duration-300 ease-in-out' : isMouseInside && !isHoveringContent && gameActive ? 'opacity-10 transition-opacity duration-300 ease-in-out delay-1000' : 'opacity-0 transition-opacity duration-300 ease-in-out'}`}
         style={{ 
           left: `calc(${typeof window !== 'undefined' ? (counterPosition.x || window.mouseX || window.innerWidth / 2) : '50%'}px + 1em)`,
           top: `calc(${typeof window !== 'undefined' ? (counterPosition.y || window.mouseY || window.innerHeight / 2) : '50%'}px + 1em)`,
-          transition: 'left 0.2s ease-out, top 0.2s ease-out, opacity 0.3s ease-out'
+          transition: 'left 0.2s ease-out, top 0.2s ease-out'
         }}
       >
         {imantedCount}/{totalParticles}
