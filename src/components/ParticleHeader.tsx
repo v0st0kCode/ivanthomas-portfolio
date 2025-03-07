@@ -46,7 +46,9 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
   }, []);
 
   const triggerCelebration = () => {
+    console.log("Triggering celebration");
     setShowWinMessage(true);
+    setGameActive(true); // Ensure game is active for effects
     fireworksEffect();
     
     // Schedule multiple confetti bursts
@@ -62,7 +64,7 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
       // Allow the animation to complete before hiding the message
       setTimeout(() => {
         setShowWinMessage(false);
-      }, 3000);
+      }, 5000); // Increased time for longer fade out
     }, 4000);
   };
   
@@ -221,11 +223,9 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
         particles.forEach(p => p.imanted = false);
         setImantedCount(0);
         setIsNewImant(false);
-        setShowWinMessage(false);
         celebrationCount = 0;
         hasShownToast = false;
         dotSizeMultiplier = 1;
-        setGameActive(false);
       };
       
       p.setup = () => {
