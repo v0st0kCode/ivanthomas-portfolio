@@ -95,11 +95,6 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
       localStorage.setItem('dotChallengeCompletions', newCount.toString());
     } catch (e) {
     }
-
-    toast({
-      title: "Challenge Completed!",
-      description: `You're the ${globalCompletionCount}${getOrdinalSuffix(globalCompletionCount)} person to collect all dots!`,
-    });
   };
 
   const getOrdinalSuffix = (n: number): string => {
@@ -391,7 +386,8 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
       />
       
       {showWinMessage && (
-        <div className="absolute top-1/4 left-1/2 transform -translate-x-1/2 px-6 py-4 bg-black/80 text-white rounded-lg text-xl font-medium z-50 text-center whitespace-nowrap animate-win-message">
+        <div className="absolute left-1/2 transform -translate-x-1/2 px-6 py-4 bg-black/80 text-white rounded-lg text-xl font-medium z-50 text-center whitespace-nowrap animate-win-message"
+             style={{ top: '3em' }}>
           Congratulations! You collected all dots too!
         </div>
       )}
