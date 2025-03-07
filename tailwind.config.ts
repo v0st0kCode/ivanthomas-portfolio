@@ -98,7 +98,7 @@ export default {
             opacity: "1",
             transform: "translate(-50%, 0)"
           },
-          "90%": {
+          "80%": {
             opacity: "1",
             transform: "translate(-50%, 0)"
           },
@@ -115,7 +115,7 @@ export default {
         'fade-out': 'fade-out 0.5s ease-out',
         'slide-in': 'slide-in 0.6s ease-out',
         'image-fade-in': 'image-fade-in 0.8s ease-out',
-        "win-message": "win-message 3.5s ease-in-out forwards"
+        "win-message": "win-message 5s ease-in-out forwards"
       }
     }
   },
