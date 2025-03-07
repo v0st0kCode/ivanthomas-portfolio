@@ -1,3 +1,4 @@
+
 import React, { useRef, useEffect, useState } from 'react';
 import p5 from 'p5';
 import { useToast } from "@/hooks/use-toast";
@@ -26,7 +27,6 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
   const [showWinMessage, setShowWinMessage] = useState(false);
   const [gameActive, setGameActive] = useState(true);
   const [fadeOutCollected, setFadeOutCollected] = useState(false);
-  const [gridVisible, setGridVisible] = useState(true);
   const [gridOpacityLevel, setGridOpacityLevel] = useState(1);
   const totalParticles = 80;
   const { toast } = useToast();
@@ -68,6 +68,7 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
       setGameActive(false);
       setImantedCount(0);
       setIsNewImant(false);
+      // Don't adjust opacity here to avoid the visibility bump
       setTimeout(() => {
         setShowWinMessage(false);
         setFadeOutCollected(false);
@@ -203,7 +204,7 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
           if (fadeOutCollected) {
             fadeOutOpacity = p.max(fadeOutOpacity - 0.02, 0);
           } else {
-            fadeOutOpacity = 1;
+            fadeOutOpacity = p.min(fadeOutOpacity + 0.02, 1); // Smoothly transition back in
           }
           
           const currentOpacity = gridOpacityLevel;
