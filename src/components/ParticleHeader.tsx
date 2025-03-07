@@ -1,3 +1,4 @@
+
 import React, { useRef, useEffect, useState } from 'react';
 import p5 from 'p5';
 import { useToast } from "@/hooks/use-toast";
@@ -25,6 +26,7 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
   const [isHoveringContent, setIsHoveringContent] = useState(false);
   const [showWinMessage, setShowWinMessage] = useState(false);
   const [gameActive, setGameActive] = useState(true);
+  const [fadeOutCollected, setFadeOutCollected] = useState(false);
   const totalParticles = 80;
   const { toast } = useToast();
 
@@ -49,6 +51,7 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
     console.log("Triggering celebration");
     setShowWinMessage(true);
     setGameActive(true);
+    setFadeOutCollected(true);
     fireworksEffect();
     
     setTimeout(() => fireworksEffect(), 800);
@@ -61,6 +64,7 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
       setIsNewImant(false);
       setTimeout(() => {
         setShowWinMessage(false);
+        setFadeOutCollected(false);
       }, 5000);
     }, 4000);
   };
@@ -93,6 +97,7 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
       let celebrationCount = 0;
       let hasShownToast = false;
       let dotSizeMultiplier = 1;
+      let fadeOutOpacity = 1;
 
       class Particle {
         pos: p5.Vector;
@@ -188,12 +193,19 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
         
         display() {
           p.noStroke();
+
+          // Update fadeOutOpacity based on the fadeOutCollected state
+          if (fadeOutCollected) {
+            fadeOutOpacity = p.max(fadeOutOpacity - 0.02, 0); // Gradually decrease to 0
+          } else {
+            fadeOutOpacity = 1;
+          }
           
           if (this.imanted && gameActive && !isHoveringContent) {
-            p.fill(0, 200);
+            p.fill(0, 200 * fadeOutOpacity);
             p.circle(this.pos.x, this.pos.y, this.radius * 2.5 * dotSizeMultiplier);
           } else if (this.imanted && gameActive && isHoveringContent) {
-            p.fill(0, 50);
+            p.fill(0, 50 * fadeOutOpacity);
             p.circle(this.pos.x, this.pos.y, this.radius * 2.5 * dotSizeMultiplier);
           } else {
             const alpha = p.map(p5.Vector.dist(this.pos, this.target), 0, 100, 90, 40);
@@ -226,6 +238,7 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
         celebrationCount = 0;
         hasShownToast = false;
         dotSizeMultiplier = 1;
+        fadeOutOpacity = 1;
       };
       
       p.setup = () => {
@@ -340,7 +353,7 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
     return () => {
       sketchRef.current?.remove();
     };
-  }, [gameActive]);
+  }, [gameActive, fadeOutCollected]);
 
   const handleMouseEnterContent = () => {
     setIsHoveringContent(true);
@@ -359,8 +372,7 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
       />
       
       {showWinMessage && (
-        <div className="absolute left-1/2 transform -translate-x-1/2 px-6 py-4 bg-black/80 text-white rounded-lg text-xl font-medium z-50 text-center whitespace-nowrap animate-win-message"
-             style={{ top: '1em' }}>
+        <div className="absolute left-1/2 transform -translate-x-1/2 px-6 py-4 bg-black/80 text-white rounded-lg text-xl font-medium z-50 text-center whitespace-nowrap animate-win-message">
           Congratulations! You collected all dots too!
         </div>
       )}
@@ -378,12 +390,11 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
       
       {gameActive && (
         <div 
-          className="fixed px-3 py-1 bg-black/70 text-white rounded-full text-sm font-mono z-20 pointer-events-none"
+          className={`fixed px-3 py-1 bg-black/70 text-white rounded-full text-sm font-mono z-20 pointer-events-none transition-opacity duration-1000 ease-out ${fadeOutCollected ? 'opacity-0' : 'opacity-100'}`}
           style={{ 
             left: `calc(${typeof window !== 'undefined' ? (counterPosition.x || window.mouseX || window.innerWidth / 2) : '50%'}px + 1em)`,
             top: `calc(${typeof window !== 'undefined' ? (counterPosition.y || window.mouseY || window.innerHeight / 2) : '50%'}px + 1em)`,
-            opacity: 1,
-            transition: 'left 0.3s ease-out, top 0.3s ease-out'
+            transition: 'left 0.3s ease-out, top 0.3s ease-out, opacity 1s ease-out'
           }}
         >
           {imantedCount}/{totalParticles}
