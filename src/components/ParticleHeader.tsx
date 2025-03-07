@@ -1,4 +1,3 @@
-
 import React, { useRef, useEffect, useState } from 'react';
 import p5 from 'p5';
 import { useToast } from "@/hooks/use-toast";
@@ -29,7 +28,6 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
   const [showWinMessage, setShowWinMessage] = useState(false);
   const [gameActive, setGameActive] = useState(true);
   const [completionCount, setCompletionCount] = useState(globalCompletionCount);
-  const [counterOpacity, setCounterOpacity] = useState(0);
   const totalParticles = 80;
   const { toast } = useToast();
 
@@ -49,34 +47,6 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
       delete window.triggerParticleCelebration;
     };
   }, []);
-
-  useEffect(() => {
-    if (typeof window !== 'undefined' && window.mouseX && window.mouseY) {
-      const distX = Math.abs((counterPosition.x || window.mouseX) - window.mouseX);
-      const distY = Math.abs((counterPosition.y || window.mouseY) - window.mouseY);
-      const distance = Math.sqrt(distX * distX + distY * distY);
-      
-      // Convert em to pixels (1em = ~16px at standard font size)
-      const pixelsPerEm = 16;
-      
-      let newOpacity;
-      if (isNewImant) {
-        newOpacity = 1; // Always 100% when a new dot is collected
-      } else if (distance <= 0.2 * pixelsPerEm) {
-        newOpacity = 1; // 100% opacity when distance <= 0.2em
-      } else if (distance <= 0.5 * pixelsPerEm) {
-        newOpacity = 0.7; // 70% opacity when distance <= 0.5em
-      } else if (distance <= 0.7 * pixelsPerEm) {
-        newOpacity = 0.3; // 30% opacity when distance <= 0.7em
-      } else if (distance <= 1 * pixelsPerEm) {
-        newOpacity = 0.05; // 5% opacity when distance <= 1em
-      } else {
-        newOpacity = 0.05; // Changed from 0 to 0.05 (5%) to ensure minimum visibility
-      }
-      
-      setCounterOpacity(newOpacity);
-    }
-  }, [counterPosition, isNewImant, window.mouseX, window.mouseY]);
 
   const triggerCelebration = () => {
     console.log("Triggering celebration");
@@ -442,8 +412,8 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
         style={{ 
           left: `calc(${typeof window !== 'undefined' ? (counterPosition.x || window.mouseX || window.innerWidth / 2) : '50%'}px + 1em)`,
           top: `calc(${typeof window !== 'undefined' ? (counterPosition.y || window.mouseY || window.innerHeight / 2) : '50%'}px + 1em)`,
-          opacity: counterOpacity,
-          transition: 'opacity 0.2s ease-in-out, left 0.3s ease-out, top 0.3s ease-out'
+          opacity: 1,
+          transition: 'left 0.3s ease-out, top 0.3s ease-out'
         }}
       >
         {imantedCount}/{totalParticles}
