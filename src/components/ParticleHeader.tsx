@@ -1,3 +1,4 @@
+
 import React, { useRef, useEffect, useState } from 'react';
 import p5 from 'p5';
 import { useToast } from "@/hooks/use-toast";
@@ -408,7 +409,7 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
       />
       
       <div 
-        className={`fixed px-3 py-1 bg-black/70 text-white rounded-full text-sm font-mono z-20 pointer-events-none transition-opacity duration-300 ease-in-out ${isNewImant ? 'opacity-100' : isMouseInside && !isHoveringContent && gameActive ? 'opacity-20' : 'opacity-0'}`}
+        className={`fixed px-3 py-1 bg-black/70 text-white rounded-full text-sm font-mono z-20 pointer-events-none transition-opacity duration-300 ease-in-out ${isNewImant ? 'opacity-100' : isMouseInside && !isHoveringContent && gameActive ? 'opacity-0' : 'opacity-0'}`}
         style={{ 
           left: `calc(${typeof window !== 'undefined' ? (counterPosition.x || window.mouseX || window.innerWidth / 2) : '50%'}px + 1em)`,
           top: `calc(${typeof window !== 'undefined' ? (counterPosition.y || window.mouseY || window.innerHeight / 2) : '50%'}px + 1em)`,
