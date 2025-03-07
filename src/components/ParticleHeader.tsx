@@ -1,3 +1,4 @@
+
 import React, { useRef, useEffect, useState } from 'react';
 import p5 from 'p5';
 import { useToast } from "@/hooks/use-toast";
@@ -386,7 +387,8 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
       />
       
       {showWinMessage && (
-        <div className="absolute left-1/2 transform -translate-x-1/2 px-6 py-4 bg-black/80 text-white rounded-lg text-xl font-medium z-50 text-center whitespace-nowrap animate-win-message">
+        <div className="absolute left-1/2 transform -translate-x-1/2 px-6 py-4 bg-black/80 text-white rounded-lg text-xl font-medium z-50 text-center whitespace-nowrap animate-win-message"
+             style={{ top: '1em' }}>
           Congratulations! You collected all dots too!
         </div>
       )}
