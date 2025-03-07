@@ -1,4 +1,3 @@
-
 import React, { useRef, useEffect, useState } from 'react';
 import p5 from 'p5';
 import { useToast } from "@/hooks/use-toast";
@@ -17,6 +16,9 @@ interface ParticleHeaderProps {
   className?: string;
 }
 
+// Keep track of completions (this will persist between renders as it's outside component)
+let globalCompletionCount = 0;
+
 const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const sketchRef = useRef<p5>();
@@ -27,6 +29,7 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
   const [isHoveringContent, setIsHoveringContent] = useState(false);
   const [showWinMessage, setShowWinMessage] = useState(false);
   const [gameActive, setGameActive] = useState(true);
+  const [completionCount, setCompletionCount] = useState(globalCompletionCount);
   const totalParticles = 80;
   const { toast } = useToast();
 
@@ -85,6 +88,41 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
         colors: ['#9b87f5', '#D946EF', '#F97316', '#0EA5E9', '#8B5CF6']
       });
     }
+  };
+
+  // Function to record challenge completion
+  const recordCompletion = () => {
+    // Increment global counter
+    globalCompletionCount++;
+    setCompletionCount(globalCompletionCount);
+    
+    // Here you would typically send data to your analytics or backend
+    console.log(`Challenge completed! Total completions: ${globalCompletionCount}`);
+    
+    // You can also store in localStorage to persist between sessions
+    try {
+      const storedCount = localStorage.getItem('dotChallengeCompletions');
+      const newCount = storedCount ? parseInt(storedCount, 10) + 1 : 1;
+      localStorage.setItem('dotChallengeCompletions', newCount.toString());
+    } catch (e) {
+      // Silent fail if localStorage is not available
+    }
+    
+    // Show a toast notification about the achievement
+    toast({
+      title: "Challenge Completed!",
+      description: `You're the ${globalCompletionCount}${getOrdinalSuffix(globalCompletionCount)} person to collect all dots!`,
+    });
+  };
+  
+  // Helper function to get ordinal suffix (1st, 2nd, 3rd, etc.)
+  const getOrdinalSuffix = (n: number): string => {
+    const j = n % 10;
+    const k = n % 100;
+    if (j === 1 && k !== 11) return "st";
+    if (j === 2 && k !== 12) return "nd";
+    if (j === 3 && k !== 13) return "rd";
+    return "th";
   };
 
   useEffect(() => {
@@ -219,6 +257,7 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
       }
       
       const celebrateSuccess = () => {
+        recordCompletion();
         triggerCelebration();
       };
       
@@ -377,6 +416,13 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
       >
         {imantedCount}/{totalParticles}
       </div>
+      
+      {/* Dev-only counter display - remove in production or make it admin-only */}
+      {import.meta.env.DEV && (
+        <div className="fixed bottom-4 right-4 px-3 py-1 bg-black/50 text-white rounded-md text-xs font-mono z-20">
+          Total completions: {completionCount}
+        </div>
+      )}
     </div>
   );
 };
