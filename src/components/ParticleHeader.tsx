@@ -1,4 +1,3 @@
-
 import React, { useRef, useEffect, useState } from 'react';
 import p5 from 'p5';
 import { useToast } from "@/hooks/use-toast";
@@ -12,8 +11,18 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const sketchRef = useRef<p5>();
   const [imantedCount, setImantedCount] = useState(0);
+  const [isNewImant, setIsNewImant] = useState(false);
   const totalParticles = 80; // Total number of dots
   const { toast } = useToast();
+
+  useEffect(() => {
+    if (isNewImant) {
+      const timer = setTimeout(() => {
+        setIsNewImant(false);
+      }, 1000);
+      return () => clearTimeout(timer);
+    }
+  }, [isNewImant]);
 
   useEffect(() => {
     if (!containerRef.current) return;
@@ -52,43 +61,37 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
         }
 
         update() {
-          // Create temporary mouse position vector
           const mouse = p.createVector(mouseX, mouseY);
           
-          // Calculate mouse influence 
           const mouseInfluence = p5.Vector.sub(mouse, this.pos);
           const mouseDistance = mouseInfluence.mag();
           
-          // Check if this particle is close to the mouse to be "imanted"
           if (isMouseInside && mouseDistance < 60 && !this.imanted) {
             this.imanted = true;
             imantedParticles.add(this.id);
-            setImantedCount(imantedParticles.size);
             
-            // Check if all particles are imanted
-            if (imantedParticles.size >= totalParticles) {
+            const newCount = imantedParticles.size;
+            setImantedCount(newCount);
+            setIsNewImant(true);
+            
+            if (newCount >= totalParticles) {
               celebrateSuccess();
             }
           }
           
           if (this.imanted) {
-            // Follow the mouse closely when imanted
             mouseInfluence.setMag(this.maxSpeed * 2);
             this.vel = mouseInfluence;
             this.pos = p5.Vector.lerp(this.pos, mouse, 0.1);
           } else {
-            // Normal behavior for non-imanted particles
             if (mouseDistance < 120) {
-              // Repel if mouse is close
               mouseInfluence.setMag(-1 * (120 - mouseDistance) * 0.05);
               this.applyForce(mouseInfluence);
             } else if (mouseDistance < 200) {
-              // Attract if mouse is at medium distance
               mouseInfluence.setMag((mouseDistance - 120) * 0.01);
               this.applyForce(mouseInfluence);
             }
             
-            // Attraction force to original position
             const desired = p5.Vector.sub(this.target, this.pos);
             const distance = desired.mag();
             let speed = this.maxSpeed;
@@ -101,7 +104,6 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
             const steer = p5.Vector.sub(desired, this.vel);
             steer.limit(this.maxForce);
             
-            // Apply forces and update position
             this.applyForce(steer.mult(0.1));
             this.vel.add(this.acc);
             this.vel.limit(this.maxSpeed);
@@ -117,12 +119,10 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
         display() {
           p.noStroke();
           
-          // Imanted particles are highlighted
           if (this.imanted) {
-            p.fill(126, 87, 245, 200); // Use a purple color for imanted particles
+            p.fill(126, 87, 245, 200);
             p.circle(this.pos.x, this.pos.y, this.radius * 2.5);
           } else {
-            // Regular particles with reduced opacity
             const alpha = p.map(p5.Vector.dist(this.pos, this.target), 0, 100, 90, 40);
             p.fill(0, alpha);
             p.circle(this.pos.x, this.pos.y, this.radius * 2);
@@ -133,7 +133,6 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
           particles.forEach(particle => {
             const d = p5.Vector.dist(this.pos, particle.pos);
             if (d < 100) {
-              // Reduced opacity to 50%
               const alpha = p.map(d, 0, 100, 20, 0);
               p.stroke(0, alpha);
               p.line(this.pos.x, this.pos.y, particle.pos.x, particle.pos.y);
@@ -143,13 +142,11 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
       }
       
       const celebrateSuccess = () => {
-        // Show toast notification
         toast({
           title: "Congratulations!",
           description: "You've collected all dots!",
         });
         
-        // Create confetti effect
         if (containerRef.current) {
           const rect = containerRef.current.getBoundingClientRect();
           const x = rect.width / 2 / rect.width;
@@ -163,7 +160,6 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
           });
         }
         
-        // Reset the game after a short delay
         setTimeout(() => {
           resetGame();
         }, 2000);
@@ -173,16 +169,15 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
         imantedParticles.clear();
         particles.forEach(p => p.imanted = false);
         setImantedCount(0);
+        setIsNewImant(false);
       };
       
       p.setup = () => {
-        // Increase the canvas height to reach the Recent Projects section
         const canvas = p.createCanvas(p.windowWidth, p.windowHeight * 0.95);
         canvas.parent(containerRef.current!);
         
-        // Create particles and position them in a grid
         const cols = 10;
-        const rows = 9; // Increased rows to fill the taller canvas
+        const rows = 9;
         const cellWidth = p.width / cols;
         const cellHeight = p.height / rows;
         
@@ -201,12 +196,10 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
       p.draw = () => {
         p.clear();
         
-        // Draw connections first (layering)
         for (let i = 0; i < particles.length; i++) {
           particles[i].connect(particles.slice(i + 1));
         }
         
-        // Then draw and update particles
         particles.forEach(particle => {
           particle.update();
           particle.display();
@@ -214,12 +207,10 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
       };
       
       p.windowResized = () => {
-        // Update canvas size when window is resized
         p.resizeCanvas(p.windowWidth, p.windowHeight * 0.95);
         
-        // Update particle targets on resize
         const cols = 10;
-        const rows = 9; // Keep consistent with setup
+        const rows = 9;
         const cellWidth = p.width / cols;
         const cellHeight = p.height / rows;
         
@@ -235,7 +226,11 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
         mouseX = p.mouseX;
         mouseY = p.mouseY;
         
-        // Handle mouse leaving the canvas
+        if (typeof window !== 'undefined') {
+          window.mouseX = p.mouseX;
+          window.mouseY = p.mouseY;
+        }
+        
         if (mouseX < 0 || mouseX > p.width || mouseY < 0 || mouseY > p.height) {
           if (isMouseInside) {
             isMouseInside = false;
@@ -247,14 +242,16 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
       };
       
       p.touchMoved = () => {
-        // Fix: Properly access touch coordinates with type checking
         if (p.touches.length > 0 && p.touches[0]) {
-          // Access touch coordinates safely with explicit type casting
           const touch = p.touches[0] as unknown as { x: number, y: number };
           mouseX = touch.x || p.windowWidth / 2;
           mouseY = touch.y || p.windowHeight / 2;
           
-          // Handle touch leaving the canvas
+          if (typeof window !== 'undefined') {
+            window.mouseX = mouseX;
+            window.mouseY = mouseY;
+          }
+          
           if (mouseX < 0 || mouseX > p.width || mouseY < 0 || mouseY > p.height) {
             if (isMouseInside) {
               isMouseInside = false;
@@ -264,7 +261,7 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
             isMouseInside = true;
           }
         }
-        return false; // Prevent default
+        return false;
       };
     };
 
@@ -285,9 +282,8 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
       <div className="absolute bottom-0 left-0 right-0 h-64 bg-gradient-to-t from-white to-transparent pointer-events-none" 
            style={{ zIndex: 10 }} />
       
-      {/* Dot Counter that follows mouse */}
       <div 
-        className="fixed px-3 py-1 bg-black/70 text-white rounded-full text-sm font-mono z-20 pointer-events-none transform -translate-x-1/2 -translate-y-1/2"
+        className={`fixed px-3 py-1 bg-black/70 text-white rounded-full text-sm font-mono z-20 pointer-events-none transform -translate-x-1/2 -translate-y-1/2 transition-opacity duration-300 ease-in-out ${isNewImant ? 'opacity-100' : 'opacity-20'}`}
         style={{ 
           left: typeof window !== 'undefined' ? `${window.mouseX || window.innerWidth / 2}px` : '50%',
           top: typeof window !== 'undefined' ? `${window.mouseY || window.innerHeight / 2}px` : '50%', 
