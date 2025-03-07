@@ -1,4 +1,3 @@
-
 import React, { useRef, useEffect, useState } from 'react';
 import p5 from 'p5';
 import { useToast } from "@/hooks/use-toast";
@@ -28,6 +27,7 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
   const [gameActive, setGameActive] = useState(true);
   const [fadeOutCollected, setFadeOutCollected] = useState(false);
   const [gridVisible, setGridVisible] = useState(true);
+  const [gridOpacityLevel, setGridOpacityLevel] = useState(1);
   const totalParticles = 80;
   const { toast } = useToast();
 
@@ -53,7 +53,7 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
     setShowWinMessage(true);
     setGameActive(true);
     setFadeOutCollected(true);
-    setGridVisible(false);
+    setGridOpacityLevel(0.05);
     fireworksEffect();
     
     setTimeout(() => fireworksEffect(), 800);
@@ -61,8 +61,8 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
     setTimeout(() => fireworksEffect(), 2400);
     
     setTimeout(() => {
-      setGridVisible(true);
-    }, 2000);  // Changed from 3000 to 2000 to make dots appear 2 seconds before the effect ends
+      setGridOpacityLevel(1);
+    }, 2000);
     
     setTimeout(() => {
       setGameActive(false);
@@ -104,7 +104,6 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
       let hasShownToast = false;
       let dotSizeMultiplier = 1;
       let fadeOutOpacity = 1;
-      let gridOpacity = 1;
 
       class Particle {
         pos: p5.Vector;
@@ -207,37 +206,33 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
             fadeOutOpacity = 1;
           }
           
-          if (!gridVisible && gridOpacity > 0) {
-            gridOpacity = p.max(gridOpacity - 0.05, 0);
-          } else if (gridVisible && gridOpacity < 1) {
-            gridOpacity = p.min(gridOpacity + 0.02, 1);
-          }
+          const currentOpacity = gridOpacityLevel;
           
-          if (gridOpacity === 0) {
+          if (currentOpacity === 0) {
             return;
           }
           
           if (this.imanted && gameActive && !isHoveringContent) {
-            p.fill(0, 200 * fadeOutOpacity * gridOpacity);
+            p.fill(0, 200 * fadeOutOpacity * currentOpacity);
             p.circle(this.pos.x, this.pos.y, this.radius * 2.5 * dotSizeMultiplier);
           } else if (this.imanted && gameActive && isHoveringContent) {
-            p.fill(0, 50 * fadeOutOpacity * gridOpacity);
+            p.fill(0, 50 * fadeOutOpacity * currentOpacity);
             p.circle(this.pos.x, this.pos.y, this.radius * 2.5 * dotSizeMultiplier);
           } else {
             const alpha = p.map(p5.Vector.dist(this.pos, this.target), 0, 100, 90, 40);
-            p.fill(0, alpha * gridOpacity);
+            p.fill(0, alpha * currentOpacity);
             p.circle(this.pos.x, this.pos.y, this.radius * 2);
           }
         }
         
         connect(particles: Particle[]) {
-          if (gridOpacity === 0) return;
+          if (gridOpacityLevel < 0.05) return;
           
           particles.forEach(particle => {
             const d = p5.Vector.dist(this.pos, particle.pos);
             if (d < 100) {
               const alpha = p.map(d, 0, 100, 20, 0);
-              p.stroke(0, alpha * gridOpacity);
+              p.stroke(0, alpha * gridOpacityLevel);
               p.line(this.pos.x, this.pos.y, particle.pos.x, particle.pos.y);
             }
           });
@@ -257,7 +252,6 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
         hasShownToast = false;
         dotSizeMultiplier = 1;
         fadeOutOpacity = 1;
-        gridOpacity = 1;
       };
       
       p.setup = () => {
@@ -290,13 +284,9 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
       p.draw = () => {
         p.clear();
         
-        if (!gridVisible && gridOpacity > 0) {
-          gridOpacity = p.max(gridOpacity - 0.05, 0);
-        } else if (gridVisible && gridOpacity < 1) {
-          gridOpacity = p.min(gridOpacity + 0.02, 1);
-        }
+        const currentOpacity = gridOpacityLevel;
         
-        if (gridOpacity > 0) {
+        if (currentOpacity >= 0.05) {
           for (let i = 0; i < particles.length; i++) {
             particles[i].connect(particles.slice(i + 1));
           }
@@ -380,7 +370,7 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
     return () => {
       sketchRef.current?.remove();
     };
-  }, [gameActive, fadeOutCollected, gridVisible]);
+  }, [gameActive, fadeOutCollected, gridOpacityLevel]);
 
   const handleMouseEnterContent = () => {
     setIsHoveringContent(true);
