@@ -1,3 +1,4 @@
+
 import React, { useRef, useEffect, useState } from 'react';
 import p5 from 'p5';
 import { useToast } from "@/hooks/use-toast";
@@ -28,6 +29,7 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
   const [showWinMessage, setShowWinMessage] = useState(false);
   const [gameActive, setGameActive] = useState(true);
   const [completionCount, setCompletionCount] = useState(globalCompletionCount);
+  const [counterOpacity, setCounterOpacity] = useState(0);
   const totalParticles = 80;
   const { toast } = useToast();
 
@@ -47,6 +49,21 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
       delete window.triggerParticleCelebration;
     };
   }, []);
+
+  // Function to calculate opacity based on distance
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.mouseX && window.mouseY) {
+      const distX = Math.abs((counterPosition.x || window.mouseX) - window.mouseX);
+      const distY = Math.abs((counterPosition.y || window.mouseY) - window.mouseY);
+      const distance = Math.sqrt(distX * distX + distY * distY);
+      
+      // Calculate opacity based on distance (closer = more opaque)
+      const maxDistance = 200; // Maximum distance where opacity becomes 0
+      const opacity = isNewImant ? 1 : Math.max(0, 1 - (distance / maxDistance));
+      
+      setCounterOpacity(opacity);
+    }
+  }, [counterPosition, isNewImant]);
 
   const triggerCelebration = () => {
     console.log("Triggering celebration");
@@ -408,17 +425,12 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
       />
       
       <div 
-        className={`fixed px-3 py-1 bg-black/70 text-white rounded-full text-sm font-mono z-20 pointer-events-none ${
-          isNewImant 
-            ? 'opacity-100 transition-all duration-700 ease-in-out' 
-            : isMouseInside && !isHoveringContent && gameActive 
-              ? 'opacity-10 transition-all duration-1000 ease-in-out delay-2000' 
-              : 'opacity-0 transition-all duration-1000 ease-in-out'
-        }`}
+        className="fixed px-3 py-1 bg-black/70 text-white rounded-full text-sm font-mono z-20 pointer-events-none transition-all duration-1000 ease-in-out"
         style={{ 
           left: `calc(${typeof window !== 'undefined' ? (counterPosition.x || window.mouseX || window.innerWidth / 2) : '50%'}px + 1em)`,
           top: `calc(${typeof window !== 'undefined' ? (counterPosition.y || window.mouseY || window.innerHeight / 2) : '50%'}px + 1em)`,
-          transition: 'left 0.4s ease-out, top 0.4s ease-out'
+          transition: 'left 0.4s ease-out, top 0.4s ease-out',
+          opacity: isNewImant ? 1 : (isMouseInside && !isHoveringContent && gameActive) ? Math.max(0.1, counterOpacity) : 0
         }}
       >
         {imantedCount}/{totalParticles}
