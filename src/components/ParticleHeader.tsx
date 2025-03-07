@@ -201,6 +201,9 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
                     celebrationCount++;
                     
                     setTimeout(() => {
+                      setTimeout(() => {
+                        setShowWinMessage(false);
+                      }, 1500);
                       resetGame();
                     }, 1000);
                   }, 800);
@@ -357,7 +360,7 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
       />
       
       {showWinMessage && (
-        <div className="absolute top-1/3 left-1/2 transform -translate-x-1/2 px-6 py-4 bg-black/80 text-white rounded-lg text-xl font-medium z-50 text-center whitespace-nowrap">
+        <div className="absolute top-1/4 left-1/2 transform -translate-x-1/2 px-6 py-4 bg-black/80 text-white rounded-lg text-xl font-medium z-50 text-center whitespace-nowrap animate-win-message">
           Congratulations! You collected all dots too!
         </div>
       )}
