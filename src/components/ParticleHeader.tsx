@@ -14,6 +14,7 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
   const [isNewImant, setIsNewImant] = useState(false);
   const [counterPosition, setCounterPosition] = useState({ x: 0, y: 0 });
   const [isMouseInside, setIsMouseInside] = useState(false);
+  const [isHoveringContent, setIsHoveringContent] = useState(false);
   const totalParticles = 80; // Total number of dots
   const { toast } = useToast();
 
@@ -71,7 +72,7 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
           const mouseInfluence = p5.Vector.sub(mouse, this.pos);
           const mouseDistance = mouseInfluence.mag();
           
-          if (isMouseInsideCanvas && mouseDistance < 60 && !this.imanted) {
+          if (isMouseInsideCanvas && mouseDistance < 60 && !this.imanted && !isHoveringContent) {
             this.imanted = true;
             imantedParticles.add(this.id);
             
@@ -87,9 +88,11 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
           }
           
           if (this.imanted) {
-            mouseInfluence.setMag(this.maxSpeed * 2);
-            this.vel = mouseInfluence;
-            this.pos = p5.Vector.lerp(this.pos, mouse, 0.1);
+            if (!isHoveringContent) {
+              mouseInfluence.setMag(this.maxSpeed * 2);
+              this.vel = mouseInfluence;
+              this.pos = p5.Vector.lerp(this.pos, mouse, 0.1);
+            }
             
             if (this.id === Array.from(imantedParticles)[0]) {
               setCounterPosition({ x: this.pos.x, y: this.pos.y });
@@ -130,8 +133,11 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
         display() {
           p.noStroke();
           
-          if (this.imanted) {
+          if (this.imanted && !isHoveringContent) {
             p.fill(0, 200);
+            p.circle(this.pos.x, this.pos.y, this.radius * 2.5 * dotSizeMultiplier);
+          } else if (this.imanted && isHoveringContent) {
+            p.fill(0, 50);
             p.circle(this.pos.x, this.pos.y, this.radius * 2.5 * dotSizeMultiplier);
           } else {
             const alpha = p.map(p5.Vector.dist(this.pos, this.target), 0, 100, 90, 40);
@@ -304,6 +310,14 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
     };
   }, []);
 
+  const handleMouseEnterContent = () => {
+    setIsHoveringContent(true);
+  };
+
+  const handleMouseLeaveContent = () => {
+    setIsHoveringContent(false);
+  };
+
   return (
     <div className="relative">
       <div 
@@ -311,11 +325,25 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
         className={`w-full h-[95vh] relative ${className || ''}`}
         style={{ touchAction: 'none' }}
       />
-      <div className="absolute bottom-0 left-0 right-0 h-64 bg-gradient-to-t from-white to-transparent pointer-events-none" 
-           style={{ zIndex: 10 }} />
+      <div 
+        className="absolute bottom-0 left-0 right-0 h-64 bg-gradient-to-t from-white to-transparent pointer-events-none" 
+        style={{ zIndex: 10 }} 
+      />
       
       <div 
-        className={`fixed px-3 py-1 bg-black/70 text-white rounded-full text-sm font-mono z-20 pointer-events-none transform -translate-x-1/2 -translate-y-1/2 transition-opacity duration-300 ease-in-out ${isNewImant ? 'opacity-100' : isMouseInside ? 'opacity-20' : 'opacity-0'}`}
+        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center z-30"
+        onMouseEnter={handleMouseEnterContent}
+        onMouseLeave={handleMouseLeaveContent}
+      >
+        <h1 className="text-4xl md:text-6xl font-bold mb-4">Welcome</h1>
+        <p className="text-lg md:text-xl mb-6">Interactive particle experience</p>
+        <button className="px-6 py-2 bg-black/80 text-white rounded-full hover:bg-black/90 transition-colors">
+          Explore
+        </button>
+      </div>
+      
+      <div 
+        className={`fixed px-3 py-1 bg-black/70 text-white rounded-full text-sm font-mono z-20 pointer-events-none transform -translate-x-1/2 -translate-y-1/2 transition-opacity duration-300 ease-in-out ${isNewImant ? 'opacity-100' : isMouseInside && !isHoveringContent ? 'opacity-20' : 'opacity-0'}`}
         style={{ 
           left: `${typeof window !== 'undefined' ? (counterPosition.x || window.mouseX || window.innerWidth / 2) : '50%'}px`,
           top: `${typeof window !== 'undefined' ? (counterPosition.y || window.mouseY || window.innerHeight / 2) : '50%'}px`,
