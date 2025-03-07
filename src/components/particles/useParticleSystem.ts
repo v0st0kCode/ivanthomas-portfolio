@@ -1,3 +1,4 @@
+
 import { useRef, useEffect, useState } from 'react';
 import p5 from 'p5';
 import { Particle } from './Particle';
@@ -36,6 +37,7 @@ export const useParticleSystem = ({
 }: UseParticleSystemProps) => {
   const sketchRef = useRef<p5>();
   const resetGameRef = useRef<(() => void) | null>(null);
+  const mousePositionRef = useRef<{ x: number, y: number }>({ x: 0, y: 0 });
 
   useEffect(() => {
     if (!containerRef.current) return;
@@ -48,6 +50,9 @@ export const useParticleSystem = ({
       let isMouseInsideCanvas = false;
       let dotSizeMultiplier = 1;
       let fadeOutOpacity = 1;
+      // Debounce variables for smooth mouse tracking
+      let lastUpdateTime = 0;
+      const updateInterval = 16; // ~60fps
 
       p.setup = () => {
         const canvas = p.createCanvas(p.windowWidth, p.windowHeight * 0.95);
@@ -150,19 +155,29 @@ export const useParticleSystem = ({
       };
       
       p.mouseMoved = () => {
-        mouseX = p.mouseX;
-        mouseY = p.mouseY;
+        const currentTime = Date.now();
         
-        if (typeof window !== 'undefined') {
-          window.mouseX = p.mouseX;
-          window.mouseY = p.mouseY;
+        // Only update mouse position at certain intervals to reduce jitter
+        if (currentTime - lastUpdateTime > updateInterval) {
+          mouseX = p.mouseX;
+          mouseY = p.mouseY;
+          
+          if (typeof window !== 'undefined') {
+            window.mouseX = p.mouseX;
+            window.mouseY = p.mouseY;
+          }
+          
+          mousePositionRef.current = { x: mouseX, y: mouseY };
+          checkMousePosition();
+          lastUpdateTime = currentTime;
         }
-        
-        checkMousePosition();
       };
       
       p.touchMoved = () => {
-        if (p.touches.length > 0 && p.touches[0]) {
+        const currentTime = Date.now();
+        
+        // Only update touch position at certain intervals to reduce jitter
+        if (currentTime - lastUpdateTime > updateInterval && p.touches.length > 0 && p.touches[0]) {
           const touch = p.touches[0] as unknown as { x: number, y: number };
           mouseX = touch.x || p.windowWidth / 2;
           mouseY = touch.y || p.windowHeight / 2;
@@ -172,7 +187,9 @@ export const useParticleSystem = ({
             window.mouseY = mouseY;
           }
           
+          mousePositionRef.current = { x: mouseX, y: mouseY };
           checkMousePosition();
+          lastUpdateTime = currentTime;
         }
         return false;
       };

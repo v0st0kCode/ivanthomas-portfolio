@@ -11,6 +11,7 @@ export class Particle {
   maxForce: number;
   id: number;
   imanted: boolean;
+  lastMousePos: p5.Vector | null;
 
   constructor(p: p5, x: number, y: number, id: number) {
     this.pos = p.createVector(
@@ -25,6 +26,7 @@ export class Particle {
     this.maxForce = p.random(0.1, 0.3);
     this.id = id;
     this.imanted = false;
+    this.lastMousePos = null;
   }
 
   applyForce(force: p5.Vector) {
@@ -32,7 +34,15 @@ export class Particle {
   }
 
   update(p: p5, mouse: p5.Vector, isMouseInsideCanvas: boolean, isHoveringContent: boolean, gameActive: boolean) {
-    const mouseInfluence = p5.Vector.sub(mouse, this.pos);
+    // Cache mouse position to reduce flickering
+    if (!this.lastMousePos) {
+      this.lastMousePos = p.createVector(mouse.x, mouse.y);
+    } else {
+      // Smooth mouse movement to reduce jittering
+      this.lastMousePos.lerp(mouse, 0.2);
+    }
+    
+    const mouseInfluence = p5.Vector.sub(this.lastMousePos, this.pos);
     const mouseDistance = mouseInfluence.mag();
     
     if (gameActive && isMouseInsideCanvas && mouseDistance < 60 && !this.imanted && !isHoveringContent) {
@@ -42,9 +52,16 @@ export class Particle {
     
     if (this.imanted && gameActive) {
       if (!isHoveringContent) {
-        mouseInfluence.setMag(this.maxSpeed * 2);
-        this.vel = mouseInfluence;
-        this.pos = p5.Vector.lerp(this.pos, mouse, 0.1);
+        // Smoother following for imanted particles
+        this.pos = p5.Vector.lerp(this.pos, this.lastMousePos, 0.1);
+        
+        // Only apply velocity for more distant particles to prevent jittering
+        if (mouseDistance > 5) {
+          mouseInfluence.setMag(this.maxSpeed * 2);
+          this.vel = mouseInfluence.mult(0.5); // Reduce multiplier to smooth movement
+        } else {
+          this.vel.mult(0.95); // Dampen velocity when close to mouse
+        }
       }
     } else {
       if (mouseDistance < 120) {
