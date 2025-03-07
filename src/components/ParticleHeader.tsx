@@ -37,6 +37,7 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
       let isMouseInside = false;
       let celebrationCount = 0;
       let hasShownToast = false;
+      let dotSizeMultiplier = 1;
 
       class Particle {
         pos: p5.Vector;
@@ -76,6 +77,8 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
             const newCount = imantedParticles.size;
             setImantedCount(newCount);
             setIsNewImant(true);
+            
+            dotSizeMultiplier = 1 + (newCount * 0.01);
             
             if (newCount >= totalParticles) {
               celebrateSuccess();
@@ -127,8 +130,8 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
           p.noStroke();
           
           if (this.imanted) {
-            p.fill(126, 87, 245, 200);
-            p.circle(this.pos.x, this.pos.y, this.radius * 2.5);
+            p.fill(0, 200);
+            p.circle(this.pos.x, this.pos.y, this.radius * 2.5 * dotSizeMultiplier);
           } else {
             const alpha = p.map(p5.Vector.dist(this.pos, this.target), 0, 100, 90, 40);
             p.fill(0, alpha);
@@ -195,6 +198,7 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
         setIsNewImant(false);
         celebrationCount = 0;
         hasShownToast = false;
+        dotSizeMultiplier = 1;
       };
       
       p.setup = () => {
@@ -322,4 +326,3 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
 };
 
 export default ParticleHeader;
-
