@@ -1,3 +1,4 @@
+
 import React, { useRef, useEffect, useState } from 'react';
 import p5 from 'p5';
 import { useToast } from "@/hooks/use-toast";
@@ -55,15 +56,22 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
       const distY = Math.abs((counterPosition.y || window.mouseY) - window.mouseY);
       const distance = Math.sqrt(distX * distX + distY * distY);
       
-      const proximityThreshold = 8; 
+      // Convert em to pixels (1em = ~16px at standard font size)
+      const pixelsPerEm = 16;
       
       let newOpacity;
       if (isNewImant) {
-        newOpacity = 1;
-      } else if (distance <= proximityThreshold) {
-        newOpacity = 1;
+        newOpacity = 1; // Always 100% when a new dot is collected
+      } else if (distance <= 0.2 * pixelsPerEm) {
+        newOpacity = 1; // 100% opacity when distance <= 0.2em
+      } else if (distance <= 0.5 * pixelsPerEm) {
+        newOpacity = 0.7; // 70% opacity when distance <= 0.5em
+      } else if (distance <= 0.7 * pixelsPerEm) {
+        newOpacity = 0.3; // 30% opacity when distance <= 0.7em
+      } else if (distance <= 1 * pixelsPerEm) {
+        newOpacity = 0.05; // 5% opacity when distance <= 1em
       } else {
-        newOpacity = 0;
+        newOpacity = 0; // 0% opacity when distance > 1em
       }
       
       setCounterOpacity(newOpacity);
