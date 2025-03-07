@@ -19,6 +19,7 @@ if (typeof window !== 'undefined') {
 const Index = () => {
   const featuredProjects = getFeaturedProjects();
   const [isLoaded, setIsLoaded] = useState(false);
+  const [particleHeaderRef, setParticleHeaderRef] = useState(null);
   
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -34,6 +35,15 @@ const Index = () => {
       return '/sony-2-logo.svg';
     }
     return null;
+  };
+
+  // Function to trigger celebration effect
+  const handleTriggerCelebration = (e) => {
+    e.preventDefault();
+    if (window.triggerParticleCelebration) {
+      console.log("Triggering celebration from About Me button");
+      window.triggerParticleCelebration();
+    }
   };
 
   return <div className="min-h-screen bg-white">
@@ -57,9 +67,13 @@ const Index = () => {
               <Link to="/work" className="button-primary">
                 View Work
               </Link>
-              <Link to="/about" className="button-secondary">
+              <a 
+                href="#" 
+                className="button-secondary" 
+                onClick={handleTriggerCelebration}
+              >
                 About Me
-              </Link>
+              </a>
             </div>
           </div>
         </div>

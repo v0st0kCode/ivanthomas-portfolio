@@ -1,7 +1,17 @@
+
 import React, { useRef, useEffect, useState } from 'react';
 import p5 from 'p5';
 import { useToast } from "@/hooks/use-toast";
 import confetti from 'canvas-confetti';
+
+// Define triggerParticleCelebration on the window object
+declare global {
+  interface Window {
+    mouseX: number;
+    mouseY: number;
+    triggerParticleCelebration?: () => void;
+  }
+}
 
 interface ParticleHeaderProps {
   className?: string;
@@ -30,18 +40,12 @@ const ParticleHeader: React.FC<ParticleHeaderProps> = ({ className }) => {
   }, [isNewImant]);
 
   useEffect(() => {
-    const handleDoubleClick = () => {
-      triggerCelebration();
-    };
-
-    if (containerRef.current) {
-      containerRef.current.addEventListener('dblclick', handleDoubleClick);
-    }
-
+    // Expose the triggerCelebration function to the window object
+    window.triggerParticleCelebration = triggerCelebration;
+    
     return () => {
-      if (containerRef.current) {
-        containerRef.current.removeEventListener('dblclick', handleDoubleClick);
-      }
+      // Clean up the global function when component unmounts
+      delete window.triggerParticleCelebration;
     };
   }, []);
 
