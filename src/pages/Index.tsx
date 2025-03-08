@@ -36,7 +36,7 @@ const Index = () => {
       return '/sony-2-logo.svg';
     }
     if (project.details?.client === 'LaLiga') {
-      return '/la-liga-logo.svg';
+      return '/la-liga-logo-original.svg';
     }
     return null;
   };
