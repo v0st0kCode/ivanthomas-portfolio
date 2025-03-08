@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import ParticleHeader from '../components/ParticleHeader';
@@ -33,6 +34,9 @@ const Index = () => {
   const getClientLogo = (project) => {
     if (project.details?.client === 'Sony') {
       return '/sony-2-logo.svg';
+    }
+    if (project.details?.client === 'LaLiga') {
+      return '/la-liga-logo.svg';
     }
     return null;
   };
@@ -97,7 +101,7 @@ const Index = () => {
                       <img 
                         src={getClientLogo(project)} 
                         alt={`${project.details?.client} logo`} 
-                        className="w-full h-full object-contain"
+                        className={`w-full h-full object-contain ${project.details?.client === 'LaLiga' ? 'invert' : ''}`}
                       />
                     </div>
                   )}
