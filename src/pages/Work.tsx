@@ -115,7 +115,7 @@ const Work = () => {
                 </div>
                 <div className="p-4">
                   <div className="flex justify-between items-center">
-                    <span className="text-xs text-muted-foreground">{project.category} • {project.year}</span>
+                    <span className="text-xs text-muted-foreground">{project.category}</span>
                     {project.protected && (
                       <LockKeyhole size={16} className="text-muted-foreground" />
                     )}
