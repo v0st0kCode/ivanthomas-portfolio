@@ -39,7 +39,7 @@ export const projects: Project[] = [
     id: "sony-app",
     title: "Sony 3D Live Replayer",
     description: "Replays like you never saw before.",
-    image: "/Sony3D_bg.png", // Updated path with leading slash for public directory
+    image: "/sony-3d-metrics-replayer.png", // Updated to use the new image
     category: "iPad App",
     year: "2025",
     featured: true,
