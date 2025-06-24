@@ -144,11 +144,11 @@
   }
   
   .feature-card {
-    @apply rounded-3xl overflow-hidden relative h-[500px] md:h-[640px] transition-all duration-300 hover:shadow-[0_5px_20px_rgba(0,0,0,0.2)] hover:-translate-y-2 w-screen ml-[calc(-50vw+50%)] mb-[120px];
+    @apply rounded-lg overflow-hidden relative h-[600px] transition-all duration-300 hover:shadow-[0_5px_20px_rgba(0,0,0,0.2)] hover:-translate-y-2 w-screen ml-[calc(-50vw+50%)] mb-[120px] mx-6;
   }
   
   .feature-card-bg {
-    @apply relative rounded-3xl overflow-hidden h-full;
+    @apply relative rounded-lg overflow-hidden h-full;
   }
   
   .feature-card-image-bg {
