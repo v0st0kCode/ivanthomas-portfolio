@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import ParticleHeader from '../components/ParticleHeader';
@@ -94,7 +95,7 @@ const Index = () => {
                 <div className="feature-card-bg h-full">
                   <div className="feature-card-image-bg">
                     <img src={project.image} alt={project.title} loading="lazy" />
-                    <div className="gradient-overlay my-0"></div>
+                    <div className="gradient-overlay my-0 mb-[200px]"></div>
                   </div>
                   <div className="feature-card-content my-[100px] mx-0">
                     <h3 className="feature-card-title">{project.title}</h3>
