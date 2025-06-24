@@ -1,3 +1,4 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Space+Mono&display=swap');
@@ -144,7 +145,7 @@
   }
   
   .feature-card {
-    @apply rounded-lg overflow-hidden relative h-[600px] transition-all duration-300 hover:shadow-[0_5px_20px_rgba(0,0,0,0.2)] hover:-translate-y-2 w-screen ml-[calc(-50vw+50%)] mb-[120px] mx-6;
+    @apply rounded-lg overflow-hidden relative h-[600px] transition-all duration-300 hover:shadow-[0_5px_20px_rgba(0,0,0,0.2)] hover:-translate-y-2 w-screen ml-[calc(-50vw+50%)] mb-[200px] mx-8;
   }
   
   .feature-card-bg {
