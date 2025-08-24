@@ -197,7 +197,7 @@ const Index = () => {
         <div className="container-custom">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-muted-foreground text-sm mb-4 md:mb-0">
-              © {new Date().getFullYear()} Design Portfolio
+              © {new Date().getFullYear()} Ivan Thomas
             </p>
             <div className="flex space-x-6">
               <a href="#" className="text-muted-foreground hover:text-black transition-colors text-sm">
