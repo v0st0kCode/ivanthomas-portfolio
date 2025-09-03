@@ -1,7 +1,6 @@
 
 import React, { useEffect } from 'react';
 import Navbar from '../components/Navbar';
-import InteractiveTimeline from '../components/InteractiveTimeline';
 
 const About = () => {
   useEffect(() => {
@@ -69,8 +68,6 @@ const About = () => {
         </div>
       </section>
 
-      {/* Interactive Timeline */}
-      <InteractiveTimeline />
 
       <section className="py-24">
         <div className="container-custom">
