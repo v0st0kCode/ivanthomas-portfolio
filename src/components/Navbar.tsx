@@ -43,6 +43,12 @@ const Navbar: React.FC = () => {
           >
             About
           </Link>
+          <a 
+            href="mailto:hello@ivanthomas.pro" 
+            className="nav-link after:w-0 hover:after:w-full"
+          >
+            Contact
+          </a>
         </div>
       </nav>
     </header>
