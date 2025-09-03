@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import ParticleHeader from '../components/ParticleHeader';
@@ -10,18 +9,15 @@ import { LockKeyhole } from 'lucide-react';
 if (typeof window !== 'undefined') {
   window.mouseX = 0;
   window.mouseY = 0;
-  
-  window.addEventListener('mousemove', (e) => {
+  window.addEventListener('mousemove', e => {
     window.mouseX = e.clientX;
     window.mouseY = e.clientY;
   });
 }
-
 const Index = () => {
   const featuredProjects = getFeaturedProjects();
   const [isLoaded, setIsLoaded] = useState(false);
   const [particleHeaderRef, setParticleHeaderRef] = useState(null);
-  
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoaded(true);
@@ -29,9 +25,9 @@ const Index = () => {
 
     return () => clearTimeout(timer);
   }, []);
-  
+
   // Function to get client logo based on client name
-  const getClientLogo = (project) => {
+  const getClientLogo = project => {
     if (project.details?.client === 'Sony') {
       return '/sony-2-logo.svg';
     }
@@ -42,14 +38,13 @@ const Index = () => {
   };
 
   // Function to trigger celebration effect
-  const handleTriggerCelebration = (e) => {
+  const handleTriggerCelebration = e => {
     e.preventDefault();
     if (window.triggerParticleCelebration) {
       console.log("Triggering celebration from About Me button");
       window.triggerParticleCelebration();
     }
   };
-
   return <div className="min-h-screen bg-white">
       <Navbar />
       
@@ -58,9 +53,7 @@ const Index = () => {
         <ParticleHeader />
         <div className="absolute inset-0 flex items-center justify-center">
           <div className={`container-custom text-center max-w-4xl transition-all duration-1000 ease-out ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-            <span className="inline-block py-1 px-3 mb-6 text-xs font-mono tracking-wider uppercase text-muted-foreground">
-              Digital Product Designer
-            </span>
+            <span className="inline-block py-1 px-3 mb-6 text-xs font-mono tracking-wider uppercase text-muted-foreground">THIS PORTFOLIO IS A WORK IN PROGRESS</span>
             <h1 className="heading-xl mx-auto mb-8 text-6xl">
               Connecting the dots since 1986
             </h1>
@@ -68,11 +61,7 @@ const Index = () => {
               I'm a digital product designer with 20 years of experience crafting user-friendly digital products that connect people and technology
             </p>
             <div className="flex items-center justify-center space-x-4">
-              <a 
-                href="#" 
-                className="button-primary" 
-                onClick={handleTriggerCelebration}
-              >
+              <a href="#" className="button-primary" onClick={handleTriggerCelebration}>
                 About Me
               </a>
             </div>
