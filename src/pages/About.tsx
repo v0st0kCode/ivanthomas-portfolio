@@ -69,67 +69,6 @@ const About = () => {
       </section>
 
 
-      <section className="py-24">
-        <div className="container-custom">
-          <div className="max-w-4xl mx-auto">
-            <div className="flex flex-col md:flex-row items-start md:space-x-16">
-              <div className="w-full">
-                <div className="pb-6 border-b border-border animate-fade-in" style={{ animationDelay: '0.4s' }}>
-                  <h2 className="heading-md mb-6">Skills & Tools</h2>
-                  
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                    <div>
-                      <h3 className="font-medium mb-3">Design</h3>
-                      <ul className="space-y-2 text-muted-foreground">
-                        <li>User Experience (UX) Design</li>
-                        <li>User Interface (UI) Design</li>
-                        <li>Interaction Design</li>
-                        <li>Design Systems</li>
-                        <li>Wireframing & Prototyping</li>
-                        <li>Visual Design</li>
-                      </ul>
-                    </div>
-                    
-                    <div>
-                      <h3 className="font-medium mb-3">Tools</h3>
-                      <ul className="space-y-2 text-muted-foreground">
-                        <li>Figma</li>
-                        <li>Adobe XD</li>
-                        <li>Sketch</li>
-                        <li>Protopie</li>
-                        <li>Principle</li>
-                        <li>After Effects</li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              
-                <div className="mt-12 animate-fade-in" style={{ animationDelay: '0.5s' }}>
-                  <h2 className="heading-md mb-6">Education</h2>
-                  
-                  <div className="space-y-6">
-                    <div>
-                      <div className="flex justify-between items-start mb-2">
-                        <h3 className="font-medium">Master's in Interaction Design</h3>
-                        <span className="text-sm text-muted-foreground">2014—2015</span>
-                      </div>
-                      <p className="text-muted-foreground">Design University</p>
-                    </div>
-                    
-                    <div>
-                      <div className="flex justify-between items-start mb-2">
-                        <h3 className="font-medium">Bachelor's in Graphic Design</h3>
-                        <span className="text-sm text-muted-foreground">2010—2014</span>
-                      </div>
-                      <p className="text-muted-foreground">Arts Institute</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
       
       {/* Contact Section */}
       <section className="py-24 bg-secondary">
