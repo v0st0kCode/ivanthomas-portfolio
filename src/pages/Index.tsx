@@ -72,44 +72,6 @@ const Index = () => {
       </section>
       
       
-      {/* Process Section */}
-      <section className="py-24 bg-secondary">
-        <div className="container-custom">
-          <div className="max-w-3xl mb-16">
-            <span className="section-title">Design Approach</span>
-            <h2 className="heading-lg mb-6">How I Work</h2>
-            <p className="paragraph">
-              My process is built around understanding your business goals and user needs to create designs that deliver results.
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="p-0">
-              <div className="w-12 h-12 flex items-center justify-center border border-black text-black rounded-full mb-6 font-mono">
-                <span>01</span>
-              </div>
-              <h3 className="text-xl font-medium mb-4">Discovery</h3>
-              <p className="text-muted-foreground">Understanding user needs, business objectives, and technical constraints to lay a solid foundation.</p>
-            </div>
-            
-            <div className="p-0">
-              <div className="w-12 h-12 flex items-center justify-center border border-black text-black rounded-full mb-6 font-mono">
-                <span>02</span>
-              </div>
-              <h3 className="text-xl font-medium mb-4">Design</h3>
-              <p className="text-muted-foreground">Crafting intuitive user flows, wireframes, and high-fidelity designs with a focus on simplicity.</p>
-            </div>
-            
-            <div className="p-0">
-              <div className="w-12 h-12 flex items-center justify-center border border-black text-black rounded-full mb-6 font-mono">
-                <span>03</span>
-              </div>
-              <h3 className="text-xl font-medium mb-4">Delivery</h3>
-              <p className="text-muted-foreground">Testing, iterating, and delivering design solutions that meet and exceed expectations.</p>
-            </div>
-          </div>
-        </div>
-      </section>
       
       {/* Contact Section */}
       <section className="py-24 bg-white">
