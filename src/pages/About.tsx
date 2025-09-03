@@ -1,6 +1,7 @@
 
 import React, { useEffect } from 'react';
 import Navbar from '../components/Navbar';
+import InteractiveTimeline from '../components/InteractiveTimeline';
 
 const About = () => {
   useEffect(() => {
@@ -63,87 +64,68 @@ const About = () => {
                 </p>
               </div>
               
-              <div className="mt-12 pb-6 border-b border-border animate-fade-in" style={{ animationDelay: '0.3s' }}>
-                <h2 className="heading-md mb-6">Experience</h2>
-                
-                <div className="space-y-8">
-                  <div>
-                    <div className="flex justify-between items-start mb-2">
-                      <h3 className="font-medium">Lead Product Designer</h3>
-                      <span className="text-sm text-muted-foreground">2021—Present</span>
-                    </div>
-                    <p className="text-muted-foreground mb-1">Design Studio Inc.</p>
-                    <p className="text-sm">Leading the design team for financial and healthcare products, managing the design process from concept to implementation.</p>
-                  </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Interactive Timeline */}
+      <InteractiveTimeline />
+
+      <section className="py-24">
+        <div className="container-custom">
+          <div className="max-w-4xl mx-auto">
+            <div className="flex flex-col md:flex-row items-start md:space-x-16">
+              <div className="w-full">
+                <div className="pb-6 border-b border-border animate-fade-in" style={{ animationDelay: '0.4s' }}>
+                  <h2 className="heading-md mb-6">Skills & Tools</h2>
                   
-                  <div>
-                    <div className="flex justify-between items-start mb-2">
-                      <h3 className="font-medium">Senior UX Designer</h3>
-                      <span className="text-sm text-muted-foreground">2018—2021</span>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div>
+                      <h3 className="font-medium mb-3">Design</h3>
+                      <ul className="space-y-2 text-muted-foreground">
+                        <li>User Experience (UX) Design</li>
+                        <li>User Interface (UI) Design</li>
+                        <li>Interaction Design</li>
+                        <li>Design Systems</li>
+                        <li>Wireframing & Prototyping</li>
+                        <li>Visual Design</li>
+                      </ul>
                     </div>
-                    <p className="text-muted-foreground mb-1">Tech Corporation</p>
-                    <p className="text-sm">Designed user experiences for mobile and web applications, focusing on user research and interface design.</p>
-                  </div>
-                  
-                  <div>
-                    <div className="flex justify-between items-start mb-2">
-                      <h3 className="font-medium">UI/UX Designer</h3>
-                      <span className="text-sm text-muted-foreground">2015—2018</span>
+                    
+                    <div>
+                      <h3 className="font-medium mb-3">Tools</h3>
+                      <ul className="space-y-2 text-muted-foreground">
+                        <li>Figma</li>
+                        <li>Adobe XD</li>
+                        <li>Sketch</li>
+                        <li>Protopie</li>
+                        <li>Principle</li>
+                        <li>After Effects</li>
+                      </ul>
                     </div>
-                    <p className="text-muted-foreground mb-1">Creative Agency</p>
-                    <p className="text-sm">Created visual designs and interactive prototypes for various client projects across different industries.</p>
                   </div>
                 </div>
-              </div>
               
-              <div className="mt-12 pb-6 border-b border-border animate-fade-in" style={{ animationDelay: '0.4s' }}>
-                <h2 className="heading-md mb-6">Skills & Tools</h2>
-                
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                  <div>
-                    <h3 className="font-medium mb-3">Design</h3>
-                    <ul className="space-y-2 text-muted-foreground">
-                      <li>User Experience (UX) Design</li>
-                      <li>User Interface (UI) Design</li>
-                      <li>Interaction Design</li>
-                      <li>Design Systems</li>
-                      <li>Wireframing & Prototyping</li>
-                      <li>Visual Design</li>
-                    </ul>
-                  </div>
+                <div className="mt-12 animate-fade-in" style={{ animationDelay: '0.5s' }}>
+                  <h2 className="heading-md mb-6">Education</h2>
                   
-                  <div>
-                    <h3 className="font-medium mb-3">Tools</h3>
-                    <ul className="space-y-2 text-muted-foreground">
-                      <li>Figma</li>
-                      <li>Adobe XD</li>
-                      <li>Sketch</li>
-                      <li>Protopie</li>
-                      <li>Principle</li>
-                      <li>After Effects</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-              
-              <div className="mt-12 animate-fade-in" style={{ animationDelay: '0.5s' }}>
-                <h2 className="heading-md mb-6">Education</h2>
-                
-                <div className="space-y-6">
-                  <div>
-                    <div className="flex justify-between items-start mb-2">
-                      <h3 className="font-medium">Master's in Interaction Design</h3>
-                      <span className="text-sm text-muted-foreground">2014—2015</span>
+                  <div className="space-y-6">
+                    <div>
+                      <div className="flex justify-between items-start mb-2">
+                        <h3 className="font-medium">Master's in Interaction Design</h3>
+                        <span className="text-sm text-muted-foreground">2014—2015</span>
+                      </div>
+                      <p className="text-muted-foreground">Design University</p>
                     </div>
-                    <p className="text-muted-foreground">Design University</p>
-                  </div>
-                  
-                  <div>
-                    <div className="flex justify-between items-start mb-2">
-                      <h3 className="font-medium">Bachelor's in Graphic Design</h3>
-                      <span className="text-sm text-muted-foreground">2010—2014</span>
+                    
+                    <div>
+                      <div className="flex justify-between items-start mb-2">
+                        <h3 className="font-medium">Bachelor's in Graphic Design</h3>
+                        <span className="text-sm text-muted-foreground">2010—2014</span>
+                      </div>
+                      <p className="text-muted-foreground">Arts Institute</p>
                     </div>
-                    <p className="text-muted-foreground">Arts Institute</p>
                   </div>
                 </div>
               </div>
