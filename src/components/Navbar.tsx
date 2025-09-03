@@ -44,12 +44,6 @@ const Navbar: React.FC = () => {
             Home
           </Link>
           <Link 
-            to="/work" 
-            className={`nav-link ${isActive('/work') ? 'after:w-full font-medium' : 'after:w-0'}`}
-          >
-            Work
-          </Link>
-          <Link 
             to="/about" 
             className={`nav-link ${isActive('/about') ? 'after:w-full font-medium' : 'after:w-0'}`}
           >
