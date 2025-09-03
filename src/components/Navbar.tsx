@@ -38,12 +38,6 @@ const Navbar: React.FC = () => {
         
         <div className="flex space-x-8">
           <Link 
-            to="/" 
-            className={`nav-link ${isActive('/') ? 'after:w-full font-medium' : 'after:w-0'}`}
-          >
-            Home
-          </Link>
-          <Link 
             to="/about" 
             className={`nav-link ${isActive('/about') ? 'after:w-full font-medium' : 'after:w-0'}`}
           >
