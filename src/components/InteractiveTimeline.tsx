@@ -9,58 +9,106 @@ interface TimelineEvent {
 const timelineData: TimelineEvent[] = [
   {
     year: '1999',
-    items: [],
-    position: { x: 20, y: 0 }
+    items: ['Solohijos.com'],
+    position: { x: 30, y: 0 }
   },
   {
     year: '2001',
-    items: ['Banc Sabadell', 'Caixabank', 'Generalitat de Catalunya', 'Applus'],
-    position: { x: 80, y: 150 }
+    items: ['Caixabank', 'Banc Sabadell', 'Generalitat de Catalunya'],
+    position: { x: 70, y: 150 }
+  },
+  {
+    year: '2005',
+    items: ['AGBAR', 'Applus'],
+    position: { x: 25, y: 280 }
   },
   {
     year: '2010',
-    items: ['Arai', 'MotoGP', 'FC Barcelona', 'Jorge Lorenzo', 'Yamaha'],
-    position: { x: 30, y: 280 }
+    items: ['FC Barcelona', 'Yamaha', 'Jorge Lorenzo'],
+    position: { x: 15, y: 420 }
   },
   {
     year: '2013',
-    items: ['CHH', 'Singapore', 'Thailand', 'Taschen', 'Philippines', 'CocaCola', 'Gillette'],
-    position: { x: 75, y: 420 }
+    items: ['CHH', 'Taschen', 'Gillette', 'Coca-Cola'],
+    position: { x: 75, y: 560 }
   },
   {
     year: '2016',
-    items: ['JET8', 'Crypto', 'Kraken'],
-    position: { x: 15, y: 580 }
+    items: ['JET8', 'Crypto'],
+    position: { x: 35, y: 700 }
   },
   {
     year: '2018',
     items: ['Mediapro', 'LaLiga'],
-    position: { x: 70, y: 720 }
+    position: { x: 20, y: 840 }
   },
   {
     year: '2025',
-    items: ['Globant', 'UEFA', 'Sony', 'OurDNA'],
-    position: { x: 40, y: 860 }
+    items: ['Globant', 'OurDNA', 'UEFA', 'Sony', 'Sportian'],
+    position: { x: 65, y: 980 }
   }
 ];
 
-// Orbital positions for labels around each year
-const getOrbitalPositions = (itemCount: number, radius: number = 120) => {
-  const positions = [];
-  const angleStep = (2 * Math.PI) / Math.max(itemCount, 1);
+// Fixed floating positions for labels around each year (like the reference image)
+const getFloatingPositions = (yearIndex: number, itemCount: number) => {
+  const positions: { x: number; y: number }[] = [];
   
-  for (let i = 0; i < itemCount; i++) {
-    const angle = i * angleStep;
-    // Add some randomness to make it more organic
-    const radiusVariation = radius + (Math.random() - 0.5) * 40;
-    const angleVariation = angle + (Math.random() - 0.5) * 0.8;
+  // Pre-defined organic positions for each year's labels
+  const yearPositions = [
+    // 1999 - Solohijos.com
+    [{ x: -120, y: -30 }],
     
-    positions.push({
-      x: Math.cos(angleVariation) * radiusVariation,
-      y: Math.sin(angleVariation) * radiusVariation
-    });
-  }
-  return positions;
+    // 2001 - Caixabank, Banc Sabadell, Generalitat de Catalunya  
+    [
+      { x: 140, y: -20 },
+      { x: -100, y: 30 },
+      { x: 120, y: 60 }
+    ],
+    
+    // 2005 - AGBAR, Applus
+    [
+      { x: -80, y: -40 },
+      { x: 100, y: 30 }
+    ],
+    
+    // 2010 - FC Barcelona, Yamaha, Jorge Lorenzo
+    [
+      { x: -120, y: 50 },
+      { x: 90, y: -30 },
+      { x: -90, y: -60 }
+    ],
+    
+    // 2013 - CHH, Taschen, Gillette, Coca-Cola
+    [
+      { x: -90, y: -40 },
+      { x: 130, y: -20 },
+      { x: -60, y: 50 },
+      { x: 110, y: 50 }
+    ],
+    
+    // 2016 - JET8, Crypto
+    [
+      { x: -80, y: -30 },
+      { x: 100, y: 40 }
+    ],
+    
+    // 2018 - Mediapro, LaLiga
+    [
+      { x: -100, y: 60 },
+      { x: 90, y: -30 }
+    ],
+    
+    // 2025 - Globant, OurDNA, UEFA, Sony, Sportian
+    [
+      { x: -110, y: 60 },
+      { x: 120, y: -20 },
+      { x: 140, y: 40 },
+      { x: -80, y: -40 },
+      { x: 80, y: 80 }
+    ]
+  ];
+  
+  return yearPositions[yearIndex] || [];
 };
 
 const InteractiveTimeline = () => {
@@ -71,9 +119,9 @@ const InteractiveTimeline = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const timelineRef = useRef<HTMLDivElement>(null);
 
-  // Generate orbital positions for each year's items
-  const orbitalPositions = timelineData.map(event => 
-    getOrbitalPositions(event.items.length, 100 + Math.random() * 50)
+  // Generate floating positions for each year's items
+  const floatingPositions = timelineData.map((event, eventIndex) => 
+    getFloatingPositions(eventIndex, event.items.length)
   );
 
   useEffect(() => {
@@ -96,7 +144,7 @@ const InteractiveTimeline = () => {
     const handleClick = (e: MouseEvent) => {
       // Close panels when clicking outside
       const target = e.target as HTMLElement;
-      if (!target.closest('.year-badge') && !target.closest('.orbit-label')) {
+      if (!target.closest('.year-badge') && !target.closest('.floating-label')) {
         setClickedYear(null);
         setClickedLabel(null);
       }
@@ -155,7 +203,7 @@ const InteractiveTimeline = () => {
             </h2>
           </div>
 
-          <div className="relative h-[1000px]">
+          <div className="relative h-[1200px]">
             {/* Dotted connecting line */}
             <svg className="absolute inset-0 w-full h-full pointer-events-none">
               {timelineData.map((event, index) => {
@@ -166,9 +214,9 @@ const InteractiveTimeline = () => {
                   <line
                     key={`line-${index}`}
                     x1={`${current.x}%`}
-                    y1={`${(current.y / 860) * 100}%`}
+                    y1={`${(current.y / 980) * 100}%`}
                     x2={`${next.x}%`}
-                    y2={`${(next.y / 860) * 100}%`}
+                    y2={`${(next.y / 980) * 100}%`}
                     stroke="hsl(var(--primary))"
                     strokeWidth="2"
                     strokeDasharray="8,8"
@@ -186,7 +234,7 @@ const InteractiveTimeline = () => {
                 className={`absolute transition-all duration-700 ${isLoaded ? 'opacity-100 scale-100' : 'opacity-0 scale-75'}`}
                 style={{
                   left: `${event.position.x}%`,
-                  top: `${(event.position.y / 860) * 100}%`,
+                  top: `${(event.position.y / 980) * 100}%`,
                   transitionDelay: `${600 + eventIndex * 150}ms`
                 }}
               >
@@ -200,13 +248,14 @@ const InteractiveTimeline = () => {
                   {event.year}
                 </div>
 
-                {/* Orbital Labels */}
+                {/* Floating Labels */}
                 {event.items.length > 0 && event.items.map((item, itemIndex) => {
-                  const position = orbitalPositions[eventIndex][itemIndex];
+                  const position = floatingPositions[eventIndex][itemIndex];
+                  if (!position) return null;
                   return (
                     <div
                       key={itemIndex}
-                      className={`orbit-label absolute transition-all duration-700 ${isLoaded ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'}`}
+                      className={`floating-label absolute transition-all duration-700 ${isLoaded ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'}`}
                       style={{
                         left: `${position.x}px`,
                         top: `${position.y}px`,
@@ -221,19 +270,6 @@ const InteractiveTimeline = () => {
                       >
                         {item}
                       </span>
-                      
-                      {/* Connecting line to year */}
-                      <div 
-                        className="absolute w-px bg-primary/20"
-                        style={{
-                          left: '50%',
-                          top: '50%',
-                          width: '1px',
-                          height: `${Math.sqrt(position.x * position.x + position.y * position.y)}px`,
-                          transformOrigin: '0 0',
-                          transform: `rotate(${Math.atan2(-position.y, -position.x) * 180 / Math.PI}deg)`,
-                        }}
-                      />
                     </div>
                   );
                 })}
