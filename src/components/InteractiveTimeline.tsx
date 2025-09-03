@@ -50,9 +50,7 @@ const timelineData: TimelineEvent[] = [
 ];
 
 // Fixed floating positions for labels around each year (like the reference image)
-const getFloatingPositions = (yearIndex: number, itemCount: number) => {
-  const positions: { x: number; y: number }[] = [];
-  
+const getFloatingPositions = (yearIndex: number) => {
   // Pre-defined organic positions for each year's labels
   const yearPositions = [
     // 1999 - Solohijos.com
@@ -119,11 +117,6 @@ const InteractiveTimeline = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const timelineRef = useRef<HTMLDivElement>(null);
 
-  // Generate floating positions for each year's items
-  const floatingPositions = timelineData.map((event, eventIndex) => 
-    getFloatingPositions(eventIndex, event.items.length)
-  );
-
   useEffect(() => {
     // Trigger loading animation after component mounts
     const timer = setTimeout(() => {
@@ -181,6 +174,7 @@ const InteractiveTimeline = () => {
     const descriptions: Record<string, string> = {
       '1999': 'The beginning of the .COM bubble era. Everything was changing rapidly in the digital world.',
       '2001': 'Founded Ekilater - Digital Agency. Working with major clients on cutting-edge web technologies.',
+      '2005': 'Working with major financial institutions and government entities in Catalonia.',
       '2010': 'Expanded into sports and entertainment industry, working with world-class brands.',
       '2013': 'International expansion across Asia-Pacific markets, diversifying client portfolio.',
       '2016': 'Entered the cryptocurrency and fintech space during the blockchain revolution.',
@@ -228,53 +222,58 @@ const InteractiveTimeline = () => {
             </svg>
 
             {/* Timeline Events - Floating Years */}
-            {timelineData.map((event, eventIndex) => (
-              <div
-                key={event.year}
-                className={`absolute transition-all duration-700 ${isLoaded ? 'opacity-100 scale-100' : 'opacity-0 scale-75'}`}
-                style={{
-                  left: `${event.position.x}%`,
-                  top: `${(event.position.y / 980) * 100}%`,
-                  transitionDelay: `${600 + eventIndex * 150}ms`
-                }}
-              >
-                {/* Year Badge */}
-                <div 
-                  className="year-badge relative z-20 bg-primary text-primary-foreground px-8 py-4 rounded-full font-mono font-bold text-2xl shadow-2xl cursor-pointer transform transition-all duration-300 hover:scale-110 hover:shadow-3xl"
-                  onClick={() => handleYearClick(event.year)}
-                  onMouseEnter={() => handleItemHover(event.year)}
-                  onMouseLeave={handleItemLeave}
+            {timelineData.map((event, eventIndex) => {
+              const labelPositions = getFloatingPositions(eventIndex);
+              
+              return (
+                <div
+                  key={event.year}
+                  className={`absolute transition-all duration-700 ${isLoaded ? 'opacity-100 scale-100' : 'opacity-0 scale-75'}`}
+                  style={{
+                    left: `${event.position.x}%`,
+                    top: `${(event.position.y / 980) * 100}%`,
+                    transitionDelay: `${600 + eventIndex * 150}ms`
+                  }}
                 >
-                  {event.year}
-                </div>
+                  {/* Year Badge */}
+                  <div 
+                    className="year-badge relative z-20 bg-primary text-primary-foreground px-8 py-4 rounded-full font-mono font-bold text-2xl shadow-2xl cursor-pointer transform transition-all duration-300 hover:scale-110 hover:shadow-3xl"
+                    onClick={() => handleYearClick(event.year)}
+                    onMouseEnter={() => handleItemHover(event.year)}
+                    onMouseLeave={handleItemLeave}
+                  >
+                    {event.year}
+                  </div>
 
-                {/* Floating Labels */}
-                {event.items.length > 0 && event.items.map((item, itemIndex) => {
-                  const position = floatingPositions[eventIndex][itemIndex];
-                  if (!position) return null;
-                  return (
-                    <div
-                      key={itemIndex}
-                      className={`floating-label absolute transition-all duration-700 ${isLoaded ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'}`}
-                      style={{
-                        left: `${position.x}px`,
-                        top: `${position.y}px`,
-                        transitionDelay: `${800 + eventIndex * 100 + itemIndex * 50}ms`
-                      }}
-                    >
-                      <span
-                        className="inline-block px-4 py-2 bg-muted text-muted-foreground rounded-full text-sm cursor-pointer transform transition-all duration-300 hover:scale-105 hover:bg-primary/20 hover:text-primary hover:shadow-lg font-medium"
-                        onClick={() => handleLabelClick(item)}
-                        onMouseEnter={() => handleItemHover(item)}
-                        onMouseLeave={handleItemLeave}
+                  {/* Floating Labels */}
+                  {event.items.map((item, itemIndex) => {
+                    const position = labelPositions[itemIndex];
+                    if (!position) return null;
+                    
+                    return (
+                      <div
+                        key={itemIndex}
+                        className={`floating-label absolute transition-all duration-700 ${isLoaded ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'}`}
+                        style={{
+                          left: `${position.x}px`,
+                          top: `${position.y}px`,
+                          transitionDelay: `${800 + eventIndex * 100 + itemIndex * 50}ms`
+                        }}
                       >
-                        {item}
-                      </span>
-                    </div>
-                  );
-                })}
-              </div>
-            ))}
+                        <span
+                          className="inline-block px-4 py-2 bg-muted text-muted-foreground rounded-full text-sm cursor-pointer transform transition-all duration-300 hover:scale-105 hover:bg-primary/20 hover:text-primary hover:shadow-lg font-medium"
+                          onClick={() => handleLabelClick(item)}
+                          onMouseEnter={() => handleItemHover(item)}
+                          onMouseLeave={handleItemLeave}
+                        >
+                          {item}
+                        </span>
+                      </div>
+                    );
+                  })}
+                </div>
+              );
+            })}
           </div>
         </div>
 
