@@ -53,7 +53,9 @@ const Index = () => {
         <ParticleHeader />
         <div className="absolute inset-0 flex items-center justify-center">
           <div className={`container-custom text-center max-w-4xl transition-all duration-1000 ease-out ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-            <span className="inline-block py-1 px-3 mb-6 text-xs font-mono font-bold tracking-wider uppercase text-muted-foreground/60 animate-pulse">THIS PORTFOLIO IS A WORK IN PROGRESS</span>
+            <span className="inline-block py-1 px-3 mb-6 text-xs font-mono font-bold tracking-wider uppercase text-muted-foreground/60 animate-pulse">
+              THIS PORTFOLIO IS A <span className="underline">WORK IN PROGRESS</span>
+            </span>
             <h1 className="heading-xl mx-auto mb-8 text-6xl">
               Connecting the dots since 1986
             </h1>
