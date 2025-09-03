@@ -68,12 +68,9 @@ const Index = () => {
               I'm a digital product designer with 20 years of experience crafting user-friendly digital products that connect people and technology
             </p>
             <div className="flex items-center justify-center space-x-4">
-              <Link to="/work" className="button-primary">
-                View Work
-              </Link>
               <a 
                 href="#" 
-                className="button-secondary" 
+                className="button-primary" 
                 onClick={handleTriggerCelebration}
               >
                 About Me
