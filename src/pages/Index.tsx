@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import ParticleHeader from '../components/ParticleHeader';
 import Navbar from '../components/Navbar';
 import { getFeaturedProjects } from '../data/projects';
-import { LockKeyhole } from 'lucide-react';
+import { LockKeyhole, Linkedin, Send } from 'lucide-react';
 
 // Add mouse position tracking to the window object
 if (typeof window !== 'undefined') {
@@ -62,9 +62,11 @@ const Index = () => {
             <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10">I'm a digital product designer with +25 years of experience crafting user-friendly digital products that connect people and technology</p>
             <div className="flex items-center justify-center space-x-4">
               <a href="https://www.linkedin.com/in/ivanthomasgarces/" target="_blank" rel="noopener noreferrer" className="button-primary">
+                <Linkedin size={20} />
                 LinkedIn Profile
               </a>
               <a href="mailto:hello@ivanthomas.pro" className="button-secondary">
+                <Send size={20} />
                 Contact
               </a>
             </div>
