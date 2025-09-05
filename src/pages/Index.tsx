@@ -59,7 +59,7 @@ const Index = () => {
             <h1 className="heading-xl mx-auto mb-8 text-6xl">
               Connecting the dots since 1999
             </h1>
-            <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10">I'm a digital product designer with +25 years of experience crafting user-friendly digital products that connect people and technology</p>
+            <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10">I'm a digital product designer with over 25 years of experience crafting user-friendly digital products that connect people and technology.<br />I'm currently updating my portfolio. In the meantime, you can view my profile on LinkedIn or send me a message.</p>
             <div className="flex items-center justify-center space-x-4">
               <a href="https://www.linkedin.com/in/ivanthomasgarces/" target="_blank" rel="noopener noreferrer" className="button-primary">
                 <Linkedin size={20} />
