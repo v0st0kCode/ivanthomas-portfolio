@@ -59,9 +59,7 @@ const Index = () => {
             <h1 className="heading-xl mx-auto mb-8 text-6xl">
               Connecting the dots since 1999
             </h1>
-            <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10">
-              I'm a digital product designer with 20 years of experience crafting user-friendly digital products that connect people and technology
-            </p>
+            <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10">I'm a digital product designer with +25 years of experience crafting user-friendly digital products that connect people and technology</p>
             <div className="flex items-center justify-center space-x-4">
               <a href="#" className="button-primary" onClick={handleTriggerCelebration}>
                 About Me
