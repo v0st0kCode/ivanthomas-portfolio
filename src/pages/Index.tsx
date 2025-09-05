@@ -57,7 +57,7 @@ const Index = () => {
               THIS PORTFOLIO IS A <span className="underline">WORK IN PROGRESS</span>
             </span>
             <h1 className="heading-xl mx-auto mb-8 text-6xl">
-              Connecting the dots since 1986
+              Connecting the dots since 1999
             </h1>
             <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10">
               I'm a digital product designer with 20 years of experience crafting user-friendly digital products that connect people and technology
