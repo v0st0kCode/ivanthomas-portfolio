@@ -78,7 +78,7 @@ const Index = () => {
       
       
       {/* Footer */}
-      <footer className="py-12 border-t border-border">
+      <footer className="py-12">
         <div className="container-custom">
           <div className="text-center">
             <p className="text-muted-foreground text-sm">
