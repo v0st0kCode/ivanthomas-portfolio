@@ -24,11 +24,11 @@ const About = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white relative">
       <Navbar />
       
       {/* About Hero */}
-      <section className="pt-32 pb-20">
+      <section className="pt-32 pb-24">
         <div className="container-custom">
           <div className="flex flex-col md:flex-row items-start md:space-x-16">
             <div className="w-full md:w-2/5 mb-10 md:mb-0">
@@ -68,10 +68,9 @@ const About = () => {
         </div>
       </section>
 
-
       
       {/* Contact Section */}
-      <section className="py-24 bg-secondary">
+      <section className="py-20 bg-secondary">
         <div className="container-custom">
           <div className="max-w-4xl mx-auto text-center">
             <span className="section-title animate-on-scroll opacity-0">Contact</span>
@@ -98,7 +97,7 @@ const About = () => {
       </section>
       
       {/* Footer */}
-      <footer className="py-6">
+      <footer className="absolute bottom-0 left-0 right-0 py-6">
         <div className="container-custom">
           <div className="text-center">
             <p className="text-muted-foreground text-sm mb-4">

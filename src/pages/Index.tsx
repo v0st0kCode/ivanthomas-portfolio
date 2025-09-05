@@ -45,13 +45,13 @@ const Index = () => {
       window.triggerParticleCelebration();
     }
   };
-  return <div className="min-h-screen bg-white">
+  return <div className="min-h-screen bg-white relative">
       <Navbar />
       
       {/* Hero Section with Particle Animation */}
-      <section className="relative overflow-hidden">
+      <section className="relative overflow-hidden h-screen">
         <ParticleHeader />
-        <div className="absolute inset-0 flex items-center justify-center">
+        <div className="absolute inset-0 flex items-center justify-center pb-16">
           <div className={`container-custom text-center max-w-4xl transition-all duration-1000 ease-out ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
             <span className="inline-block py-1 px-3 mb-6 text-xs font-mono font-bold tracking-wider uppercase text-muted-foreground/60 animate-pulse">
               THIS PORTFOLIO IS A <span className="underline">WORK IN PROGRESS</span>
@@ -78,7 +78,7 @@ const Index = () => {
       
       
       {/* Footer */}
-      <footer className="py-6">
+      <footer className="absolute bottom-0 left-0 right-0 py-6">
         <div className="container-custom">
           <div className="text-center">
             <p className="text-muted-foreground text-sm mb-4">
