@@ -80,24 +80,10 @@ const Index = () => {
       {/* Footer */}
       <footer className="py-12 border-t border-border">
         <div className="container-custom">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <p className="text-muted-foreground text-sm mb-4 md:mb-0">
+          <div className="text-center">
+            <p className="text-muted-foreground text-sm">
               © {new Date().getFullYear()} Ivan Thomas
             </p>
-            <div className="flex space-x-6">
-              <a href="#" className="text-muted-foreground hover:text-black transition-colors text-sm">
-                Twitter
-              </a>
-              <a href="#" className="text-muted-foreground hover:text-black transition-colors text-sm">
-                Dribbble
-              </a>
-              <a href="#" className="text-muted-foreground hover:text-black transition-colors text-sm">
-                LinkedIn
-              </a>
-              <a href="#" className="text-muted-foreground hover:text-black transition-colors text-sm">
-                Instagram
-              </a>
-            </div>
           </div>
         </div>
       </footer>
