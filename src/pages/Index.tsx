@@ -76,21 +76,6 @@ const Index = () => {
       
       
       
-      {/* Contact Section */}
-      <section className="py-24 bg-white">
-        <div className="container-custom">
-          <div className="max-w-3xl">
-            <span className="section-title">Get in Touch</span>
-            <h2 className="heading-lg mb-6">Let's Work Together</h2>
-            <p className="paragraph mb-8">
-              Have a project in mind? I'd love to discuss how we can collaborate to create something exceptional.
-            </p>
-            <a href="mailto:hello@example.com" className="button-primary inline-block">
-              hello@example.com
-            </a>
-          </div>
-        </div>
-      </section>
       
       {/* Footer */}
       <footer className="py-12 border-t border-border">
