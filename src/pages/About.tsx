@@ -101,7 +101,7 @@ const About = () => {
       <footer className="py-6">
         <div className="container-custom">
           <div className="text-center">
-            <p className="text-muted-foreground text-sm">
+            <p className="text-muted-foreground text-sm mb-4">
               © {new Date().getFullYear()} Ivan Thomas
             </p>
           </div>
