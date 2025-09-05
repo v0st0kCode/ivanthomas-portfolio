@@ -87,6 +87,13 @@ const Index = () => {
           </div>
         </div>
       </footer>
+
+      {/* Work In Progress Label */}
+      <div className="fixed bottom-0 right-0 z-50">
+        <div className="bg-black text-white px-8 py-2 text-xs font-mono font-bold tracking-wider uppercase transform rotate-[-45deg] origin-bottom-right translate-x-6 translate-y-2">
+          Work In Progress
+        </div>
+      </div>
     </div>;
 };
 export default Index;
