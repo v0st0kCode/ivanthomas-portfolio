@@ -19,4 +19,5 @@ export default defineConfig(({ mode }) => ({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  base: '/ivanthomas-portfolio/' // Replace with your GitHub repo name
 }));
