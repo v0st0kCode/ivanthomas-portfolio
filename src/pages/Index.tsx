@@ -61,8 +61,11 @@ const Index = () => {
             </h1>
             <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10">I'm a digital product designer with +25 years of experience crafting user-friendly digital products that connect people and technology</p>
             <div className="flex items-center justify-center space-x-4">
-              <a href="#" className="button-primary" onClick={handleTriggerCelebration}>
-                About Me
+              <a href="https://www.linkedin.com/in/ivanthomasgarces/" target="_blank" rel="noopener noreferrer" className="button-primary">
+                LinkedIn Profile
+              </a>
+              <a href="mailto:hello@ivanthomas.pro" className="button-secondary">
+                Contact
               </a>
             </div>
           </div>
