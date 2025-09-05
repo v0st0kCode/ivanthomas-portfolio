@@ -98,26 +98,12 @@ const About = () => {
       </section>
       
       {/* Footer */}
-      <footer className="py-12 border-t border-border">
+      <footer className="py-6">
         <div className="container-custom">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <p className="text-muted-foreground text-sm mb-4 md:mb-0">
-              © {new Date().getFullYear()} Portfolio. All rights reserved.
+          <div className="text-center">
+            <p className="text-muted-foreground text-sm">
+              © {new Date().getFullYear()} Ivan Thomas
             </p>
-            <div className="flex space-x-6">
-              <a href="#" className="text-muted-foreground hover:text-black transition-colors">
-                Twitter
-              </a>
-              <a href="#" className="text-muted-foreground hover:text-black transition-colors">
-                Dribbble
-              </a>
-              <a href="#" className="text-muted-foreground hover:text-black transition-colors">
-                LinkedIn
-              </a>
-              <a href="#" className="text-muted-foreground hover:text-black transition-colors">
-                Instagram
-              </a>
-            </div>
           </div>
         </div>
       </footer>
