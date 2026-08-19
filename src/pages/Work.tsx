@@ -42,9 +42,6 @@ const Work = () => {
     if (project.details?.client === 'Sony') {
       return '/sony-2-logo.svg';
     }
-    if (project.details?.client === 'LaLiga') {
-      return '/la-liga-logo.svg';
-    }
     return null;
   };
 

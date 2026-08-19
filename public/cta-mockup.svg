@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 800" width="1280" height="800">
+  <rect width="1280" height="800" fill="#E9EAEC"/>
+
+  <!-- browser frame -->
+  <rect x="80" y="60" width="1120" height="680" rx="14" fill="#101215"/>
+  <rect x="80" y="60" width="1120" height="44" rx="14" fill="#171C24"/>
+  <circle cx="112" cy="82" r="6" fill="#3B4450"/>
+  <circle cx="132" cy="82" r="6" fill="#3B4450"/>
+  <circle cx="152" cy="82" r="6" fill="#3B4450"/>
+
+  <!-- role tabs -->
+  <g font-family="Inter, sans-serif" font-size="13">
+    <rect x="112" y="122" width="1056" height="44" rx="8" fill="#12161D"/>
+    <rect x="120" y="130" width="150" height="28" rx="6" fill="#22D3A5"/>
+    <text x="195" y="149" fill="#0A0D12" font-weight="700" text-anchor="middle">Field (Ref/VAR)</text>
+    <text x="330" y="149" fill="#8A93A0">Evaluator</text>
+    <text x="440" y="149" fill="#8A93A0">Coordinator</text>
+  </g>
+
+  <!-- Kanban columns -->
+  <g font-family="Inter, sans-serif">
+    <!-- column headers -->
+    <text x="128" y="200" fill="#8A93A0" font-size="12" letter-spacing="1">IN REVIEW</text>
+    <text x="472" y="200" fill="#8A93A0" font-size="12" letter-spacing="1">EVALUATED</text>
+    <text x="816" y="200" fill="#8A93A0" font-size="12" letter-spacing="1">CONFIRMED</text>
+
+    <!-- column 1 cards -->
+    <g>
+      <rect x="112" y="216" width="328" height="88" rx="8" fill="#171C24"/>
+      <circle cx="134" cy="240" r="5" fill="#F5C542"/>
+      <text x="150" y="245" fill="#F4F6F8" font-size="14" font-weight="600">Play #128 · 41'</text>
+      <text x="134" y="266" fill="#8A93A0" font-size="12">Flagged by AVAR · pending review</text>
+      <text x="134" y="288" fill="#5B6472" font-size="11" font-family="Space Mono, monospace">Updated 2m ago</text>
+    </g>
+    <g>
+      <rect x="112" y="316" width="328" height="88" rx="8" fill="#171C24"/>
+      <circle cx="134" cy="340" r="5" fill="#F5C542"/>
+      <text x="150" y="345" fill="#F4F6F8" font-size="14" font-weight="600">Play #131 · 58'</text>
+      <text x="134" y="366" fill="#8A93A0" font-size="12">Referee decision under review</text>
+      <text x="134" y="388" fill="#5B6472" font-size="11" font-family="Space Mono, monospace">Updated 14m ago</text>
+    </g>
+
+    <!-- column 2 cards -->
+    <g>
+      <rect x="456" y="216" width="328" height="88" rx="8" fill="#171C24"/>
+      <circle cx="478" cy="240" r="5" fill="#3E8EF7"/>
+      <text x="494" y="245" fill="#F4F6F8" font-size="14" font-weight="600">Play #124 · 33'</text>
+      <text x="478" y="266" fill="#8A93A0" font-size="12">Evaluator note attached</text>
+      <text x="478" y="288" fill="#5B6472" font-size="11" font-family="Space Mono, monospace">Evaluated by E-07</text>
+    </g>
+    <g>
+      <rect x="456" y="316" width="328" height="88" rx="8" fill="#171C24"/>
+      <circle cx="478" cy="340" r="5" fill="#3E8EF7"/>
+      <text x="494" y="345" fill="#F4F6F8" font-size="14" font-weight="600">Play #126 · 39'</text>
+      <text x="478" y="366" fill="#8A93A0" font-size="12">Awaiting coordinator check</text>
+      <text x="478" y="388" fill="#5B6472" font-size="11" font-family="Space Mono, monospace">Evaluated by E-03</text>
+    </g>
+
+    <!-- column 3 cards -->
+    <g>
+      <rect x="800" y="216" width="328" height="88" rx="8" fill="#171C24"/>
+      <circle cx="822" cy="240" r="5" fill="#22D3A5"/>
+      <text x="838" y="245" fill="#F4F6F8" font-size="14" font-weight="600">Play #119 · 12'</text>
+      <text x="822" y="266" fill="#8A93A0" font-size="12">Decision confirmed, correct</text>
+      <text x="822" y="288" fill="#5B6472" font-size="11" font-family="Space Mono, monospace">Closed · full trace</text>
+    </g>
+    <g>
+      <rect x="800" y="316" width="328" height="88" rx="8" fill="#171C24"/>
+      <circle cx="822" cy="340" r="5" fill="#22D3A5"/>
+      <text x="838" y="345" fill="#F4F6F8" font-size="14" font-weight="600">Play #121 · 22'</text>
+      <text x="822" y="366" fill="#8A93A0" font-size="12">Decision confirmed, overturned</text>
+      <text x="822" y="388" fill="#5B6472" font-size="11" font-family="Space Mono, monospace">Closed · full trace</text>
+    </g>
+  </g>
+
+  <!-- Traceability log panel -->
+  <g font-family="Inter, sans-serif">
+    <rect x="112" y="432" width="1016" height="228" rx="10" fill="#12161D"/>
+    <text x="136" y="464" fill="#8A93A0" font-size="12" letter-spacing="1">TRACEABILITY — PLAY #128</text>
+
+    <g stroke="#2A3038" stroke-width="1">
+      <line x1="146" y1="492" x2="146" y2="612"/>
+    </g>
+    <circle cx="146" cy="492" r="5" fill="#F5C542"/>
+    <text x="164" y="497" fill="#F4F6F8" font-size="13" font-weight="600">Referee flagged · 20:14</text>
+    <text x="164" y="514" fill="#8A93A0" font-size="12">Possible foul — marked for AVAR check</text>
+
+    <circle cx="146" cy="542" r="5" fill="#3E8EF7"/>
+    <text x="164" y="547" fill="#F4F6F8" font-size="13" font-weight="600">AVAR reviewed · 20:15</text>
+    <text x="164" y="564" fill="#8A93A0" font-size="12">Recommendation logged, sent to evaluator</text>
+
+    <circle cx="146" cy="592" r="5" fill="#5B6472"/>
+    <text x="164" y="597" fill="#C7CCD3" font-size="13" font-weight="600">Evaluator review · pending</text>
+    <text x="164" y="614" fill="#5B6472" font-size="12">Awaiting post-match assessment</text>
+  </g>
+
+  <text x="1176" y="758" fill="#9AA0A8" font-size="12" text-anchor="end" font-family="Inter, sans-serif">Mockup with simulated data — not a real screenshot</text>
+</svg>

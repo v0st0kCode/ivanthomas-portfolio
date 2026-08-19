@@ -115,48 +115,102 @@ const CaseStudy = () => {
           
           {/* Case Study Content */}
           <div className="max-w-4xl mx-auto">
-            <div className="animate-on-scroll opacity-0">
-              <h2 className="heading-md mb-6">Overview</h2>
-              <p className="paragraph mb-12">
-                This project aimed to redesign a {project.category.toLowerCase()} to improve user experience and drive engagement. The client wanted a clean, modern aesthetic that would appeal to their target audience while making the interface more intuitive and efficient.
-              </p>
-            </div>
-            
-            <div className="animate-on-scroll opacity-0">
-              <h2 className="heading-md mb-6">Challenge</h2>
-              <p className="paragraph mb-12">
-                The main challenge was to balance aesthetic considerations with functionality, ensuring that the design not only looked good but also served the users' needs effectively. We needed to simplify complex workflows while maintaining all necessary features and capabilities.
-              </p>
-            </div>
-            
-            <div className="animate-on-scroll opacity-0">
-              <h2 className="heading-md mb-6">Process</h2>
-              <div className="space-y-6 mb-12">
-                <p className="paragraph">
-                  The design process began with extensive user research to understand pain points and opportunities. I conducted interviews with key stakeholders and analyzed user feedback to identify critical issues that needed to be addressed.
-                </p>
-                <p className="paragraph">
-                  Next, I created wireframes and low-fidelity prototypes to explore different approaches to the interface design. After several iterations and feedback sessions, I developed high-fidelity mockups that reflected the agreed-upon direction.
-                </p>
-                <p className="paragraph">
-                  Throughout the process, I worked closely with developers to ensure that the design was technically feasible and could be implemented efficiently. Regular usability testing helped refine the design and address any issues before final implementation.
-                </p>
-              </div>
-            </div>
-            
-            <div className="animate-on-scroll opacity-0">
-              <h2 className="heading-md mb-6">Solution</h2>
-              <p className="paragraph mb-12">
-                The final design featured a clean, minimalist interface with intuitive navigation and clear visual hierarchy. Key information was made more accessible, and common actions were streamlined to reduce friction. The new design maintained brand consistency while introducing modern design elements that enhanced the overall aesthetic.
-              </p>
-            </div>
-            
-            <div className="animate-on-scroll opacity-0">
-              <h2 className="heading-md mb-6">Results</h2>
-              <p className="paragraph mb-12">
-                The redesigned {project.category.toLowerCase()} was well-received by users and stakeholders alike. Analytics showed a significant improvement in user engagement and task completion rates. The client reported positive feedback from their customers, and the new design helped establish a stronger brand identity in the market.
-              </p>
-            </div>
+            {project.caseStudy ? (
+              project.caseStudy.map((section, index) => (
+                <div key={index} className="animate-on-scroll opacity-0">
+                  {section.type === 'text' && (
+                    <>
+                      {section.heading && <h2 className="heading-md mb-6">{section.heading}</h2>}
+                      {section.body && (
+                        <div className="space-y-6 mb-12">
+                          {section.body.split('\n\n').map((paragraph, pIndex) => (
+                            <p key={pIndex} className="paragraph whitespace-pre-line">
+                              {paragraph}
+                            </p>
+                          ))}
+                        </div>
+                      )}
+                    </>
+                  )}
+
+                  {section.type === 'stat-row' && (
+                    <div className="mb-12">
+                      {section.heading && <h2 className="heading-md mb-6">{section.heading}</h2>}
+                      {section.stats && (
+                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
+                          {section.stats.map((stat, sIndex) => (
+                            <div key={sIndex}>
+                              <p className="text-3xl md:text-4xl font-display font-medium mb-2">{stat.value}</p>
+                              <p className="text-sm text-muted-foreground">{stat.label}</p>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  )}
+
+                  {section.type === 'image' && section.image && (
+                    <div className="mb-12">
+                      <div className="rounded-lg overflow-hidden">
+                        <img
+                          src={section.image.src}
+                          alt={section.image.alt}
+                          className="w-full h-auto"
+                        />
+                      </div>
+                      {section.image.caption && (
+                        <p className="text-xs text-muted-foreground mt-3">{section.image.caption}</p>
+                      )}
+                    </div>
+                  )}
+                </div>
+              ))
+            ) : (
+              <>
+                <div className="animate-on-scroll opacity-0">
+                  <h2 className="heading-md mb-6">Overview</h2>
+                  <p className="paragraph mb-12">
+                    This project aimed to redesign a {project.category.toLowerCase()} to improve user experience and drive engagement. The client wanted a clean, modern aesthetic that would appeal to their target audience while making the interface more intuitive and efficient.
+                  </p>
+                </div>
+
+                <div className="animate-on-scroll opacity-0">
+                  <h2 className="heading-md mb-6">Challenge</h2>
+                  <p className="paragraph mb-12">
+                    The main challenge was to balance aesthetic considerations with functionality, ensuring that the design not only looked good but also served the users' needs effectively. We needed to simplify complex workflows while maintaining all necessary features and capabilities.
+                  </p>
+                </div>
+
+                <div className="animate-on-scroll opacity-0">
+                  <h2 className="heading-md mb-6">Process</h2>
+                  <div className="space-y-6 mb-12">
+                    <p className="paragraph">
+                      The design process began with extensive user research to understand pain points and opportunities. I conducted interviews with key stakeholders and analyzed user feedback to identify critical issues that needed to be addressed.
+                    </p>
+                    <p className="paragraph">
+                      Next, I created wireframes and low-fidelity prototypes to explore different approaches to the interface design. After several iterations and feedback sessions, I developed high-fidelity mockups that reflected the agreed-upon direction.
+                    </p>
+                    <p className="paragraph">
+                      Throughout the process, I worked closely with developers to ensure that the design was technically feasible and could be implemented efficiently. Regular usability testing helped refine the design and address any issues before final implementation.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="animate-on-scroll opacity-0">
+                  <h2 className="heading-md mb-6">Solution</h2>
+                  <p className="paragraph mb-12">
+                    The final design featured a clean, minimalist interface with intuitive navigation and clear visual hierarchy. Key information was made more accessible, and common actions were streamlined to reduce friction. The new design maintained brand consistency while introducing modern design elements that enhanced the overall aesthetic.
+                  </p>
+                </div>
+
+                <div className="animate-on-scroll opacity-0">
+                  <h2 className="heading-md mb-6">Results</h2>
+                  <p className="paragraph mb-12">
+                    The redesigned {project.category.toLowerCase()} was well-received by users and stakeholders alike. Analytics showed a significant improvement in user engagement and task completion rates. The client reported positive feedback from their customers, and the new design helped establish a stronger brand identity in the market.
+                  </p>
+                </div>
+              </>
+            )}
           </div>
         </div>
       </section>
