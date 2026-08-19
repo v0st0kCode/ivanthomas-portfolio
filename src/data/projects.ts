@@ -1,6 +1,6 @@
 
 export interface CaseStudySection {
-  type: 'text' | 'stat-row' | 'image';
+  type: 'text' | 'stat-row' | 'image' | 'quote';
   heading?: string;
   body?: string;
   stats?: { label: string; value: string }[];
@@ -54,7 +54,11 @@ export const projects: Project[] = [
       {
         type: 'text',
         heading: "El problema no era de diseño, era de negocio",
-        body: "La suite no vende más datos que la competencia — todos los proveedores de analítica deportiva de élite tienen datos de sobra. Vende quién convierte esos datos en una decisión táctica antes de que acabe la siguiente jugada. Ahí es donde vive LivePRO.\n\nEl resto de la suite (la app de oficina para análisis profundo, el portal web, la versión de escritorio) se usa sin prisa, con tiempo para pensar. LivePRO no tiene ese lujo: banquillo, ruido, luz de estadio de noche, un entrenador que está mirando el partido y de reojo la pantalla. Ningún dashboard convencional aguanta ese contexto.\n\nLa pregunta real nunca fue cuántos datos mostrar. Fue qué necesita ver un entrenador en dos o tres segundos sin dejar de mirar el campo.\n\nY hubo algo que decidimos no hacer, que cuenta tanto como lo que sí hicimos: no intentamos meter la profundidad analítica de la app de oficina en un iPad de banquillo. Eso habría sido más \"completo\" sobre el papel y un desastre en uso real."
+        body: "La suite no vende más datos que la competencia — todos los proveedores de analítica deportiva de élite tienen datos de sobra. Vende quién convierte esos datos en una decisión táctica antes de que acabe la siguiente jugada. Ahí es donde vive LivePRO.\n\nEl resto de la suite (la app de oficina para análisis profundo, el portal web, la versión de escritorio) se usa sin prisa, con tiempo para pensar. LivePRO no tiene ese lujo: banquillo, ruido, luz de estadio de noche, un entrenador que está mirando el partido y de reojo la pantalla. Ningún dashboard convencional aguanta ese contexto.\n\nLa pregunta real nunca fue cuántos datos mostrar. Fue qué necesita ver un entrenador en dos o tres segundos sin dejar de mirar el campo."
+      },
+      {
+        type: 'quote',
+        body: "Hubo algo que decidimos no hacer, que cuenta tanto como lo que sí hicimos: no intentamos meter la profundidad analítica de la app de oficina en un iPad de banquillo. Eso habría sido más \"completo\" sobre el papel y un desastre en uso real."
       },
       {
         type: 'text',
@@ -118,7 +122,11 @@ export const projects: Project[] = [
       {
         type: 'text',
         heading: "El problema no era de diseño, era de negocio",
-        body: "La credibilidad del arbitraje profesional depende de que el proceso de evaluación sea consistente, auditable y defendible — el escrutinio mediático y federativo sobre cada decisión arbitral es constante e inmediato. Un comité técnico que no pueda demostrar cómo y por qué evaluó una jugada de una manera concreta pierde autoridad, aunque la evaluación en sí sea correcta.\n\nEl constraint diferencial de este proyecto frente a cualquier herramienta de revisión de vídeo genérica: varios roles con responsabilidad distinta tienen que poder revisar, comentar y confirmar la misma jugada sin pisarse el trabajo entre ellos ni perder de vista quién dijo qué y cuándo.\n\nY hubo algo que decidimos no hacer, que cuenta tanto como lo que sí hicimos: no se trataba de automatizar el juicio arbitral. La herramienta soporta y ordena el criterio humano de los evaluadores, no lo sustituye — automatizar eso habría sido tan más \"eficiente\" sobre el papel como inaceptable en un dominio donde la decisión tiene que seguir siendo humana y defendible como tal."
+        body: "La credibilidad del arbitraje profesional depende de que el proceso de evaluación sea consistente, auditable y defendible — el escrutinio mediático y federativo sobre cada decisión arbitral es constante e inmediato. Un comité técnico que no pueda demostrar cómo y por qué evaluó una jugada de una manera concreta pierde autoridad, aunque la evaluación en sí sea correcta.\n\nEl constraint diferencial de este proyecto frente a cualquier herramienta de revisión de vídeo genérica: varios roles con responsabilidad distinta tienen que poder revisar, comentar y confirmar la misma jugada sin pisarse el trabajo entre ellos ni perder de vista quién dijo qué y cuándo."
+      },
+      {
+        type: 'quote',
+        body: "Hubo algo que decidimos no hacer, que cuenta tanto como lo que sí hicimos: no se trataba de automatizar el juicio arbitral. La herramienta soporta y ordena el criterio humano de los evaluadores, no lo sustituye — automatizar eso habría sido tan más \"eficiente\" sobre el papel como inaceptable en un dominio donde la decisión tiene que seguir siendo humana y defendible como tal."
       },
       {
         type: 'text',

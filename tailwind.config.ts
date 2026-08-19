@@ -24,8 +24,13 @@ export default {
         display: ['Onest', 'Inter', 'sans-serif'],
         outfit: ['Outfit', 'sans-serif'],
         mono: ['Space Mono', 'monospace'],
+        serif: ['"Instrument Serif"', 'serif'],
       },
       colors: {
+        signal: {
+          DEFAULT: 'hsl(var(--signal))',
+          foreground: 'hsl(var(--signal-foreground))'
+        },
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',

@@ -4,11 +4,12 @@ import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import { projects, Project } from '../data/projects';
 import { LockKeyhole } from 'lucide-react';
+import { useScrollReveal } from '../hooks/use-scroll-reveal';
 
 const Work = () => {
   const [filter, setFilter] = useState<string>('all');
   const [filteredProjects, setFilteredProjects] = useState<Project[]>(projects);
-  
+
   useEffect(() => {
     if (filter === 'all') {
       setFilteredProjects(projects);
@@ -17,23 +18,7 @@ const Work = () => {
     }
   }, [filter]);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const elements = document.querySelectorAll('.animate-on-scroll');
-      elements.forEach(element => {
-        const elementTop = element.getBoundingClientRect().top;
-        const elementVisible = 150;
-        if (elementTop < window.innerHeight - elementVisible) {
-          element.classList.add('animate-slide-in');
-        }
-      });
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    handleScroll();
-    
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  useScrollReveal([filteredProjects]);
 
   const categories = ['all', ...new Set(projects.map(project => project.category.toLowerCase()))];
 
@@ -46,7 +31,7 @@ const Work = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-background">
       <Navbar />
       
       <section className="pt-32 pb-20">
@@ -68,8 +53,8 @@ const Work = () => {
                   key={category}
                   onClick={() => setFilter(category)}
                   className={`px-4 py-2 text-sm rounded-full transition-colors ${
-                    filter === category 
-                      ? 'bg-black text-white' 
+                    filter === category
+                      ? 'bg-foreground text-background'
                       : 'bg-secondary hover:bg-secondary/80'
                   }`}
                 >
@@ -81,34 +66,28 @@ const Work = () => {
           
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
             {filteredProjects.map((project, index) => (
-              <Link 
+              <Link
                 key={project.id}
-                to={`/case-study/${project.id}`} 
-                className="project-card animate-on-scroll relative h-full"
+                to={`/case-study/${project.id}`}
+                className="project-card animate-on-scroll relative h-full group"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
                 {getClientLogo(project) && (
                   <div className="absolute top-4 right-4 z-10 w-16 h-16 flex items-center justify-center">
-                    <img 
-                      src={getClientLogo(project)} 
-                      alt={`${project.details?.client} logo`} 
+                    <img
+                      src={getClientLogo(project)}
+                      alt={`${project.details?.client} logo`}
                       className={`w-full h-full object-contain ${project.details?.client === 'LaLiga' ? 'invert' : ''}`}
                     />
                   </div>
                 )}
-                <div className="aspect-[4/3] overflow-hidden rounded-lg">
-                  <img 
+                <div className="p-2 rounded-2xl bg-secondary ring-1 ring-border aspect-[4/3] overflow-hidden">
+                  <img
                     src={project.image}
                     alt={project.title}
-                    className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+                    className="w-full h-full object-cover rounded-xl transition-transform duration-700 group-hover:scale-105"
                     loading="lazy"
                   />
-                </div>
-                <div className="project-overlay">
-                  <span className="text-xs uppercase tracking-wider opacity-75 mb-2">{project.category}</span>
-                  <h3 className="text-xl font-medium mb-2">{project.title}</h3>
-                  <p className="text-sm opacity-75 mb-4">{project.description}</p>
-                  <span className="text-sm px-4 py-1 border border-white/30 rounded-full">View Case Study</span>
                 </div>
                 <div className="p-4">
                   <div className="flex justify-between items-center">
@@ -126,9 +105,9 @@ const Work = () => {
           {filteredProjects.length === 0 && (
             <div className="text-center py-16">
               <p className="text-lg text-muted-foreground">No projects found in this category.</p>
-              <button 
+              <button
                 onClick={() => setFilter('all')}
-                className="mt-4 px-6 py-2 bg-black text-white rounded-md hover:bg-black/90 transition-colors"
+                className="mt-4 px-6 py-2 bg-foreground text-background rounded-md hover:bg-foreground/90 transition-colors"
               >
                 View All Projects
               </button>
@@ -145,9 +124,9 @@ const Work = () => {
             <p className="paragraph mx-auto mb-8 animate-on-scroll">
               I'm always open to discussing new projects, creative ideas or opportunities to be part of your vision.
             </p>
-            <a 
-              href="mailto:contact@example.com" 
-              className="inline-block px-8 py-4 bg-black text-white rounded-md hover:bg-black/90 transition-colors animate-on-scroll"
+            <a
+              href="mailto:hello@ivanthomas.pro"
+              className="inline-block px-8 py-4 bg-foreground text-background rounded-md hover:bg-foreground/90 transition-colors animate-on-scroll"
             >
               Let's Talk
             </a>
@@ -159,22 +138,16 @@ const Work = () => {
         <div className="container-custom">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-muted-foreground text-sm mb-4 md:mb-0">
-              © {new Date().getFullYear()} Portfolio. All rights reserved.
+              © {new Date().getFullYear()} Ivan Thomas
             </p>
-            <div className="flex space-x-6">
-              <a href="#" className="text-muted-foreground hover:text-black transition-colors">
-                Twitter
-              </a>
-              <a href="#" className="text-muted-foreground hover:text-black transition-colors">
-                Dribbble
-              </a>
-              <a href="#" className="text-muted-foreground hover:text-black transition-colors">
-                LinkedIn
-              </a>
-              <a href="#" className="text-muted-foreground hover:text-black transition-colors">
-                Instagram
-              </a>
-            </div>
+            <a
+              href="https://www.linkedin.com/in/ivanthomasgarces/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-muted-foreground hover:text-foreground transition-colors"
+            >
+              LinkedIn
+            </a>
           </div>
         </div>
       </footer>

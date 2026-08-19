@@ -1,6 +1,7 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Space+Mono&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&display=swap');
 
@@ -10,33 +11,38 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 0 0% 0%;
+    /* Warm off-white / off-black instead of pure #fff/#000 — softer, more editorial */
+    --background: 40 20% 98%;
+    --foreground: 0 0% 7%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 0%;
+    --card: 40 20% 98%;
+    --card-foreground: 0 0% 7%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 0%;
+    --popover: 40 20% 98%;
+    --popover-foreground: 0 0% 7%;
 
-    --primary: 0 0% 0%;
-    --primary-foreground: 0 0% 100%;
+    --primary: 0 0% 7%;
+    --primary-foreground: 40 20% 98%;
 
-    --secondary: 0 0% 95%;
-    --secondary-foreground: 0 0% 0%;
+    --secondary: 40 10% 94%;
+    --secondary-foreground: 0 0% 7%;
 
-    --muted: 0 0% 95%;
+    --muted: 40 10% 94%;
     --muted-foreground: 0 0% 45%;
 
-    --accent: 0 0% 92%;
-    --accent-foreground: 0 0% 0%;
+    --accent: 40 10% 92%;
+    --accent-foreground: 0 0% 7%;
 
     --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 100%;
+    --destructive-foreground: 40 20% 98%;
 
-    --border: 0 0% 90%;
-    --input: 0 0% 85%;
-    --ring: 0 0% 80%;
+    --border: 40 8% 90%;
+    --input: 40 8% 85%;
+    --ring: 40 8% 80%;
+
+    /* Single accent color for the whole site — used sparingly (tags, active states, quote rules) */
+    --signal: 163 68% 48%;
+    --signal-foreground: 0 0% 7%;
 
     --radius: 0.25rem;
   }
@@ -61,7 +67,7 @@
   }
 
   ::selection {
-    @apply bg-black text-white;
+    @apply bg-foreground text-background;
   }
 }
 
@@ -71,7 +77,7 @@
   }
   
   .link-hover {
-    @apply relative after:absolute after:bottom-0 after:left-0 after:h-[1px] after:w-0 after:bg-black after:transition-all after:duration-300 hover:after:w-full;
+    @apply relative after:absolute after:bottom-0 after:left-0 after:h-[1px] after:w-0 after:bg-foreground after:transition-all after:duration-300 hover:after:w-full;
   }
   
   .image-card {
@@ -94,18 +100,28 @@
     @apply text-xs uppercase tracking-wider text-muted-foreground mb-2 font-mono;
   }
   
+  /* Editorial serif — reserved for hero H1, case study section headings and big numerals.
+     Everything else (nav, body, buttons) stays on Onest/Inter — see visual direction notes. */
   .heading-xl {
-    @apply text-4xl md:text-5xl lg:text-6xl font-display font-medium leading-tight tracking-tight;
+    @apply text-4xl md:text-5xl lg:text-6xl font-serif font-normal leading-[1.05] tracking-tight;
   }
-  
+
   .heading-lg {
-    @apply text-3xl md:text-4xl lg:text-5xl font-display font-medium leading-tight tracking-tight;
+    @apply text-3xl md:text-4xl lg:text-5xl font-serif font-normal leading-[1.05] tracking-tight;
   }
-  
+
   .heading-md {
-    @apply text-xl md:text-2xl font-display font-medium leading-tight;
+    @apply text-2xl md:text-3xl font-serif font-normal leading-tight;
   }
-  
+
+  .stat-value {
+    @apply text-4xl md:text-5xl font-serif font-normal leading-none;
+  }
+
+  .pull-quote {
+    @apply font-serif text-2xl md:text-3xl leading-snug text-foreground border-l-2 border-signal pl-6 my-10 max-w-2xl;
+  }
+
   .paragraph {
     @apply text-base leading-relaxed text-muted-foreground max-w-prose;
   }
@@ -113,23 +129,41 @@
   .nav-item {
     @apply text-sm font-medium transition-colors flex items-center space-x-1;
   }
-  
+
   .nav-link {
-    @apply text-sm font-medium relative inline-block transition-colors text-black after:content-[''] after:absolute after:h-[2px] after:bg-black after:bottom-[-4px] after:left-0 after:transition-all after:duration-300 after:ease-in-out hover:after:w-full;
+    @apply text-sm font-medium relative inline-block transition-colors text-foreground after:content-[''] after:absolute after:h-[2px] after:bg-foreground after:bottom-[-4px] after:left-0 after:transition-all after:duration-300 after:ease-in-out hover:after:w-full;
     text-shadow: 0 0 1px rgba(0,0,0,0.05);
     letter-spacing: 0.01em;
   }
-  
+
   .text-shadow {
     text-shadow: 0 0 1px rgba(0,0,0,0.1);
   }
-  
+
   .button-primary {
-    @apply inline-flex items-center gap-2 px-5 py-2.5 bg-black text-white text-sm rounded-lg hover:bg-black/90 transition-colors duration-300;
+    @apply inline-flex items-center gap-2 px-5 py-2.5 bg-foreground text-background text-sm rounded-lg hover:bg-foreground/90 transition-colors duration-300;
   }
-  
+
   .button-secondary {
-    @apply inline-flex items-center gap-2 px-5 py-2.5 border border-black text-black text-sm rounded-lg hover:bg-black/5 transition-colors duration-300;
+    @apply inline-flex items-center gap-2 px-5 py-2.5 border border-foreground text-foreground text-sm rounded-lg hover:bg-foreground/5 transition-colors duration-300;
+  }
+
+  .eyebrow-signal {
+    @apply inline-flex items-center gap-1.5 text-xs font-mono uppercase tracking-wider text-signal-foreground;
+  }
+
+  .eyebrow-signal::before {
+    content: '';
+    @apply w-1.5 h-1.5 rounded-full bg-signal;
+  }
+
+  /* Formalized "double-bezel" frame for redrawn product mockups — outer shell + inner device core */
+  .mockup-frame {
+    @apply p-2 md:p-3 rounded-2xl bg-secondary ring-1 ring-border;
+  }
+
+  .mockup-frame img {
+    @apply rounded-xl w-full h-auto;
   }
   
   .bento-grid {

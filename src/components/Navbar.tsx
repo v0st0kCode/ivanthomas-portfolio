@@ -25,8 +25,8 @@ const Navbar: React.FC = () => {
   return (
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
       isScrolled 
-        ? 'py-3 bg-white/95 backdrop-blur-md shadow-sm' 
-        : 'py-5 bg-gradient-to-b from-white/90 to-white/0'
+        ? 'py-3 bg-background/95 backdrop-blur-md shadow-sm'
+        : 'py-5 bg-gradient-to-b from-background/90 to-background/0'
     }`}>
       <nav className="container-custom flex justify-between items-center">
         <Link 
@@ -37,8 +37,8 @@ const Navbar: React.FC = () => {
         </Link>
         
         <div className="flex space-x-8">
-          <Link 
-            to="/about" 
+          <Link
+            to="/about"
             className={`nav-link ${isActive('/about') ? 'after:w-full font-medium' : 'after:w-0'}`}
           >
             About
