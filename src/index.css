@@ -157,13 +157,14 @@
     @apply w-1.5 h-1.5 rounded-full bg-signal;
   }
 
-  /* Formalized "double-bezel" frame for redrawn product mockups — outer shell + inner device core */
-  .mockup-frame {
-    @apply p-2 md:p-3 rounded-2xl bg-secondary ring-1 ring-border;
+  /* Full-bleed image treatment — no frame, no padding, no radius.
+     Ref: howdychris.com, arpeg.work, garri.design (approved direction, 20 ago 2026). */
+  .bleed-image {
+    @apply block w-full h-auto rounded-none;
   }
 
-  .mockup-frame img {
-    @apply rounded-xl w-full h-auto;
+  .pill {
+    @apply inline-flex items-center px-3 py-1.5 rounded-full border border-border text-xs text-muted-foreground;
   }
   
   .bento-grid {

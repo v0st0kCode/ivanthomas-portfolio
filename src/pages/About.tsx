@@ -15,12 +15,11 @@ const About = () => {
         <div className="container-custom">
           <div className="flex flex-col md:flex-row md:items-start md:space-x-16">
             <div className="w-full md:w-1/4 mb-10 md:mb-0 animate-fade-in">
-              <div className="aspect-square rounded-2xl bg-foreground flex items-center justify-center max-w-[200px]">
-                <span className="font-serif text-6xl text-background">IT</span>
-              </div>
-              <p className="text-xs text-muted-foreground mt-3 max-w-[200px]">
-                Placeholder — real headshot pending
-              </p>
+              <img
+                src="/ivan-thomas.jpg"
+                alt="Ivan Thomas"
+                className="bleed-image aspect-square object-cover max-w-[240px]"
+              />
             </div>
 
             <div className="w-full md:w-3/4 animate-fade-in">

@@ -63,14 +63,12 @@ const Index = () => {
                 className="group animate-on-scroll opacity-0"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
-                <div className="mockup-frame mb-5">
-                  <img
-                    src={project.image}
-                    alt={project.title}
-                    className="transition-transform duration-700 ease-out group-hover:scale-[1.02]"
-                    loading="lazy"
-                  />
-                </div>
+                <img
+                  src={project.image}
+                  alt={project.title}
+                  className="bleed-image mb-5 transition-transform duration-700 ease-out group-hover:scale-[1.02]"
+                  loading="lazy"
+                />
                 <div className="flex items-start justify-between">
                   <div>
                     <span className="text-xs uppercase tracking-wider text-muted-foreground font-mono">

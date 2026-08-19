@@ -81,11 +81,11 @@ const Work = () => {
                     />
                   </div>
                 )}
-                <div className="p-2 rounded-2xl bg-secondary ring-1 ring-border aspect-[4/3] overflow-hidden">
+                <div className="aspect-[4/3] overflow-hidden">
                   <img
                     src={project.image}
                     alt={project.title}
-                    className="w-full h-full object-cover rounded-xl transition-transform duration-700 group-hover:scale-105"
+                    className="bleed-image w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                     loading="lazy"
                   />
                 </div>

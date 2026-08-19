@@ -62,9 +62,7 @@ const CaseStudy = () => {
 
   const renderImage = (section: CaseStudySection) => (
     <div>
-      <div className="mockup-frame">
-        <img src={section.image!.src} alt={section.image!.alt} />
-      </div>
+      <img src={section.image!.src} alt={section.image!.alt} className="bleed-image" />
       {section.image!.caption && (
         <p className="text-xs text-muted-foreground mt-3">{section.image!.caption}</p>
       )}
@@ -98,43 +96,22 @@ const CaseStudy = () => {
             </p>
           </div>
 
-          {/* Project Details */}
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-16 animate-fade-in" style={{ animationDelay: '0.3s' }}>
-            {project.details?.client && (
-              <div>
-                <h3 className="text-sm font-medium uppercase mb-2">Client</h3>
-                <p className="text-muted-foreground">{project.details.client}</p>
-              </div>
-            )}
-
-            {project.details?.role && (
-              <div>
-                <h3 className="text-sm font-medium uppercase mb-2">Role</h3>
-                <p className="text-muted-foreground">{project.details.role}</p>
-              </div>
-            )}
-
-            {project.details?.duration && (
-              <div>
-                <h3 className="text-sm font-medium uppercase mb-2">Duration</h3>
-                <p className="text-muted-foreground">{project.details.duration}</p>
-              </div>
-            )}
-
-            {project.details?.tools && (
-              <div>
-                <h3 className="text-sm font-medium uppercase mb-2">Tools</h3>
-                <p className="text-muted-foreground">{project.details.tools.join(', ')}</p>
-              </div>
-            )}
+          {/* Project Details — pill tags (ref: nabauer.com case study structure) */}
+          <div className="flex flex-wrap gap-2 mb-16 animate-fade-in" style={{ animationDelay: '0.3s' }}>
+            {project.details?.client && <span className="pill">{project.details.client}</span>}
+            {project.details?.role && <span className="pill">{project.details.role}</span>}
+            {project.details?.duration && <span className="pill">{project.details.duration}</span>}
+            {project.details?.tools?.map((tool) => (
+              <span key={tool} className="pill">{tool}</span>
+            ))}
           </div>
 
-          {/* Featured Image */}
-          <div className="mockup-frame mb-24 animate-fade-in" style={{ animationDelay: '0.4s' }}>
+          {/* Featured Image — full-bleed, no frame */}
+          <div className="mb-24 animate-fade-in" style={{ animationDelay: '0.4s' }}>
             <img
               src={project.image}
               alt={project.title}
-              className="animate-image-fade-in"
+              className="bleed-image animate-image-fade-in"
             />
           </div>
 
