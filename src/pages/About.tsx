@@ -72,13 +72,13 @@ const About = () => {
 
           <div className="max-w-4xl animate-on-scroll opacity-0">
             {[
-              { years: '2025—Present', company: 'Globant (Sportian Performance)', role: 'Senior Product Designer' },
-              { years: '2019—2025', company: 'Grupo Mediapro', role: 'Senior Digital Product Designer (UX/UI)' },
-              { years: '2013—2018', company: 'JET8', role: 'Head of Product' },
-              { years: '2013—2015', company: 'CHH — Creative HotHouse', role: 'UI/UX Lead' },
-              { years: '2001—2013', company: 'Ekilater', role: 'Owner, Product & Digital Business Strategy' },
-              { years: '2009—2010', company: 'Jorge Lorenzo', role: 'CPO and Lead Designer' },
-              { years: '1999—2000', company: 'Solohijos.com', role: 'Webdesigner and Front-end Developer' },
+              { years: '2025—Present', company: 'Globant (Sportian Performance)', role: 'Senior Product Designer, Design and Innovation' },
+              { years: '2019—2025', company: 'Grupo Mediapro', role: 'Senior Product Designer' },
+              { years: '2015—2018', company: 'JET8', role: 'Head of Product' },
+              { years: '2013—2015', company: 'CHH', role: 'UI/UX Lead' },
+              { years: '2009—2010', company: 'Jorge Lorenzo', role: 'Design Director, Digital Brand Strategy' },
+              { years: '2001—2013', company: 'Ekilater', role: 'Founder, Design Director, Product and Business Strategy' },
+              { years: '1999—2000', company: 'Solohijos.com', role: 'Webdesigner and front-end developer' },
             ].map((entry) => (
               <div
                 key={entry.years}
