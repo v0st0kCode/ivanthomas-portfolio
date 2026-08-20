@@ -30,6 +30,11 @@ export interface Project {
   // page yet — material pending. Cards render without a link instead of falling
   // back to the generic placeholder copy.
   caseStudyPending?: boolean;
+  // Card-only overrides — exact copy Ivan wrote in Figma for Selected Works / Work
+  // cards, distinct from the title/category used inside the case study page itself.
+  cardTitle?: string;
+  cardPlatform?: string;
+  cardTags?: string[];
 }
 
 export const projects: Project[] = [
@@ -43,6 +48,9 @@ export const projects: Project[] = [
     featured: true,
     protected: true, // Making this project protected
     size: "large",
+    cardTitle: "Sportian — Performance LivePRO",
+    cardPlatform: "iPadOS",
+    cardTags: ["Research", "Concept", "UX"],
     details: {
       client: "Professional sports analytics suite",
       role: "Lead Product Designer",
@@ -111,6 +119,9 @@ export const projects: Project[] = [
     featured: true,
     protected: true, // Making this project protected
     size: "large",
+    cardTitle: "RFEF — Referee Evaluation Platform",
+    cardPlatform: "WebApp",
+    cardTags: ["UX", "Prototype"],
     details: {
       client: "National football refereeing oversight body",
       role: "Lead Product Designer",
@@ -172,6 +183,9 @@ export const projects: Project[] = [
     caseStudyPending: true, // no case study written yet — material pending
     protected: true, // Making this project protected
     size: "large",
+    cardTitle: "Sony Playstation — Immersive Stats Gameplay Replayer",
+    cardPlatform: "iPadOS",
+    cardTags: ["Research", "Concept", "Prototype"],
     details: {
       client: "Sony",
       role: "Concept Product Designer",

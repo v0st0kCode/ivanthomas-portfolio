@@ -42,14 +42,18 @@ const Index = () => {
 
           <div className="max-w-4xl mx-auto space-y-20">
             {featuredProjects.map((project, index) => {
-              const tags = [project.category, ...(project.details?.tools ?? [])].join(', ');
+              const title = project.cardTitle ?? project.title;
+              const tags = [
+                project.cardPlatform ?? project.category,
+                ...(project.cardTags ?? project.details?.tools ?? []),
+              ].join(', ');
               const displayYear = project.year.split('-')[0];
 
               const content = (
                 <>
                   <img
                     src={project.image}
-                    alt={project.title}
+                    alt={title}
                     className={`bleed-image mb-6 transition-transform duration-700 ease-out ${
                       project.caseStudyPending ? '' : 'group-hover:scale-[1.01]'
                     }`}
@@ -62,7 +66,7 @@ const Index = () => {
                           project.caseStudyPending ? '' : 'group-hover:opacity-70'
                         }`}
                       >
-                        {project.title}
+                        {title}
                         {project.protected && (
                           <LockKeyhole size={14} className="inline-block ml-2 mb-1 text-muted-foreground" />
                         )}

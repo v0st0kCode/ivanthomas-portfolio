@@ -28,12 +28,16 @@ const Work = () => {
           {/* Single-column, large-format list — ref: nabauer.com/work, adamhickey.com */}
           <div className="max-w-4xl mx-auto space-y-24">
             {projects.map((project, index) => {
-              const tags = [project.category, ...(project.details?.tools ?? [])].join(', ');
+              const title = project.cardTitle ?? project.title;
+              const tags = [
+                project.cardPlatform ?? project.category,
+                ...(project.cardTags ?? project.details?.tools ?? []),
+              ].join(', ');
               const content = (
                 <>
                   <img
                     src={project.image}
-                    alt={project.title}
+                    alt={title}
                     className={`bleed-image mb-8 transition-transform duration-700 ease-out ${
                       project.caseStudyPending ? '' : 'group-hover:scale-[1.01]'
                     }`}
@@ -47,7 +51,7 @@ const Work = () => {
                           project.caseStudyPending ? '' : 'group-hover:opacity-70'
                         }`}
                       >
-                        {project.title}
+                        {title}
                       </h2>
                       <p className="paragraph mb-5">{project.description}</p>
                       <p className="text-sm text-muted-foreground">
