@@ -76,7 +76,7 @@ const Index = () => {
                         {project.caseStudyPending && ' · Case study coming soon'}
                       </p>
                     </div>
-                    <span className="text-sm text-muted-foreground font-mono shrink-0">{displayYear}</span>
+                    <span className="text-sm text-muted-foreground font-sans shrink-0">{displayYear}</span>
                   </div>
                 </>
               );
