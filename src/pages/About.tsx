@@ -10,57 +10,55 @@ const About = () => {
     <div className="min-h-screen bg-background relative">
       <Navbar />
 
-      {/* About Hero */}
+      {/* About Hero — single column, ref: arpeg.work/bio-2026 (simplicity), educabellos.com/en/about-me (structure) */}
       <section className="pt-40 pb-24">
-        <div className="container-custom">
-          <div className="flex flex-col md:flex-row md:items-start md:space-x-16">
-            <div className="w-full md:w-1/4 mb-10 md:mb-0 animate-fade-in">
-              <img
-                src="/ivan-thomas.jpg"
-                alt="Ivan Thomas"
-                className="bleed-image aspect-square object-cover max-w-[240px]"
-              />
-            </div>
+        <div className="container-custom max-w-3xl">
+          <span className="section-title animate-fade-in">About Me</span>
+          <h1 className="heading-xl mb-10 animate-fade-in" style={{ animationDelay: '0.1s' }}>
+            Senior Product Designer, about two decades in, still shipping code.
+          </h1>
 
-            <div className="w-full md:w-3/4 animate-fade-in">
-              <span className="section-title">About Me</span>
-              <h1 className="heading-xl mb-10" style={{ animationDelay: '0.1s' }}>
-                Senior Product Designer, about two decades in, still shipping code.
-              </h1>
+          <img
+            src="/ivan-thomas.jpg"
+            alt="Ivan Thomas"
+            className="bleed-image aspect-square object-cover w-40 mb-10 animate-fade-in"
+            style={{ animationDelay: '0.15s' }}
+          />
 
-              <div className="space-y-6 max-w-2xl" style={{ animationDelay: '0.2s' }}>
-                <p className="paragraph">
-                  I'm Ivan Thomas, a product designer with about two decades in the industry, and
-                  I still write code most weeks. I started as someone who could build what he
-                  designed, and that never really changed.
-                </p>
+          <div
+            className="aspect-video bg-secondary flex items-center justify-center mb-10 animate-fade-in"
+            style={{ animationDelay: '0.2s' }}
+          >
+            <p className="text-xs text-muted-foreground">Process photography — pending</p>
+          </div>
 
-                <p className="paragraph">
-                  In 2001, in the middle of the first dot-com wave, I founded my own studio,
-                  Ekilater. Back then there was no other way to build something: you learned the
-                  tools yourself, because half of them didn't have documentation yet. I lived
-                  through the shift from Flash to CSS and web standards, and it left me with a
-                  bias toward craft and durable fundamentals over whatever tool is trending that
-                  year.
-                </p>
+          <div className="space-y-6 animate-fade-in" style={{ animationDelay: '0.25s' }}>
+            <p className="paragraph">
+              Every project starts on paper for me, not on screen. I sketch flows and rough
+              layouts by hand before I open Figma. It forces me to solve the structure of a
+              problem before I fall in love with how a screen looks.
+            </p>
 
-                <p className="paragraph">
-                  Today I'm at Globant, on Sportian Performance, scaling the design system across
-                  a 5-product sports analytics suite used in professional football. LivePRO, one
-                  of those products, went pitch-side with the USA national team under Mauricio
-                  Pochettino during the 2026 World Cup. Alongside that, I build the agentic AI
-                  workflows (Jira, Confluence, Figma, Claude Code) that LaLiga and Globant are
-                  rolling out at scale, and I train the 30-person design team I work with to use
-                  them.
-                </p>
+            <p className="paragraph">
+              I'm user-first by default, not by process. If a decision helps the roadmap but
+              hurts the person actually clicking the button, the roadmap loses. I'd rather ship
+              something a little rougher that works the way people expect than something polished
+              that fights them.
+            </p>
 
-                <p className="paragraph">
-                  My approach hasn't changed much since 2001. If a design doesn't hold up in
-                  production, it isn't finished. I'd rather ship something real and iterate than
-                  polish a screen nobody built.
-                </p>
-              </div>
-            </div>
+            <p className="paragraph">
+              That instinct goes back to when I ran my own studio, Ekilater, in the early 2000s.
+              Nobody documented anything back then, so you learned by building things and watching
+              people struggle with what you built. It left me with a bias toward craft over
+              whatever tool is fashionable that year, and toward watching how something gets used
+              over how it looks in a deck.
+            </p>
+
+            <p className="paragraph">
+              That's still how I work today, on bigger and more regulated products: sketch first,
+              test with the people who'll actually use it, then let it become a polished
+              interface.
+            </p>
           </div>
         </div>
       </section>
