@@ -105,7 +105,6 @@ const About = () => {
             >
               LinkedIn
             </a>
-            {/* TODO: "Download resume" pill — pendiente de un PDF de CV real que publicar */}
           </div>
         </div>
       </section>
