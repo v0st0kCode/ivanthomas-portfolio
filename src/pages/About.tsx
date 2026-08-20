@@ -65,6 +65,51 @@ const About = () => {
         </div>
       </section>
 
+      {/* Experience — ref: educabellos.com/en/about-me (headline + table), billysweeney.com */}
+      <section className="pb-24">
+        <div className="container-custom">
+          <h2 className="heading-lg mb-12 max-w-3xl animate-on-scroll opacity-0">
+            20+ years building products, teams, and systems.
+          </h2>
+
+          <div className="max-w-4xl animate-on-scroll opacity-0">
+            {[
+              { years: '2025—Present', company: 'Globant (Sportian Performance)', role: 'Senior Product Designer' },
+              { years: '2019—2025', company: 'Grupo Mediapro', role: 'Senior Digital Product Designer (UX/UI)' },
+              { years: '2013—2018', company: 'JET8', role: 'Head of Product' },
+              { years: '2013—2015', company: 'CHH — Creative HotHouse', role: 'UI/UX Lead' },
+              { years: '2001—2013', company: 'Ekilater', role: 'Owner, Product & Digital Business Strategy' },
+              { years: '2009—2010', company: 'Jorge Lorenzo', role: 'CPO and Lead Designer' },
+              { years: '1999—2000', company: 'Solohijos.com', role: 'Webdesigner and Front-end Developer' },
+            ].map((entry) => (
+              <div
+                key={entry.years}
+                className="grid grid-cols-1 sm:grid-cols-3 gap-1 sm:gap-4 py-5 border-b border-border text-sm md:text-base"
+              >
+                <span className="text-muted-foreground font-mono">{entry.years}</span>
+                <span>{entry.company}</span>
+                <span className="text-muted-foreground sm:text-foreground">{entry.role}</span>
+              </div>
+            ))}
+          </div>
+
+          <div className="flex flex-wrap gap-3 mt-10 animate-on-scroll opacity-0">
+            <a href="mailto:hello@ivanthomas.pro" className="pill hover:bg-secondary transition-colors">
+              Email me
+            </a>
+            <a
+              href="https://www.linkedin.com/in/ivanthomasgarces/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="pill hover:bg-secondary transition-colors"
+            >
+              LinkedIn
+            </a>
+            {/* TODO: "Download resume" pill — pendiente de un PDF de CV real que publicar */}
+          </div>
+        </div>
+      </section>
+
       {/* Contact Section */}
       <section className="py-20 bg-secondary">
         <div className="container-custom">
