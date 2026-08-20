@@ -27,39 +27,60 @@ const Work = () => {
 
           {/* Single-column, large-format list — ref: nabauer.com/work, adamhickey.com */}
           <div className="max-w-4xl mx-auto space-y-24">
-            {projects.map((project, index) => (
-              <Link
-                key={project.id}
-                to={`/case-study/${project.id}`}
-                className="group block animate-on-scroll opacity-0"
-                style={{ animationDelay: `${index * 0.05}s` }}
-              >
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  className="bleed-image mb-8 transition-transform duration-700 ease-out group-hover:scale-[1.01]"
-                  loading="lazy"
-                />
+            {projects.map((project, index) => {
+              const tags = [project.category, ...(project.details?.tools ?? [])].join(', ');
+              const content = (
+                <>
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    className={`bleed-image mb-8 transition-transform duration-700 ease-out ${
+                      project.caseStudyPending ? '' : 'group-hover:scale-[1.01]'
+                    }`}
+                    loading="lazy"
+                  />
 
-                <div className="flex items-start justify-between gap-8">
-                  <div>
-                    <h2 className="heading-md mb-3 group-hover:opacity-70 transition-opacity">
-                      {project.title}
-                    </h2>
-                    <p className="paragraph mb-5">{project.description}</p>
-                    <div className="flex flex-wrap gap-2">
-                      <span className="pill">{project.category}</span>
-                      {project.details?.tools?.map((tool) => (
-                        <span key={tool} className="pill">{tool}</span>
-                      ))}
+                  <div className="flex items-start justify-between gap-8">
+                    <div>
+                      <h2
+                        className={`heading-md mb-3 transition-opacity ${
+                          project.caseStudyPending ? '' : 'group-hover:opacity-70'
+                        }`}
+                      >
+                        {project.title}
+                      </h2>
+                      <p className="paragraph mb-5">{project.description}</p>
+                      <p className="text-sm text-muted-foreground">
+                        {tags}
+                        {project.caseStudyPending && ' · Case study coming soon'}
+                      </p>
                     </div>
+                    {project.protected && (
+                      <LockKeyhole size={18} className="text-muted-foreground mt-1 shrink-0" />
+                    )}
                   </div>
-                  {project.protected && (
-                    <LockKeyhole size={18} className="text-muted-foreground mt-1 shrink-0" />
-                  )}
-                </div>
-              </Link>
-            ))}
+                </>
+              );
+
+              if (project.caseStudyPending) {
+                return (
+                  <div key={project.id} className="block animate-on-scroll opacity-0" style={{ animationDelay: `${index * 0.05}s` }}>
+                    {content}
+                  </div>
+                );
+              }
+
+              return (
+                <Link
+                  key={project.id}
+                  to={`/case-study/${project.id}`}
+                  className="group block animate-on-scroll opacity-0"
+                  style={{ animationDelay: `${index * 0.05}s` }}
+                >
+                  {content}
+                </Link>
+              );
+            })}
           </div>
         </div>
       </section>

@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import { getFeaturedProjects } from '../data/projects';
-import { Linkedin, Send, LockKeyhole } from 'lucide-react';
+import { LockKeyhole } from 'lucide-react';
 import { useScrollReveal } from '../hooks/use-scroll-reveal';
 
 const Index = () => {
@@ -13,83 +13,90 @@ const Index = () => {
     <div className="min-h-screen bg-background relative">
       <Navbar />
 
-      {/* Hero */}
+      {/* Hero — copy + layout per Ivan's Figma redesign, 20 ago 2026 */}
       <section className="pt-40 pb-24 md:pt-52 md:pb-32">
         <div className="container-custom">
           <div className="max-w-3xl animate-fade-in">
-            <span className="eyebrow-signal mb-6">Senior Product Designer · AI-native</span>
             <h1 className="heading-xl mb-8">
-              Designing end-to-end products for two decades — now scaling design
-              systems with AI-native workflows.
+              Hey! It's Ivan here! I'm a hands-on multidisciplinary designer who's been
+              crafting end-to-end products for two decades.
             </h1>
-            <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mb-10">
-              I'm Ivan Thomas. I started in code and never really left it. Today I scale the
-              design system across a 5-product sports analytics suite used in professional
-              football, and build agentic AI workflows — Figma, Jira, Confluence, Claude Code —
-              that changed how a 30-person design team works.
+            <p className="text-lg md:text-xl text-muted-foreground max-w-2xl">
+              Currently at <strong className="font-semibold text-foreground">Globant</strong>
+              <span className="text-signal">▸</span>, designing, building and shipping digital
+              solutions through AI-assisted workflows for professional sports tech.
             </p>
-            <div className="flex items-center space-x-4">
-              <a href="https://www.linkedin.com/in/ivanthomasgarces/" target="_blank" rel="noopener noreferrer" className="button-primary">
-                <Linkedin size={20} />
-                LinkedIn Profile
-              </a>
-              <a href="mailto:hello@ivanthomas.pro" className="button-secondary">
-                <Send size={20} />
-                Contact
-              </a>
-            </div>
           </div>
         </div>
       </section>
 
-      {/* Selected work */}
+      {/* Selected Works — single column, ref: /work, images now rounded + hairline stroke */}
       <section className="py-16 md:py-24 border-t border-border">
         <div className="container-custom">
           <div className="flex items-end justify-between mb-12 animate-on-scroll opacity-0">
-            <div>
-              <span className="section-title">Selected Work</span>
-              <h2 className="heading-lg">Case studies</h2>
-            </div>
-            <Link to="/work" className="link-hover text-sm font-medium hidden md:inline-block">
+            <h2 className="heading-lg">Selected Works</h2>
+            <Link to="/work" className="link-hover text-sm font-medium">
               View all work →
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-            {featuredProjects.map((project, index) => (
-              <Link
-                key={project.id}
-                to={`/case-study/${project.id}`}
-                className="group animate-on-scroll opacity-0"
-                style={{ animationDelay: `${index * 0.1}s` }}
-              >
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  className="bleed-image mb-5 transition-transform duration-700 ease-out group-hover:scale-[1.02]"
-                  loading="lazy"
-                />
-                <div className="flex items-start justify-between">
-                  <div>
-                    <span className="text-xs uppercase tracking-wider text-muted-foreground font-mono">
-                      {project.category}
-                    </span>
-                    <h3 className="text-xl font-medium mt-1 group-hover:opacity-70 transition-opacity">
-                      {project.title}
-                    </h3>
-                    <p className="text-sm text-muted-foreground mt-1 max-w-md">{project.description}</p>
-                  </div>
-                  {project.protected && (
-                    <LockKeyhole size={16} className="text-muted-foreground mt-1 shrink-0" />
-                  )}
-                </div>
-              </Link>
-            ))}
-          </div>
+          <div className="max-w-4xl mx-auto space-y-20">
+            {featuredProjects.map((project, index) => {
+              const tags = [project.category, ...(project.details?.tools ?? [])].join(', ');
+              const displayYear = project.year.split('-')[0];
 
-          <Link to="/work" className="link-hover text-sm font-medium mt-12 inline-block md:hidden">
-            View all work →
-          </Link>
+              const content = (
+                <>
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    className={`bleed-image mb-6 transition-transform duration-700 ease-out ${
+                      project.caseStudyPending ? '' : 'group-hover:scale-[1.01]'
+                    }`}
+                    loading="lazy"
+                  />
+                  <div className="flex items-start justify-between gap-8">
+                    <div>
+                      <h3
+                        className={`text-xl font-medium transition-opacity ${
+                          project.caseStudyPending ? '' : 'group-hover:opacity-70'
+                        }`}
+                      >
+                        {project.title}
+                        {project.protected && (
+                          <LockKeyhole size={14} className="inline-block ml-2 mb-1 text-muted-foreground" />
+                        )}
+                      </h3>
+                      <p className="text-sm text-muted-foreground mt-1">
+                        {tags}
+                        {project.caseStudyPending && ' · Case study coming soon'}
+                      </p>
+                    </div>
+                    <span className="text-sm text-muted-foreground font-mono shrink-0">{displayYear}</span>
+                  </div>
+                </>
+              );
+
+              if (project.caseStudyPending) {
+                return (
+                  <div key={project.id} className="block animate-on-scroll opacity-0" style={{ animationDelay: `${index * 0.1}s` }}>
+                    {content}
+                  </div>
+                );
+              }
+
+              return (
+                <Link
+                  key={project.id}
+                  to={`/case-study/${project.id}`}
+                  className="group block animate-on-scroll opacity-0"
+                  style={{ animationDelay: `${index * 0.1}s` }}
+                >
+                  {content}
+                </Link>
+              );
+            })}
+          </div>
         </div>
       </section>
 

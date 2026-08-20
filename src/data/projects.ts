@@ -26,6 +26,10 @@ export interface Project {
   // Structured case study content. If absent, CaseStudy.tsx falls back to
   // the generic overview/challenge/process/solution/results copy.
   caseStudy?: CaseStudySection[];
+  // True when the project is shown as a card (home/work) but has no case study
+  // page yet — material pending. Cards render without a link instead of falling
+  // back to the generic placeholder copy.
+  caseStudyPending?: boolean;
 }
 
 export const projects: Project[] = [
@@ -103,7 +107,7 @@ export const projects: Project[] = [
     description: "Multi-role workflow for reviewing, evaluating, and confirming refereeing decisions with full traceability.",
     image: "/cta-mockup.svg",
     category: "Web App",
-    year: "2025",
+    year: "2026",
     featured: true,
     protected: true, // Making this project protected
     size: "large",
@@ -164,7 +168,8 @@ export const projects: Project[] = [
     image: "/sony-3d-metrics-replayer.png", // Updated to use the new image
     category: "iPad App",
     year: "2025",
-    featured: false,
+    featured: true,
+    caseStudyPending: true, // no case study written yet — material pending
     protected: true, // Making this project protected
     size: "large",
     details: {
@@ -226,8 +231,13 @@ export const projects: Project[] = [
   }
 ];
 
+// Home "Selected Works" order, most recent first: RFEF/CTA (2026) → Sony (2025) → LivePRO (2022).
+const featuredOrder = ["cta-rfef", "sony-app", "livepro-app"];
+
 export const getFeaturedProjects = (): Project[] => {
-  return projects.filter(project => project.featured);
+  return projects
+    .filter(project => project.featured)
+    .sort((a, b) => featuredOrder.indexOf(a.id) - featuredOrder.indexOf(b.id));
 };
 
 export const getProjectById = (id: string): Project | undefined => {
