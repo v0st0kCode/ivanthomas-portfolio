@@ -13,8 +13,9 @@ const Index = () => {
     <div className="min-h-screen bg-background relative">
       <Navbar />
 
-      {/* Hero — copy + layout per Ivan's Figma redesign, 20 ago 2026 */}
-      <section className="pt-40 pb-12 md:pt-52 md:pb-16">
+      {/* Hero — copy + layout per Ivan's Figma redesign, 20 ago 2026.
+          Bottom spacing before Selected Works: 3x the previous pb-12/16. */}
+      <section className="pt-40 pb-36 md:pt-52 md:pb-48">
         <div className="container-custom">
           <div className="max-w-3xl animate-fade-in">
             <h1 className="heading-xl mb-8">
