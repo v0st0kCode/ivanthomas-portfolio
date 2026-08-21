@@ -42,8 +42,8 @@ const Index = () => {
         </div>
 
         <div className="space-y-1">
-          {featuredProjects.map((project) => (
-            <ProjectCard key={project.id} project={project} />
+          {featuredProjects.map((project, index) => (
+            <ProjectCard key={project.id} project={project} index={index} />
           ))}
         </div>
       </section>

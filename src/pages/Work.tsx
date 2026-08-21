@@ -28,8 +28,8 @@ const Work = () => {
 
       {/* Full-bleed two-panel cards, same component as home's Selected Works */}
       <section className="pb-16 md:pb-24 space-y-1">
-        {projects.map((project) => (
-          <ProjectCard key={project.id} project={project} />
+        {projects.map((project, index) => (
+          <ProjectCard key={project.id} project={project} index={index} />
         ))}
       </section>
 

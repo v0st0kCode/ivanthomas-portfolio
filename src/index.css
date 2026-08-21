@@ -173,20 +173,15 @@
     @apply inline-flex items-center px-3 py-1.5 rounded-full border border-border text-xs text-muted-foreground;
   }
 
-  /* New standard CTA button — ref: Ivan's Figma project-card redesign, 21 ago.
-     Intended to replace .button-secondary across the site going forward, but for
-     now only used inside ProjectCard.tsx (scope of this task). */
+  /* New standard CTA button — full outline box, not an underlined link. Ref:
+     Ivan's Figma project-card redesign, corrected 21 ago (v2: it's a real
+     button, border on all 4 sides). Intended to replace .button-secondary
+     across the site going forward, but for now only used inside
+     ProjectCard.tsx (scope of this task) — text/border color set per card
+     via the isLight prop in ProjectCard, since the panel color changes.  */
   .card-cta-button {
-    @apply inline-flex items-center gap-2 text-sm font-medium text-black border-b border-black/40
-           pb-1 transition-colors duration-300 hover:border-black;
-  }
-
-  .card-cta-arrow {
-    @apply transition-transform duration-300 inline-block;
-  }
-
-  .card-cta-button:hover .card-cta-arrow {
-    @apply translate-x-1;
+    @apply inline-flex items-center gap-2 px-6 py-3 rounded-md border text-sm font-medium
+           transition-colors duration-300;
   }
 
   /* Marquee — giant client/org name on ProjectCard's visual panel. Paused by

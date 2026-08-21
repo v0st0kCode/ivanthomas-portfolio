@@ -4,19 +4,21 @@ import { Project } from '../data/projects';
 
 interface ProjectCardProps {
   project: Project;
+  index?: number; // even/odd alternates which side holds the content vs the visual
 }
 
 /**
- * Full-bleed, two-panel project card — solid color panel (left) + layered
- * visual panel (right: background image, giant client-name marquee, browser
- * window mockup). The mockup tilts toward the cursor on hover.
+ * Full-bleed, two-panel project card — solid color panel + layered visual
+ * panel (background image, giant client-name marquee, browser window mockup).
+ * The mockup tilts toward the cursor on hover. Sides alternate by `index`.
  *
  * Ref: Ivan's Figma redesign (21 ago 2026), interaction concept borrowed
  * loosely from https://experiments.thisiswhitespace.com/dot-sphere-card
  * (idea only — "hover activates depth", not the 3D complexity).
  */
-const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
+const ProjectCard: React.FC<ProjectCardProps> = ({ project, index = 0 }) => {
   const mockupRef = useRef<HTMLDivElement>(null);
+  const reversed = index % 2 === 1;
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const el = mockupRef.current;
@@ -40,30 +42,36 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
   const tags = (project.cardTags ?? project.details?.tools ?? []).join(', ');
   const color = project.cardColor ?? '#EAEAE5';
   const org = project.cardOrg ?? project.title;
+  const isLight = project.cardTextColor !== 'white';
+  const textColor = isLight ? 'text-black' : 'text-white';
+  const mutedTextColor = isLight ? 'text-black/70' : 'text-white/70';
+  const tagColor = isLight ? 'text-black/60' : 'text-white/60';
+  const buttonBorder = isLight ? 'border-black/70 hover:bg-black hover:text-white' : 'border-white/70 hover:bg-white hover:text-black';
 
   const cardContent = (
     <div
-      className="group relative mx-[calc(50%-50vw)] w-screen flex flex-col md:flex-row md:aspect-[2.35/1] animate-on-scroll opacity-0"
+      className={`group relative mx-[calc(50%-50vw)] w-screen flex flex-col ${
+        reversed ? 'md:flex-row-reverse' : 'md:flex-row'
+      } md:aspect-[2.35/1] animate-on-scroll opacity-0`}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
     >
-      {/* Left — solid color panel */}
+      {/* Solid color panel — content */}
       <div
         className="w-full md:w-1/2 flex flex-col justify-between p-8 md:p-16 py-16"
         style={{ backgroundColor: color }}
       >
-        <span className="text-xs uppercase tracking-wider text-black/60 font-mono">{tags}</span>
+        <span className={`text-xs uppercase tracking-wider font-mono ${tagColor}`}>{tags}</span>
         <div>
-          <h3 className="heading-lg text-black mb-4 max-w-lg">{title}</h3>
-          <p className="text-black/70 leading-relaxed max-w-md mb-8">{description}</p>
-          <span className="card-cta-button">
-            {project.caseStudyPending ? 'Case Study Coming Soon' : 'View Case Study'}
-            <span className="card-cta-arrow">→</span>
+          <h3 className={`heading-lg mb-4 max-w-lg ${textColor}`}>{title}</h3>
+          <p className={`leading-relaxed max-w-md mb-8 ${mutedTextColor}`}>{description}</p>
+          <span className={`card-cta-button ${buttonBorder}`}>
+            {project.caseStudyPending ? 'Case Study Coming Soon' : 'View Case Study'} →
           </span>
         </div>
       </div>
 
-      {/* Right — layered visual panel */}
+      {/* Layered visual panel */}
       <div className="relative w-full md:w-1/2 aspect-[4/3] md:aspect-auto overflow-hidden bg-[#0A0D12]">
         {/* Layer 1: background image — placeholder (blurred reuse of the mockup asset
             until Ivan provides real background photography/video). Swap this <img>
