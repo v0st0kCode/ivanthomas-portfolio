@@ -136,8 +136,9 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index = 0 }) => {
         <div
           ref={mockupRef}
           className="w-[500px] h-[281px] lg:w-[750px] lg:h-[422px] rounded-lg overflow-hidden
-                     bg-white ring-1 ring-black/10 shadow-2xl transition-shadow duration-300
-                     group-hover:shadow-[0_80px_140px_-30px_rgba(0,0,0,0.7)]"
+                     bg-white ring-1 ring-black/10 shadow-2xl
+                     transition-shadow duration-[600ms] ease-[cubic-bezier(0.16,1,0.3,1)]
+                     group-hover:duration-[400ms] group-hover:shadow-[0_80px_140px_-30px_rgba(0,0,0,0.7)]"
           style={{ transformStyle: 'preserve-3d' }}
         >
           <BrowserChrome />
