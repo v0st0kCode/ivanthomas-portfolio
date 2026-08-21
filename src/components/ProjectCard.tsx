@@ -7,8 +7,12 @@ interface ProjectCardProps {
   index?: number; // even/odd alternates which side holds the content vs the visual
 }
 
+// Glassmorphism header — semi-transparent + backdrop-blur, per Ivan's reference
+// (the solid #F2F2F2 bar was a placeholder). Needs the mockup's outer container
+// to be transparent (not bg-white) for the blur to actually pick up whatever
+// sits behind the floating card — see the outer div below.
 const BrowserChrome: React.FC = () => (
-  <div className="flex items-center gap-1.5 px-3 py-2.5 bg-[#F2F2F2]">
+  <div className="flex items-center gap-1.5 px-3 py-2.5 bg-white/40 backdrop-blur-md">
     <span className="w-2.5 h-2.5 rounded-full bg-[#FF5F57]" />
     <span className="w-2.5 h-2.5 rounded-full bg-[#FEBC2E]" />
     <span className="w-2.5 h-2.5 rounded-full bg-[#28C840]" />
@@ -107,7 +111,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index = 0 }) => {
 
         {/* Mobile: empty browser mockup, in-flow (no float/tilt — not meaningful on touch) */}
         <div className="md:hidden absolute inset-0 flex items-center justify-center p-8">
-          <div className="w-full rounded-lg overflow-hidden shadow-2xl bg-white ring-1 ring-black/10">
+          <div className="w-full rounded-lg overflow-hidden shadow-2xl ring-1 ring-black/10">
             <BrowserChrome />
             <div className="h-32 bg-white" />
           </div>
@@ -136,7 +140,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index = 0 }) => {
         <div
           ref={mockupRef}
           className="w-[500px] h-[281px] lg:w-[750px] lg:h-[422px] rounded-lg overflow-hidden
-                     bg-white ring-1 ring-black/10 shadow-2xl
+                     ring-1 ring-black/10 shadow-2xl
                      transition-shadow duration-[600ms] ease-[cubic-bezier(0.16,1,0.3,1)]
                      group-hover:duration-[400ms] group-hover:shadow-[0_80px_140px_-30px_rgba(0,0,0,0.7)]"
           style={{ transformStyle: 'preserve-3d' }}
