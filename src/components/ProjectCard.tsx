@@ -35,14 +35,14 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index = 0 }) => {
     const rect = e.currentTarget.getBoundingClientRect();
     const x = (e.clientX - rect.left) / rect.width - 0.5; // -0.5..0.5
     const y = (e.clientY - rect.top) / rect.height - 0.5;
-    el.style.transition = 'transform 0.1s ease-out';
-    el.style.transform = `perspective(1000px) rotateY(${x * 14}deg) rotateX(${-y * 14}deg) scale(1.1)`;
+    el.style.transition = 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)';
+    el.style.transform = `perspective(1000px) rotateY(${x * 14}deg) rotateX(${-y * 14}deg) scale(1.05)`;
   };
 
   const handleMouseLeave = () => {
     const el = mockupRef.current;
     if (!el) return;
-    el.style.transition = 'transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)';
+    el.style.transition = 'transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)';
     el.style.transform = 'perspective(1000px) rotateY(0deg) rotateX(0deg) scale(1)';
   };
 
@@ -116,11 +116,14 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index = 0 }) => {
 
       {/* Empty browser mockup — fixed pixel size per breakpoint (not fluid/vw-scaled),
           floats over the visual panel, invading whichever side it's on. Base size
-          doubled (500x281 → 1000x562, same 16:9) per Ivan's reference; kept at the
-          smaller size on md-only (768–1023px) so it doesn't overflow the viewport
-          there — full double size from lg (1024px) up. On hover it grows another
-          10% (scale 1.1, combined with the tilt below) and gets a heavy elevation
-          shadow, on top of the base one.
+          500x281 on md-only (768–1023px), 750x422 from lg (1024px) up — same 16:9,
+          scaled down 25% from the original 1000x562 double: at full double size the
+          fixed-px offset alone wasn't enough to keep the mockup clear of the title
+          on every viewport, so per Ivan/team-lead's priority ("se vea bien
+          proporcionado antes que mantener el tamaño doblado a toda costa") the size
+          is reduced instead of pushing the offset to an extreme. On hover it grows
+          another 5% (scale 1.05, combined with the tilt below, eased in slowly —
+          see handleMouseMove/Leave) and gets a heavy elevation shadow.
           Positioning: anchored a FIXED px distance from the panel boundary (50%),
           not a % of the full card width — a %-based offset grows with viewport
           width and, at large sizes, pushed the mockup so far into the color panel
@@ -132,7 +135,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index = 0 }) => {
       >
         <div
           ref={mockupRef}
-          className="w-[500px] h-[281px] lg:w-[1000px] lg:h-[562px] rounded-lg overflow-hidden
+          className="w-[500px] h-[281px] lg:w-[750px] lg:h-[422px] rounded-lg overflow-hidden
                      bg-white ring-1 ring-black/10 shadow-2xl transition-shadow duration-300
                      group-hover:shadow-[0_80px_140px_-30px_rgba(0,0,0,0.7)]"
           style={{ transformStyle: 'preserve-3d' }}
