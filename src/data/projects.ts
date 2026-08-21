@@ -35,6 +35,9 @@ export interface Project {
   cardTitle?: string;
   cardPlatform?: string;
   cardTags?: string[];
+  cardDescription?: string; // short paragraph on the card's left panel — distinct from `description`
+  cardColor?: string; // solid left-panel background, hex — one per project, not the site's single accent
+  cardOrg?: string; // giant marquee name on the right panel (client/organism), e.g. "RFEF", "SONY"
 }
 
 export const projects: Project[] = [
@@ -51,6 +54,10 @@ export const projects: Project[] = [
     cardTitle: "Sportian — Performance LivePRO",
     cardPlatform: "iPadOS",
     cardTags: ["Research", "Concept", "UX"],
+    // TODO(pendiente Ivan): color real de card — placeholder, reutiliza el teal ya
+    // establecido en el sitio (--signal) en vez de inventar uno nuevo
+    cardColor: "#22D3A5",
+    cardOrg: "SPORTIAN",
     details: {
       client: "Professional sports analytics suite",
       role: "Lead Product Designer",
@@ -122,6 +129,9 @@ export const projects: Project[] = [
     cardTitle: "RFEF — Referee Evaluation Platform",
     cardPlatform: "WebApp",
     cardTags: ["UX", "Prototype"],
+    cardDescription: "Diseño y prototipado funcional completo, para el organismo que audita el arbitraje de una de las principales ligas de fútbol de Europa. Implantación prevista durante la temporada 2026/27.",
+    cardColor: "#D6FF3F",
+    cardOrg: "RFEF",
     details: {
       client: "National football refereeing oversight body",
       role: "Lead Product Designer",
@@ -186,6 +196,10 @@ export const projects: Project[] = [
     cardTitle: "Sony Playstation — Immersive Stats Gameplay Replayer",
     cardPlatform: "iPadOS",
     cardTags: ["Research", "Concept", "Prototype"],
+    // TODO(pendiente Ivan): color real de card — placeholder provisional, no hay un
+    // segundo color establecido en la paleta del sitio para reutilizar aquí
+    cardColor: "#6B8CFF",
+    cardOrg: "SONY",
     details: {
       client: "Sony",
       role: "Concept Product Designer",

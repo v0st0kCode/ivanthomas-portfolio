@@ -1,9 +1,8 @@
 
 import React from 'react';
-import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
+import ProjectCard from '../components/ProjectCard';
 import { projects } from '../data/projects';
-import { LockKeyhole } from 'lucide-react';
 import { useScrollReveal } from '../hooks/use-scroll-reveal';
 
 const Work = () => {
@@ -13,9 +12,9 @@ const Work = () => {
     <div className="min-h-screen bg-background">
       <Navbar />
 
-      <section className="pt-32 pb-20">
+      <section className="pt-32 pb-12">
         <div className="container-custom">
-          <div className="max-w-2xl mb-20">
+          <div className="max-w-2xl">
             <span className="section-title animate-fade-in">Portfolio</span>
             <h1 className="heading-lg mb-6 animate-fade-in" style={{ animationDelay: '0.1s' }}>
               Selected Projects
@@ -24,69 +23,14 @@ const Work = () => {
               A collection of projects showcasing my expertise in digital product design across various industries.
             </p>
           </div>
-
-          {/* Single-column, large-format list — ref: nabauer.com/work, adamhickey.com */}
-          <div className="max-w-4xl mx-auto space-y-24">
-            {projects.map((project, index) => {
-              const title = project.cardTitle ?? project.title;
-              const tags = [
-                project.cardPlatform ?? project.category,
-                ...(project.cardTags ?? project.details?.tools ?? []),
-              ].join(', ');
-              const content = (
-                <>
-                  <img
-                    src={project.image}
-                    alt={title}
-                    className={`bleed-image mb-8 transition-transform duration-700 ease-out ${
-                      project.caseStudyPending ? '' : 'group-hover:scale-[1.01]'
-                    }`}
-                    loading="lazy"
-                  />
-
-                  <div className="flex items-start justify-between gap-8">
-                    <div>
-                      <h2
-                        className={`heading-md mb-3 transition-opacity ${
-                          project.caseStudyPending ? '' : 'group-hover:opacity-70'
-                        }`}
-                      >
-                        {title}
-                      </h2>
-                      <p className="paragraph mb-5">{project.description}</p>
-                      <p className="text-sm text-muted-foreground">
-                        {tags}
-                        {project.caseStudyPending && ' · Case study coming soon'}
-                      </p>
-                    </div>
-                    {project.protected && (
-                      <LockKeyhole size={18} className="text-muted-foreground mt-1 shrink-0" />
-                    )}
-                  </div>
-                </>
-              );
-
-              if (project.caseStudyPending) {
-                return (
-                  <div key={project.id} className="block animate-on-scroll opacity-0" style={{ animationDelay: `${index * 0.05}s` }}>
-                    {content}
-                  </div>
-                );
-              }
-
-              return (
-                <Link
-                  key={project.id}
-                  to={`/case-study/${project.id}`}
-                  className="group block animate-on-scroll opacity-0"
-                  style={{ animationDelay: `${index * 0.05}s` }}
-                >
-                  {content}
-                </Link>
-              );
-            })}
-          </div>
         </div>
+      </section>
+
+      {/* Full-bleed two-panel cards, same component as home's Selected Works */}
+      <section className="pb-16 md:pb-24 space-y-1">
+        {projects.map((project) => (
+          <ProjectCard key={project.id} project={project} />
+        ))}
       </section>
 
       <section className="py-24 bg-secondary">

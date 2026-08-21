@@ -1,20 +1,20 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
+import ProjectCard from '../components/ProjectCard';
 import { getFeaturedProjects } from '../data/projects';
-import { LockKeyhole } from 'lucide-react';
 import { useScrollReveal } from '../hooks/use-scroll-reveal';
 
 const Index = () => {
   const featuredProjects = getFeaturedProjects();
-  useScrollReveal();
+  useScrollReveal([featuredProjects.length]);
 
   return (
     <div className="min-h-screen bg-background relative">
       <Navbar />
 
       {/* Hero — copy + layout per Ivan's Figma redesign, 20 ago 2026 */}
-      <section className="pt-40 pb-24 md:pt-52 md:pb-32">
+      <section className="pt-40 pb-12 md:pt-52 md:pb-16">
         <div className="container-custom">
           <div className="max-w-3xl animate-fade-in">
             <h1 className="heading-xl mb-8">
@@ -30,77 +30,21 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Selected Works — single column, ref: /work, images now rounded + hairline stroke */}
-      <section className="py-16 md:py-24 border-t border-border">
-        <div className="container-custom">
-          <div className="flex items-end justify-between mb-12 animate-on-scroll opacity-0">
+      {/* Selected Works — full-bleed two-panel cards, ref: Ivan's Figma redesign 21 ago */}
+      <section className="pb-16 md:pb-24">
+        <div className="container-custom mb-10">
+          <div className="flex items-end justify-between animate-on-scroll opacity-0">
             <h2 className="heading-lg">Selected Works</h2>
             <Link to="/work" className="link-hover text-sm font-medium">
               View all work →
             </Link>
           </div>
+        </div>
 
-          <div className="max-w-4xl mx-auto space-y-20">
-            {featuredProjects.map((project, index) => {
-              const title = project.cardTitle ?? project.title;
-              const tags = [
-                project.cardPlatform ?? project.category,
-                ...(project.cardTags ?? project.details?.tools ?? []),
-              ].join(', ');
-              const displayYear = project.year.split('-')[0];
-
-              const content = (
-                <>
-                  <img
-                    src={project.image}
-                    alt={title}
-                    className={`bleed-image mb-6 transition-transform duration-700 ease-out ${
-                      project.caseStudyPending ? '' : 'group-hover:scale-[1.01]'
-                    }`}
-                    loading="lazy"
-                  />
-                  <div className="flex items-start justify-between gap-8">
-                    <div>
-                      <h3
-                        className={`text-xl font-medium transition-opacity ${
-                          project.caseStudyPending ? '' : 'group-hover:opacity-70'
-                        }`}
-                      >
-                        {title}
-                        {project.protected && (
-                          <LockKeyhole size={14} className="inline-block ml-2 mb-1 text-muted-foreground" />
-                        )}
-                      </h3>
-                      <p className="text-sm text-muted-foreground mt-1">
-                        {tags}
-                        {project.caseStudyPending && ' · Case study coming soon'}
-                      </p>
-                    </div>
-                    <span className="text-sm text-muted-foreground font-sans shrink-0">{displayYear}</span>
-                  </div>
-                </>
-              );
-
-              if (project.caseStudyPending) {
-                return (
-                  <div key={project.id} className="block animate-on-scroll opacity-0" style={{ animationDelay: `${index * 0.1}s` }}>
-                    {content}
-                  </div>
-                );
-              }
-
-              return (
-                <Link
-                  key={project.id}
-                  to={`/case-study/${project.id}`}
-                  className="group block animate-on-scroll opacity-0"
-                  style={{ animationDelay: `${index * 0.1}s` }}
-                >
-                  {content}
-                </Link>
-              );
-            })}
-          </div>
+        <div className="space-y-1">
+          {featuredProjects.map((project) => (
+            <ProjectCard key={project.id} project={project} />
+          ))}
         </div>
       </section>
 
