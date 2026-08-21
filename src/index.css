@@ -173,6 +173,13 @@
     @apply inline-flex items-center px-3 py-1.5 rounded-full border border-border text-xs text-muted-foreground;
   }
 
+  /* Shared glass material for ProjectCard device mockups (browser chrome bar +
+     iPad bezel) — a single source of truth so both are guaranteed byte-identical,
+     no risk of the values drifting apart between the two. */
+  .mockup-glass {
+    @apply bg-white/40 backdrop-blur-md;
+  }
+
   /* New standard CTA button — full outline box, not an underlined link. Ref:
      Ivan's Figma project-card redesign, corrected 21 ago (v2: it's a real
      button, border on all 4 sides). Intended to replace .button-secondary

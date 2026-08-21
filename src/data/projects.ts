@@ -40,6 +40,9 @@ export interface Project {
   cardOrg?: string; // giant marquee name on the right panel (client/organism), e.g. "RFEF", "SONY"
   cardTextColor?: 'black' | 'white'; // legibility on cardColor — defaults to black
   cardBgImage?: string; // visual-panel background — defaults to `image` when absent
+  // Temporarily pulled from Selected Works/Work while testing — not deleted, just
+  // not rendered. Reversible: flip back to false/remove when ready to show again.
+  hidden?: boolean;
 }
 
 export const projects: Project[] = [
@@ -51,6 +54,7 @@ export const projects: Project[] = [
     category: "iPad App",
     year: "2022-2025",
     featured: true,
+    hidden: true, // temporarily pulled from Selected Works/Work for testing — see Project.hidden
     protected: true, // Making this project protected
     size: "large",
     cardTitle: "Sportian — Performance LivePRO",
@@ -265,8 +269,12 @@ const featuredOrder = ["cta-rfef", "sony-app", "livepro-app"];
 
 export const getFeaturedProjects = (): Project[] => {
   return projects
-    .filter(project => project.featured)
+    .filter(project => project.featured && !project.hidden)
     .sort((a, b) => featuredOrder.indexOf(a.id) - featuredOrder.indexOf(b.id));
+};
+
+export const getVisibleProjects = (): Project[] => {
+  return projects.filter(project => !project.hidden);
 };
 
 export const getProjectById = (id: string): Project | undefined => {

@@ -2,10 +2,11 @@
 import React from 'react';
 import Navbar from '../components/Navbar';
 import ProjectCard from '../components/ProjectCard';
-import { projects } from '../data/projects';
+import { getVisibleProjects } from '../data/projects';
 import { useScrollReveal } from '../hooks/use-scroll-reveal';
 
 const Work = () => {
+  const projects = getVisibleProjects();
   useScrollReveal();
 
   return (

@@ -10,8 +10,10 @@ interface ProjectCardProps {
 // Glassmorphism header — semi-transparent + backdrop-blur, per Ivan's reference
 // (the solid #F2F2F2 bar was a placeholder). Needs its parent to be transparent
 // for the blur to actually pick up whatever sits behind the floating card.
+// Uses .mockup-glass (index.css) so the iPad frame below can share the exact
+// same material, byte-for-byte, with no room for the two to drift apart.
 const BrowserChrome: React.FC = () => (
-  <div className="flex items-center gap-1.5 px-3 py-2.5 bg-white/40 backdrop-blur-md">
+  <div className="mockup-glass flex items-center gap-1.5 px-3 py-2.5">
     <span className="w-2.5 h-2.5 rounded-full bg-[#FF5F57]" />
     <span className="w-2.5 h-2.5 rounded-full bg-[#FEBC2E]" />
     <span className="w-2.5 h-2.5 rounded-full bg-[#28C840]" />
@@ -32,11 +34,12 @@ const BrowserFrame: React.FC = () => (
 // Bezel: same width on all 4 sides (a real iPad Pro's margins are symmetric) —
 // the camera dot is absolutely positioned inside that margin instead of adding
 // its own row, which would've made the top margin taller than the others.
-// Material: same glass treatment as the browser's chrome bar (bg-white/40 +
-// backdrop-blur), not a solid dark color, per Ivan's reference.
+// Camera: on the SHORT edge (right), like a real iPad rotated into landscape —
+// not centered on the top edge.
+// Material: .mockup-glass — same class as BrowserChrome, guaranteed identical.
 const IPadFrame: React.FC<{ image: string; alt: string }> = ({ image, alt }) => (
-  <div className="relative w-full h-full rounded-[32px] bg-white/40 backdrop-blur-md ring-1 ring-black/10 p-3 lg:p-4">
-    <span className="absolute top-1.5 lg:top-2 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-black/60 ring-1 ring-white/20" />
+  <div className="mockup-glass relative w-full h-full rounded-[32px] ring-1 ring-black/10 p-3 lg:p-4">
+    <span className="absolute right-1.5 lg:right-2 top-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-black/60 ring-1 ring-white/20" />
     <div className="w-full h-full rounded-[16px] overflow-hidden bg-black">
       <img src={image} alt={alt} className="w-full h-full object-cover" />
     </div>
@@ -146,18 +149,16 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index = 0 }) => {
 
         {/* Mobile: device mockup, in-flow (no float/tilt — not meaningful on touch) */}
         <div className="md:hidden absolute inset-0 flex items-center justify-center p-8">
-          <div className="w-full aspect-video shadow-2xl">{deviceFrame}</div>
+          <div className={`w-full shadow-2xl ${isIPad ? 'aspect-[4/3]' : 'aspect-video'}`}>{deviceFrame}</div>
         </div>
       </div>
 
       {/* Device mockup — fixed pixel size per breakpoint (not fluid/vw-scaled),
-          floats over the visual panel, invading whichever side it's on. Base size
-          500x281 on md-only (768–1023px), 750x422 from lg (1024px) up — same 16:9,
-          scaled down 25% from the original 1000x562 double: at full double size the
-          fixed-px offset alone wasn't enough to keep the mockup clear of the title
-          on every viewport, so per Ivan/team-lead's priority ("se vea bien
-          proporcionado antes que mantener el tamaño doblado a toda costa") the size
-          is reduced instead of pushing the offset to an extreme. On hover it grows
+          floats over the visual panel, invading whichever side it's on. Width
+          matches the browser mockup exactly (500px md-only, 750px from lg) —
+          height differs by device: browser stays 16:9 (281/422px), iPad uses its
+          real landscape ratio (1366×1024 ≈ 4:3 → 375/562px), taller than the
+          browser rather than forcing both to match height. On hover it grows
           another 5% (scale 1.05, combined with the tilt below, eased in slowly —
           see handleMouseMove/Leave) and gets a heavier elevation shadow that grows
           from the same shadow family rather than popping in.
@@ -172,10 +173,10 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index = 0 }) => {
       >
         <div
           ref={mockupRef}
-          className="w-[500px] h-[281px] lg:w-[750px] lg:h-[422px]
+          className={`w-[500px] lg:w-[750px] ${isIPad ? 'h-[375px] lg:h-[562px]' : 'h-[281px] lg:h-[422px]'}
                      shadow-[0_20px_35px_-20px_rgba(0,0,0,0.15)]
                      transition-[box-shadow] duration-[600ms] ease-[cubic-bezier(0.16,1,0.3,1)]
-                     group-hover:duration-[400ms] group-hover:shadow-[0_80px_140px_-30px_rgba(0,0,0,0.35)]"
+                     group-hover:duration-[400ms] group-hover:shadow-[0_80px_140px_-30px_rgba(0,0,0,0.35)]`}
           style={{ transformStyle: 'preserve-3d' }}
         >
           {deviceFrame}
