@@ -8,9 +8,8 @@ interface ProjectCardProps {
 }
 
 // Glassmorphism header — semi-transparent + backdrop-blur, per Ivan's reference
-// (the solid #F2F2F2 bar was a placeholder). Needs the mockup's outer container
-// to be transparent (not bg-white) for the blur to actually pick up whatever
-// sits behind the floating card — see the outer div below.
+// (the solid #F2F2F2 bar was a placeholder). Needs its parent to be transparent
+// for the blur to actually pick up whatever sits behind the floating card.
 const BrowserChrome: React.FC = () => (
   <div className="flex items-center gap-1.5 px-3 py-2.5 bg-white/40 backdrop-blur-md">
     <span className="w-2.5 h-2.5 rounded-full bg-[#FF5F57]" />
@@ -19,11 +18,35 @@ const BrowserChrome: React.FC = () => (
   </div>
 );
 
+// WebApp mockup — empty browser window (no screenshot inside, per Ivan's reference).
+const BrowserFrame: React.FC = () => (
+  <div className="w-full h-full rounded-lg overflow-hidden ring-1 ring-black/10 flex flex-col">
+    <BrowserChrome />
+    <div className="bg-white flex-1" />
+  </div>
+);
+
+// iPadOS mockup — minimal iPad Pro frame (thin bezel, rounded corners, a single
+// dot for the front camera — nothing more skeuomorphic than that), landscape,
+// framing the actual project screenshot inside (unlike the empty browser).
+const IPadFrame: React.FC<{ image: string; alt: string }> = ({ image, alt }) => (
+  <div className="w-full h-full rounded-[32px] bg-[#1C1C1E] ring-1 ring-black/40 p-3 lg:p-4 flex flex-col">
+    <div className="flex justify-center pb-2 lg:pb-3">
+      <span className="w-1.5 h-1.5 rounded-full bg-black ring-1 ring-white/10" />
+    </div>
+    <div className="flex-1 rounded-[16px] overflow-hidden bg-black">
+      <img src={image} alt={alt} className="w-full h-full object-cover" />
+    </div>
+  </div>
+);
+
 /**
  * Full-bleed, two-panel project card — solid color panel + layered visual
- * panel (background image, giant client-name marquee). An empty browser
- * mockup floats over the boundary between the two panels and tilts toward
- * the cursor on hover.
+ * panel (background image, giant client-name marquee). A device mockup floats
+ * over the boundary between the two panels and tilts toward the cursor on
+ * hover — a browser window for WebApp projects, an iPad Pro frame for iPadOS
+ * ones (same size/position/hover/shadow rules either way, only the frame
+ * itself changes).
  *
  * Ref: Ivan's Figma redesign (21 ago 2026), interaction concept borrowed
  * loosely from https://experiments.thisiswhitespace.com/dot-sphere-card
@@ -32,6 +55,7 @@ const BrowserChrome: React.FC = () => (
 const ProjectCard: React.FC<ProjectCardProps> = ({ project, index = 0 }) => {
   const mockupRef = useRef<HTMLDivElement>(null);
   const reversed = index % 2 === 1;
+  const isIPad = project.cardPlatform === 'iPadOS';
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const el = mockupRef.current;
@@ -64,6 +88,8 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index = 0 }) => {
   // dedicated background photography/video for every project. Swap `<img>` for
   // `<video autoPlay muted loop playsInline>` once a real asset exists.
   const bgImage = project.cardBgImage ?? project.image;
+
+  const deviceFrame = isIPad ? <IPadFrame image={project.image} alt={title} /> : <BrowserFrame />;
 
   const cardContent = (
     <div
@@ -115,16 +141,13 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index = 0 }) => {
           </div>
         </div>
 
-        {/* Mobile: empty browser mockup, in-flow (no float/tilt — not meaningful on touch) */}
+        {/* Mobile: device mockup, in-flow (no float/tilt — not meaningful on touch) */}
         <div className="md:hidden absolute inset-0 flex items-center justify-center p-8">
-          <div className="w-full rounded-lg overflow-hidden shadow-2xl ring-1 ring-black/10">
-            <BrowserChrome />
-            <div className="h-32 bg-white" />
-          </div>
+          <div className="w-full aspect-video shadow-2xl">{deviceFrame}</div>
         </div>
       </div>
 
-      {/* Empty browser mockup — fixed pixel size per breakpoint (not fluid/vw-scaled),
+      {/* Device mockup — fixed pixel size per breakpoint (not fluid/vw-scaled),
           floats over the visual panel, invading whichever side it's on. Base size
           500x281 on md-only (768–1023px), 750x422 from lg (1024px) up — same 16:9,
           scaled down 25% from the original 1000x562 double: at full double size the
@@ -133,7 +156,8 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index = 0 }) => {
           proporcionado antes que mantener el tamaño doblado a toda costa") the size
           is reduced instead of pushing the offset to an extreme. On hover it grows
           another 5% (scale 1.05, combined with the tilt below, eased in slowly —
-          see handleMouseMove/Leave) and gets a heavy elevation shadow.
+          see handleMouseMove/Leave) and gets a heavier elevation shadow that grows
+          from the same shadow family rather than popping in.
           Positioning: anchored a FIXED px distance from the panel boundary (50%),
           not a % of the full card width — a %-based offset grows with viewport
           width and, at large sizes, pushed the mockup so far into the color panel
@@ -145,15 +169,13 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index = 0 }) => {
       >
         <div
           ref={mockupRef}
-          className="w-[500px] h-[281px] lg:w-[750px] lg:h-[422px] rounded-lg overflow-hidden
-                     ring-1 ring-black/10 flex flex-col
+          className="w-[500px] h-[281px] lg:w-[750px] lg:h-[422px]
                      shadow-[0_20px_35px_-20px_rgba(0,0,0,0.15)]
                      transition-[box-shadow] duration-[600ms] ease-[cubic-bezier(0.16,1,0.3,1)]
                      group-hover:duration-[400ms] group-hover:shadow-[0_80px_140px_-30px_rgba(0,0,0,0.35)]"
           style={{ transformStyle: 'preserve-3d' }}
         >
-          <BrowserChrome />
-          <div className="bg-white flex-1" />
+          {deviceFrame}
         </div>
       </div>
     </div>
