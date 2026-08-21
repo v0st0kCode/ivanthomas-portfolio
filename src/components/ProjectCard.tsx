@@ -29,12 +29,15 @@ const BrowserFrame: React.FC = () => (
 // iPadOS mockup — minimal iPad Pro frame (thin bezel, rounded corners, a single
 // dot for the front camera — nothing more skeuomorphic than that), landscape,
 // framing the actual project screenshot inside (unlike the empty browser).
+// Bezel: same width on all 4 sides (a real iPad Pro's margins are symmetric) —
+// the camera dot is absolutely positioned inside that margin instead of adding
+// its own row, which would've made the top margin taller than the others.
+// Material: same glass treatment as the browser's chrome bar (bg-white/40 +
+// backdrop-blur), not a solid dark color, per Ivan's reference.
 const IPadFrame: React.FC<{ image: string; alt: string }> = ({ image, alt }) => (
-  <div className="w-full h-full rounded-[32px] bg-[#1C1C1E] ring-1 ring-black/40 p-3 lg:p-4 flex flex-col">
-    <div className="flex justify-center pb-2 lg:pb-3">
-      <span className="w-1.5 h-1.5 rounded-full bg-black ring-1 ring-white/10" />
-    </div>
-    <div className="flex-1 rounded-[16px] overflow-hidden bg-black">
+  <div className="relative w-full h-full rounded-[32px] bg-white/40 backdrop-blur-md ring-1 ring-black/10 p-3 lg:p-4">
+    <span className="absolute top-1.5 lg:top-2 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-black/60 ring-1 ring-white/20" />
+    <div className="w-full h-full rounded-[16px] overflow-hidden bg-black">
       <img src={image} alt={alt} className="w-full h-full object-cover" />
     </div>
   </div>
