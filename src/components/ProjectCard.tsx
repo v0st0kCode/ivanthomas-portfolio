@@ -94,9 +94,11 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index = 0 }) => {
           className="absolute inset-0 w-full h-full object-cover"
         />
 
-        {/* Layer 2: giant client name, marquee on hover */}
+        {/* Layer 2: giant client name, marquee on hover — bleeds off the card's
+            bottom edge (cropped by the panel's own overflow-hidden), 2.5x the
+            original size per Ivan's reference. */}
         <div className="marquee-mask absolute inset-x-0 bottom-0 overflow-hidden pointer-events-none">
-          <div className="marquee-track text-[16vw] md:text-[6vw] font-display font-bold text-white/15 leading-none whitespace-nowrap py-2">
+          <div className="marquee-track text-[40vw] md:text-[15vw] font-display font-bold text-white/15 leading-[0.8] whitespace-nowrap">
             <span className="mr-12">{org}</span>
             <span className="mr-12">{org}</span>
             <span className="mr-12">{org}</span>
