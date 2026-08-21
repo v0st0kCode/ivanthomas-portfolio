@@ -73,15 +73,21 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index = 0 }) => {
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
     >
-      {/* Solid color panel — content */}
+      {/* Solid color panel — content. When the visual panel is on the left
+          (reversed), align content to the right so it reads consistently with
+          which side it's on rather than always hugging the left edge. */}
       <div
-        className="w-full md:w-1/2 flex flex-col justify-between p-8 md:p-16 py-16"
+        className={`w-full md:w-1/2 flex flex-col justify-between p-8 md:p-16 py-16 ${
+          reversed ? 'md:items-end' : ''
+        }`}
         style={{ backgroundColor: color }}
       >
-        <span className={`text-xs uppercase tracking-wider font-mono ${tagColor}`}>{tags}</span>
-        <div>
-          <h3 className={`heading-lg mb-4 max-w-lg ${textColor}`}>{title}</h3>
-          <p className={`leading-relaxed max-w-md mb-8 ${mutedTextColor}`}>{description}</p>
+        <span className={`text-xs uppercase tracking-wider font-mono ${tagColor} ${reversed ? 'md:text-right' : ''}`}>
+          {tags}
+        </span>
+        <div className={reversed ? 'md:text-right' : ''}>
+          <h3 className={`heading-lg mb-4 max-w-lg ${textColor} ${reversed ? 'md:ml-auto' : ''}`}>{title}</h3>
+          <p className={`leading-relaxed max-w-md mb-8 ${mutedTextColor} ${reversed ? 'md:ml-auto' : ''}`}>{description}</p>
           <span className={`card-cta-button ${buttonBorder}`}>
             {project.caseStudyPending ? 'Case Study Coming Soon' : 'View Case Study'} →
           </span>
@@ -140,13 +146,14 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index = 0 }) => {
         <div
           ref={mockupRef}
           className="w-[500px] h-[281px] lg:w-[750px] lg:h-[422px] rounded-lg overflow-hidden
-                     ring-1 ring-black/10 shadow-2xl
-                     transition-shadow duration-[600ms] ease-[cubic-bezier(0.16,1,0.3,1)]
-                     group-hover:duration-[400ms] group-hover:shadow-[0_80px_140px_-30px_rgba(0,0,0,0.7)]"
+                     ring-1 ring-black/10 flex flex-col
+                     shadow-[0_20px_35px_-20px_rgba(0,0,0,0.15)]
+                     transition-[box-shadow] duration-[600ms] ease-[cubic-bezier(0.16,1,0.3,1)]
+                     group-hover:duration-[400ms] group-hover:shadow-[0_80px_140px_-30px_rgba(0,0,0,0.35)]"
           style={{ transformStyle: 'preserve-3d' }}
         >
           <BrowserChrome />
-          <div className="bg-white" style={{ height: 'calc(100% - 41px)' }} />
+          <div className="bg-white flex-1" />
         </div>
       </div>
     </div>
