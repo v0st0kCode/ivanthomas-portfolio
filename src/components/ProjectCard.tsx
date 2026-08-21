@@ -97,8 +97,8 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index = 0 }) => {
         {/* Layer 2: giant client name, marquee on hover — bleeds off the card's
             bottom edge (cropped by the panel's own overflow-hidden), 2.5x the
             original size per Ivan's reference. */}
-        <div className="marquee-mask absolute inset-x-0 bottom-0 overflow-hidden pointer-events-none">
-          <div className="marquee-track text-[40vw] md:text-[15vw] font-display font-bold text-white/15 leading-[0.8] whitespace-nowrap">
+        <div className="marquee-mask absolute inset-x-0 -bottom-[6%] overflow-hidden pointer-events-none">
+          <div className="marquee-track text-[40vw] md:text-[15vw] font-display font-bold text-white/15 leading-none whitespace-nowrap">
             <span className="mr-12">{org}</span>
             <span className="mr-12">{org}</span>
             <span className="mr-12">{org}</span>
@@ -123,7 +123,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index = 0 }) => {
         <div
           ref={mockupRef}
           className="rounded-lg overflow-hidden shadow-2xl bg-white ring-1 ring-black/10"
-          style={{ transformStyle: 'preserve-3d', width: '420px', height: '340px' }}
+          style={{ transformStyle: 'preserve-3d', width: '500px', height: '281px' }}
         >
           <BrowserChrome />
           <div className="bg-white" style={{ height: 'calc(100% - 41px)' }} />
