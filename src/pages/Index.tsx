@@ -14,8 +14,8 @@ const Index = () => {
       <Navbar />
 
       {/* Hero — copy + layout per Ivan's Figma redesign, 20 ago 2026.
-          Bottom spacing before Selected Works: 3x the previous pb-12/16. */}
-      <section className="pt-40 pb-36 md:pt-52 md:pb-48">
+          Bottom spacing before Selected Works: 3x pb-12/16, then 2x that again (pb-36/48 → pb-72/96). */}
+      <section className="pt-40 pb-72 md:pt-52 md:pb-96">
         <div className="container-custom">
           <div className="max-w-3xl animate-fade-in">
             <h1 className="heading-xl mb-8">
