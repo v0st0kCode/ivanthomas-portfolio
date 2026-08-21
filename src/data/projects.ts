@@ -131,6 +131,7 @@ export const projects: Project[] = [
     cardPlatform: "WebApp",
     cardTags: ["UX", "Prototype"],
     cardDescription: "Diseño y prototipado funcional completo, para el organismo que audita el arbitraje de una de las principales ligas de fútbol de Europa. Implantación prevista durante la temporada 2026/27.",
+    cardBgImage: "/asset_bg_rfef_.png",
     cardColor: "#D6FF3F",
     cardOrg: "RFEF",
     details: {

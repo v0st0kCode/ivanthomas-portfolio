@@ -112,16 +112,19 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index = 0 }) => {
         </div>
       </div>
 
-      {/* Empty browser mockup — floats over the boundary between the two panels,
-          slightly right of the card's horizontal center. Tilts toward the cursor. */}
-      <div className="hidden md:flex absolute top-1/2 left-[54%] -translate-x-1/2 -translate-y-1/2 w-[38%] z-10 pointer-events-none">
+      {/* Empty browser mockup — fixed pixel size (not viewport-proportional), floats
+          over the visual panel, invading whichever side the visual panel is on. */}
+      <div
+        className="hidden md:block absolute top-1/2 -translate-y-1/2 z-10 pointer-events-none"
+        style={{ [reversed ? 'left' : 'right']: '8%' }}
+      >
         <div
           ref={mockupRef}
-          className="w-full rounded-lg overflow-hidden shadow-2xl bg-white ring-1 ring-black/10"
-          style={{ transformStyle: 'preserve-3d' }}
+          className="rounded-lg overflow-hidden shadow-2xl bg-white ring-1 ring-black/10"
+          style={{ transformStyle: 'preserve-3d', width: '420px', height: '340px' }}
         >
           <BrowserChrome />
-          <div className="h-48 lg:h-56 bg-white" />
+          <div className="bg-white" style={{ height: 'calc(100% - 41px)' }} />
         </div>
       </div>
     </div>
