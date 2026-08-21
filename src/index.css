@@ -58,11 +58,13 @@
     scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
   }
 
   body {
     @apply bg-background text-foreground font-sans;
     letter-spacing: -0.02em;
+    overflow-x: hidden;
   }
 
   p {

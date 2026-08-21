@@ -166,10 +166,20 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index = 0 }) => {
           not a % of the full card width — a %-based offset grows with viewport
           width and, at large sizes, pushed the mockup so far into the color panel
           that it covered the title. A fixed px overlap keeps it mostly on the
-          visual side regardless of screen width. */}
+          visual side regardless of screen width.
+          BUG FIX (causing page-wide horizontal scroll on 768–~1400px viewports):
+          `calc(50% - 60px)` alone doesn't account for the mockup's own width, so
+          its far edge could land past the card's own edge — off-screen — at
+          in-between viewport widths where the mockup (500/750px) is wide relative
+          to the available half-card space. Wrapped in min() per breakpoint so the
+          offset never pushes the mockup beyond the card bounds, while still using
+          the intended 60px overlap whenever there's room for it. */}
       <div
-        className="hidden md:block absolute top-1/2 -translate-y-1/2 z-10 pointer-events-none"
-        style={{ [reversed ? 'right' : 'left']: 'calc(50% - 60px)' }}
+        className={`hidden md:block absolute top-1/2 -translate-y-1/2 z-10 pointer-events-none ${
+          reversed
+            ? 'right-[min(calc(50%-60px),calc(100%-500px))] lg:right-[min(calc(50%-60px),calc(100%-750px))]'
+            : 'left-[min(calc(50%-60px),calc(100%-500px))] lg:left-[min(calc(50%-60px),calc(100%-750px))]'
+        }`}
       >
         <div
           ref={mockupRef}
