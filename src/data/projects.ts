@@ -40,6 +40,10 @@ export interface Project {
   cardOrg?: string; // giant marquee name on the right panel (client/organism), e.g. "RFEF", "SONY"
   cardTextColor?: 'black' | 'white'; // legibility on cardColor — defaults to black
   cardBgImage?: string; // visual-panel background — defaults to `image` when absent
+  // ASCII-effect video background (21 ago 2026): the video IS the card's
+  // visual — rendered as ASCII, paused at rest, plays on hover. Opt-in.
+  cardAscii?: boolean;
+  cardAsciiVideo?: string;
   // Temporarily pulled from Selected Works/Work while testing — not deleted, just
   // not rendered. Reversible: flip back to false/remove when ready to show again.
   hidden?: boolean;
@@ -136,6 +140,8 @@ export const projects: Project[] = [
     cardTags: ["UX", "Prototype"],
     cardDescription: "Diseño y prototipado funcional completo, para el organismo que audita el arbitraje de una de las principales ligas de fútbol de Europa. Implantación prevista durante la temporada 2026/27.",
     cardBgImage: "/asset_bg_rfef_.png",
+    cardAscii: true,
+    cardAsciiVideo: "/refree1.mp4",
     cardColor: "#D6FF3F",
     cardOrg: "RFEF",
     details: {

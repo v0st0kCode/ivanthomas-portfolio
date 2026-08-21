@@ -182,6 +182,17 @@
     @apply bg-white/40 backdrop-blur-md;
   }
 
+  /* ASCII overlay fade-in (AsciiCardOverlay, RFEF test). Mount-only fade —
+     the overlay unmounts on leave, no fade-out needed for the test. */
+  .ascii-overlay-fade {
+    animation: asciiFadeIn 500ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  @keyframes asciiFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
   /* New standard CTA button — full outline box, not an underlined link. Ref:
      Ivan's Figma project-card redesign, corrected 21 ago (v2: it's a real
      button, border on all 4 sides). Intended to replace .button-secondary
