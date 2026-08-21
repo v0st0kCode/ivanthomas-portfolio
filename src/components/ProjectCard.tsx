@@ -7,10 +7,19 @@ interface ProjectCardProps {
   index?: number; // even/odd alternates which side holds the content vs the visual
 }
 
+const BrowserChrome: React.FC = () => (
+  <div className="flex items-center gap-1.5 px-3 py-2.5 bg-[#F2F2F2]">
+    <span className="w-2.5 h-2.5 rounded-full bg-[#FF5F57]" />
+    <span className="w-2.5 h-2.5 rounded-full bg-[#FEBC2E]" />
+    <span className="w-2.5 h-2.5 rounded-full bg-[#28C840]" />
+  </div>
+);
+
 /**
  * Full-bleed, two-panel project card — solid color panel + layered visual
- * panel (background image, giant client-name marquee, browser window mockup).
- * The mockup tilts toward the cursor on hover. Sides alternate by `index`.
+ * panel (background image, giant client-name marquee). An empty browser
+ * mockup floats over the boundary between the two panels and tilts toward
+ * the cursor on hover.
  *
  * Ref: Ivan's Figma redesign (21 ago 2026), interaction concept borrowed
  * loosely from https://experiments.thisiswhitespace.com/dot-sphere-card
@@ -47,6 +56,10 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index = 0 }) => {
   const mutedTextColor = isLight ? 'text-black/70' : 'text-white/70';
   const tagColor = isLight ? 'text-black/60' : 'text-white/60';
   const buttonBorder = isLight ? 'border-black/70 hover:bg-black hover:text-white' : 'border-white/70 hover:bg-white hover:text-black';
+  // Background image — placeholder blur of the case-study mockup until Ivan provides
+  // dedicated background photography/video for every project. Swap `<img>` for
+  // `<video autoPlay muted loop playsInline>` once a real asset exists.
+  const bgImage = project.cardBgImage ?? project.image;
 
   const cardContent = (
     <div
@@ -73,14 +86,12 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index = 0 }) => {
 
       {/* Layered visual panel */}
       <div className="relative w-full md:w-1/2 aspect-[4/3] md:aspect-auto overflow-hidden bg-[#0A0D12]">
-        {/* Layer 1: background image — placeholder (blurred reuse of the mockup asset
-            until Ivan provides real background photography/video). Swap this <img>
-            for a <video autoPlay muted loop playsInline> once that asset exists. */}
+        {/* Layer 1: background image */}
         <img
-          src={project.image}
+          src={bgImage}
           alt=""
           aria-hidden="true"
-          className="absolute inset-0 w-full h-full object-cover scale-125 blur-2xl opacity-40"
+          className="absolute inset-0 w-full h-full object-cover"
         />
 
         {/* Layer 2: giant client name, marquee on hover */}
@@ -92,20 +103,25 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index = 0 }) => {
           </div>
         </div>
 
-        {/* Layer 3: browser-window mockup — tilts toward the cursor */}
-        <div className="absolute inset-0 flex items-center justify-center p-8 md:p-12">
-          <div
-            ref={mockupRef}
-            className="w-full rounded-lg overflow-hidden shadow-2xl bg-[#12161D] ring-1 ring-white/10"
-            style={{ transformStyle: 'preserve-3d' }}
-          >
-            <div className="flex items-center gap-1.5 px-3 py-2 bg-white/5 backdrop-blur-sm">
-              <span className="w-2.5 h-2.5 rounded-full bg-white/20" />
-              <span className="w-2.5 h-2.5 rounded-full bg-white/20" />
-              <span className="w-2.5 h-2.5 rounded-full bg-white/20" />
-            </div>
-            <img src={project.image} alt={title} className="w-full h-auto block" />
+        {/* Mobile: empty browser mockup, in-flow (no float/tilt — not meaningful on touch) */}
+        <div className="md:hidden absolute inset-0 flex items-center justify-center p-8">
+          <div className="w-full rounded-lg overflow-hidden shadow-2xl bg-white ring-1 ring-black/10">
+            <BrowserChrome />
+            <div className="h-32 bg-white" />
           </div>
+        </div>
+      </div>
+
+      {/* Empty browser mockup — floats over the boundary between the two panels,
+          slightly right of the card's horizontal center. Tilts toward the cursor. */}
+      <div className="hidden md:flex absolute top-1/2 left-[54%] -translate-x-1/2 -translate-y-1/2 w-[38%] z-10 pointer-events-none">
+        <div
+          ref={mockupRef}
+          className="w-full rounded-lg overflow-hidden shadow-2xl bg-white ring-1 ring-black/10"
+          style={{ transformStyle: 'preserve-3d' }}
+        >
+          <BrowserChrome />
+          <div className="h-48 lg:h-56 bg-white" />
         </div>
       </div>
     </div>

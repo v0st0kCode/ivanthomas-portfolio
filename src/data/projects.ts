@@ -39,6 +39,7 @@ export interface Project {
   cardColor?: string; // solid left-panel background, hex — one per project, not the site's single accent
   cardOrg?: string; // giant marquee name on the right panel (client/organism), e.g. "RFEF", "SONY"
   cardTextColor?: 'black' | 'white'; // legibility on cardColor — defaults to black
+  cardBgImage?: string; // visual-panel background — defaults to `image` when absent
 }
 
 export const projects: Project[] = [
