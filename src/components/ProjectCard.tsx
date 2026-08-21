@@ -36,7 +36,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index = 0 }) => {
     const x = (e.clientX - rect.left) / rect.width - 0.5; // -0.5..0.5
     const y = (e.clientY - rect.top) / rect.height - 0.5;
     el.style.transition = 'transform 0.1s ease-out';
-    el.style.transform = `perspective(1000px) rotateY(${x * 14}deg) rotateX(${-y * 14}deg) scale(1.03)`;
+    el.style.transform = `perspective(1000px) rotateY(${x * 14}deg) rotateX(${-y * 14}deg) scale(1.1)`;
   };
 
   const handleMouseLeave = () => {
@@ -114,16 +114,23 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index = 0 }) => {
         </div>
       </div>
 
-      {/* Empty browser mockup — fixed pixel size (not viewport-proportional), floats
-          over the visual panel, invading whichever side the visual panel is on. */}
+      {/* Empty browser mockup — fixed pixel size per breakpoint (not fluid/vw-scaled),
+          floats over the visual panel, invading whichever side it's on. Base size
+          doubled (500x281 → 1000x562, same 16:9) per Ivan's reference; kept at the
+          smaller size on md-only (768–1023px) so it doesn't overflow the viewport
+          there — full double size from lg (1024px) up. On hover it grows another
+          10% (scale 1.1, combined with the tilt below) and gets a heavy elevation
+          shadow, on top of the base one. */}
       <div
         className="hidden md:block absolute top-1/2 -translate-y-1/2 z-10 pointer-events-none"
         style={{ [reversed ? 'left' : 'right']: '8%' }}
       >
         <div
           ref={mockupRef}
-          className="rounded-lg overflow-hidden shadow-2xl bg-white ring-1 ring-black/10"
-          style={{ transformStyle: 'preserve-3d', width: '500px', height: '281px' }}
+          className="w-[500px] h-[281px] lg:w-[1000px] lg:h-[562px] rounded-lg overflow-hidden
+                     bg-white ring-1 ring-black/10 shadow-2xl transition-shadow duration-300
+                     group-hover:shadow-[0_80px_140px_-30px_rgba(0,0,0,0.7)]"
+          style={{ transformStyle: 'preserve-3d' }}
         >
           <BrowserChrome />
           <div className="bg-white" style={{ height: 'calc(100% - 41px)' }} />
