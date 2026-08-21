@@ -120,10 +120,15 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index = 0 }) => {
           smaller size on md-only (768–1023px) so it doesn't overflow the viewport
           there — full double size from lg (1024px) up. On hover it grows another
           10% (scale 1.1, combined with the tilt below) and gets a heavy elevation
-          shadow, on top of the base one. */}
+          shadow, on top of the base one.
+          Positioning: anchored a FIXED px distance from the panel boundary (50%),
+          not a % of the full card width — a %-based offset grows with viewport
+          width and, at large sizes, pushed the mockup so far into the color panel
+          that it covered the title. A fixed px overlap keeps it mostly on the
+          visual side regardless of screen width. */}
       <div
         className="hidden md:block absolute top-1/2 -translate-y-1/2 z-10 pointer-events-none"
-        style={{ [reversed ? 'left' : 'right']: '8%' }}
+        style={{ [reversed ? 'right' : 'left']: 'calc(50% - 60px)' }}
       >
         <div
           ref={mockupRef}
