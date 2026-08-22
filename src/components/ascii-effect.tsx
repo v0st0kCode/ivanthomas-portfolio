@@ -8,7 +8,7 @@ const fragmentShader = `
 // Basic uniforms
 uniform float cellSize;
 uniform bool invert;
-uniform bool colorMode;
+uniform float colorMode; // 0 = grayscale, 1 = full color, in-between = mix
 uniform int asciiStyle;
 
 // PostFX uniforms
@@ -189,11 +189,8 @@ void mainImage(const in vec4 inputColor, const in vec2 uv, out vec4 outputColor)
   float charValue = getChar(brightness, localUV, asciiStyle);
 
   vec3 finalColor;
-  if (colorMode) {
-    finalColor = cellColor.rgb * charValue;
-  } else {
-    finalColor = vec3(brightness * charValue);
-  }
+  // colorMode as float: mix grayscale → full color (hover crossfade)
+  finalColor = mix(vec3(brightness * charValue), cellColor.rgb * charValue, colorMode);
 
   finalColor = applyColorPalette(finalColor, colorPalette);
 
@@ -226,6 +223,15 @@ let _invert = false;
 let _colorMode = false;
 let _asciiStyle = 0;
 let _mousePos = new Vector2(0, 0);
+
+// Animated colorMode (grayscale ↔ color) — card backgrounds crossfade to full
+// color on hover. Plain boolean would snap; this lerps 0..1 and the shader's
+// `colorMode` uniform is bool-typed so we pass >= 0.5.
+let _colorMix = -1; // -1 = not animating, use static value
+
+export function animateColorMode(target: number) {
+  _colorMix = target;
+}
 
 interface AsciiEffectOptions {
   cellSize?: number;
@@ -310,10 +316,19 @@ class AsciiEffectImpl extends Effect {
       _time += deltaTime;
     }
 
+    // Grayscale ↔ color crossfade: lerp the float uniform toward the target
+    if (_colorMix >= 0) {
+      const current = this.uniforms.get("colorMode")!.value as number;
+      const lerped = current + (_colorMix - current) * Math.min(1, deltaTime * 5);
+      this.uniforms.get("colorMode")!.value = Math.abs(_colorMix - lerped) < 0.01 ? _colorMix : lerped;
+      if (Math.abs(_colorMix - lerped) < 0.01) _colorMix = -1;
+    } else {
+      this.uniforms.get("colorMode")!.value = _colorMode ? 1 : 0;
+    }
+
     this.uniforms.get("time")!.value = _time;
     this.uniforms.get("cellSize")!.value = _cellSize;
     this.uniforms.get("invert")!.value = _invert;
-    this.uniforms.get("colorMode")!.value = _colorMode;
     this.uniforms.get("asciiStyle")!.value = _asciiStyle;
     this.uniforms.get("mousePos")!.value = _mousePos;
   }

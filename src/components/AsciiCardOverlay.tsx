@@ -2,7 +2,7 @@ import React, { useRef, useState, useEffect, MutableRefObject } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { EffectComposer } from '@react-three/postprocessing';
 import { Mesh, CanvasTexture, MathUtils, SRGBColorSpace } from 'three';
-import { AsciiEffect } from './ascii-effect';
+import { AsciiEffect, animateColorMode } from './ascii-effect';
 
 // ASCII video background for project cards (Ivan, 21 ago 2026 — RFEF test).
 // The VIDEO is the texture — no static image, no crossfade.
@@ -77,12 +77,13 @@ function AsciiVideoMesh({ videoEl, mouseRef, hoveredRef }: AsciiVideoMeshProps) 
     const mesh = meshRef.current;
     if (!mesh || !texture) return;
 
-    // Play/pause with hover — ref-driven, no React re-render
+    // Play/pause + grayscale↔color crossfade with hover — ref-driven
     if (hoveredRef.current && videoEl.paused) {
       videoEl.play().catch(() => {});
     } else if (!hoveredRef.current && !videoEl.paused) {
       videoEl.pause();
     }
+    animateColorMode(hoveredRef.current ? 1 : 0);
 
     // Pump the current video frame into the bridge canvas
     const c = texture.image as HTMLCanvasElement;
@@ -161,7 +162,7 @@ const AsciiCardOverlay: React.FC<AsciiCardOverlayProps> = ({ video, mouseRef, ho
               style="standard"
               cellSize={12}
               invert={false}
-              color={true}
+              color={false}
               postfx={{
                 // defaults from the Efecto export — untouched
                 scanlineIntensity: 0,

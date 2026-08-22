@@ -38,6 +38,7 @@ export interface Project {
   cardDescription?: string; // short paragraph on the card's left panel — distinct from `description`
   cardColor?: string; // solid left-panel background, hex — one per project, not the site's single accent
   cardOrg?: string; // giant marquee name on the right panel (client/organism), e.g. "RFEF", "SONY"
+  cardClientLogo?: string; // client/brand SVG logo (monochrome) displayed as editorial kicker
   cardTextColor?: 'black' | 'white'; // legibility on cardColor — defaults to black
   cardBgImage?: string; // visual-panel background — defaults to `image` when absent
   // ASCII-effect video background (21 ago 2026): the video IS the card's
@@ -135,7 +136,7 @@ export const projects: Project[] = [
     featured: true,
     protected: true, // Making this project protected
     size: "large",
-    cardTitle: "RFEF — Referee Evaluation Platform",
+    cardTitle: "Referee Evaluation Platform",
     cardPlatform: "WebApp",
     cardTags: ["UX", "Prototype"],
     cardDescription: "Diseño y prototipado funcional completo, para el organismo que audita el arbitraje de una de las principales ligas de fútbol de Europa. Implantación prevista durante la temporada 2026/27.",
@@ -144,6 +145,7 @@ export const projects: Project[] = [
     cardAsciiVideo: "/refree1.mp4",
     cardColor: "#D6FF3F",
     cardOrg: "RFEF",
+    cardClientLogo: "/rfef-logo.svg",
     details: {
       client: "National football refereeing oversight body",
       role: "Lead Product Designer",
@@ -205,12 +207,15 @@ export const projects: Project[] = [
     caseStudyPending: true, // no case study written yet — material pending
     protected: true, // Making this project protected
     size: "large",
-    cardTitle: "Sony Playstation — Immersive Stats Gameplay Replayer",
+    cardTitle: "Immersive Stats Gameplay Replayer",
     cardPlatform: "iPadOS",
     cardTags: ["Research", "Concept", "Prototype"],
-    cardColor: "#0A0A0A",
+    cardColor: "#F7626D",
     cardTextColor: "white",
     cardOrg: "SONY",
+    cardClientLogo: "/sony-official.svg",
+    cardAscii: true,
+    cardAsciiVideo: "/sony_ascii.mp4",
     details: {
       client: "Sony",
       role: "Concept Product Designer",

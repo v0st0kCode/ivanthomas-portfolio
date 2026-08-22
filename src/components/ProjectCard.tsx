@@ -109,7 +109,9 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index = 0 }) => {
   const textColor = isLight ? 'text-black' : 'text-white';
   const mutedTextColor = isLight ? 'text-black/70' : 'text-white/70';
   const tagColor = isLight ? 'text-black/60' : 'text-white/60';
-  const buttonBorder = isLight ? 'border-black/70 hover:bg-black hover:text-white' : 'border-white/70 hover:bg-white hover:text-black';
+  const buttonBorder = isLight 
+    ? 'border-black/70 text-black hover:bg-black hover:text-white' 
+    : 'border-white/70 text-white hover:bg-white hover:text-black';
   // Background image — placeholder blur of the case-study mockup until Ivan provides
   // dedicated background photography/video for every project. Swap `<img>` for
   // `<video autoPlay muted loop playsInline>` once a real asset exists.
@@ -119,9 +121,9 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index = 0 }) => {
 
   const cardContent = (
     <div
-      className={`group relative mx-[calc(50%-50vw)] w-screen flex flex-col ${
+      className={`group relative mx-[calc(50%-50vw)] w-screen h-screen flex flex-col ${
         reversed ? 'md:flex-row-reverse' : 'md:flex-row'
-      } md:aspect-[2.35/1] animate-on-scroll opacity-0`}
+      }`}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
     >
@@ -136,25 +138,40 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index = 0 }) => {
           in from the edge by the container's distance to the viewport center.
           Vertical padding stays as-is (p-8/md:p-16 top+bottom only). */}
       <div
-        className={`w-full md:w-1/2 flex flex-col justify-center gap-8 pt-8 pb-8 md:pt-16 md:pb-16 ${
+        className={`w-full md:w-1/2 h-1/2 md:h-full flex flex-col justify-center gap-8 pt-8 pb-8 md:pt-16 md:pb-16 ${
           reversed ? 'md:items-end md:pr-[max(16px,calc(50vw-640px))]' : 'md:pl-[max(16px,calc(50vw-640px))]'
         }`}
         style={{ backgroundColor: color }}
       >
-        <span className={`text-xs uppercase tracking-wider font-mono ${tagColor} ${reversed ? 'md:text-right' : ''}`}>
-          {tags}
-        </span>
+        {/* Client Logo */}
+        {project.cardClientLogo && (
+          <div className={`flex ${reversed ? 'md:justify-end' : 'justify-start'}`}>
+            <img
+              src={project.cardClientLogo}
+              alt=""
+              aria-hidden="true"
+              className={`h-12 md:h-16 w-auto max-w-[180px] object-contain transition-opacity ${
+                isLight ? 'text-black opacity-90 brightness-0' : 'text-white opacity-90 invert'
+              }`}
+            />
+          </div>
+        )}
+
         <div className={reversed ? 'md:text-right' : ''}>
-          <h3 className={`heading-lg mb-4 max-w-lg ${textColor} ${reversed ? 'md:ml-auto' : ''}`}>{title}</h3>
-          <p className={`leading-relaxed max-w-md mb-8 ${mutedTextColor} ${reversed ? 'md:ml-auto' : ''}`}>{description}</p>
-          <span className={`card-cta-button ${buttonBorder}`}>
+          <h3 className={`text-4xl md:text-5xl lg:text-6xl font-serif font-normal leading-[1.05] tracking-[-0.03em] mb-6 max-w-md ${textColor} ${reversed ? 'md:ml-auto' : ''}`}>
+            {title}
+          </h3>
+          <p className={`text-xl md:text-2xl leading-relaxed max-w-md mb-10 ${mutedTextColor} ${reversed ? 'md:ml-auto' : ''}`}>
+            {description}
+          </p>
+          <span className={`card-cta-button text-base px-8 py-4 ${buttonBorder}`}>
             {project.caseStudyPending ? 'Case Study Coming Soon' : 'View Case Study'} →
           </span>
         </div>
       </div>
 
       {/* Layered visual panel */}
-      <div className="relative w-full md:w-1/2 aspect-[4/3] md:aspect-auto overflow-hidden bg-[#0A0D12]">
+      <div className="relative w-full md:w-1/2 h-1/2 md:h-full overflow-hidden bg-[#0A0D12]">
         {/* Layer 1: background image — for ascii cards it only shows as a brief
             fallback while the three.js texture loads (and in browsers without
             WebGL); the ASCII render (Layer 1.5) covers it permanently. */}
